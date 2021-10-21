@@ -1,0 +1,35 @@
+@import "~bootstrap/scss/bootstrap";
+@import 'admin-kc/variables';
+@import 'admin-kc/mixins';
+
+// Plugins CSS
+@import "admin-kc/plugins/plugin-animate-bootstrap-notify";
+@import "admin-kc/plugins/plugin-perfect-scrollbar";
+
+// Core CSS
+@import "admin-kc/buttons";
+@import "admin-kc/inputs";
+@import "admin-kc/typography";
+@import "admin-kc/misc";
+@import "admin-kc/checkboxes-radio";
+
+// components
+@import "admin-kc/navbar";
+@import "admin-kc/page-header";
+@import "admin-kc/dropdown";
+@import "admin-kc/alerts";
+@import "admin-kc/images";
+@import "admin-kc/nucleo-outline";
+@import "admin-kc/tables";
+@import "admin-kc/sidebar-and-main-panel";
+@import "admin-kc/footers";
+@import "admin-kc/fixed-plugin";
+
+// cards
+@import "admin-kc/cards";
+@import "admin-kc/cards/card-plain";
+@import "admin-kc/cards/card-chart";
+@import "admin-kc/cards/card-user";
+@import "admin-kc/cards/card-map";
+
+@import "admin-kc/responsive";

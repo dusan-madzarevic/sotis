@@ -1,0 +1,25 @@
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { NastavnikProfilComponent } from './nastavnik-profil.component';
+
+describe('NastavnikProfilComponent', () => {
+  let component: NastavnikProfilComponent;
+  let fixture: ComponentFixture<NastavnikProfilComponent>;
+
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      declarations: [ NastavnikProfilComponent ]
+    })
+    .compileComponents();
+  }));
+
+  beforeEach(() => {
+    fixture = TestBed.createComponent(NastavnikProfilComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});

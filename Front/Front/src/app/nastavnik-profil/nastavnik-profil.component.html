@@ -1,0 +1,74 @@
+<div class="panel-header panel-header-sm">
+</div>
+<html>
+<body>
+<!-- header -->
+<nav class="navbar">
+  <!--
+    <div class="navbar-brand">
+      <button class="navbar-item navbar-item-right">gfdgfdg</button>
+    </div>
+
+  -->
+  <a class="mat-button" (click)="logout()">Logout</a>
+</nav>
+<div class="main-content">
+  <div class="row">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-header">
+          <h5 class="title">Profil nastavnika</h5>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-5 pr-1">
+              <div class="form-group">
+                <label>JMBG</label>
+                <input type="text" class="form-control" disabled="" placeholder="" id="jmbg" value={{admin.jmbg}}>
+              </div>
+            </div>
+
+            <div class="col-md-5 pr-1">
+              <div class="form-group">
+                <label>Korisničko ime</label>
+                <input type="text" class="form-control" disabled="" placeholder="" id="korisnickoIme" value={{korisnik.korisnickoIme}}>
+              </div>
+            </div>
+
+            <div class="col-md-5 pr-1">
+              <div class="form-group">
+                <label>Ime</label>
+                <input type="text" class="form-control" disabled="" placeholder="" id="ime" value={{admin.ime}}>
+              </div>
+            </div>
+
+            <div class="col-md-5 pr-1">
+              <div class="form-group">
+                <label>Prezime</label>
+                <input type="text" class="form-control" disabled="" placeholder="" id="prezime" value={{admin.prezime}}>
+              </div>
+            </div>
+
+            <div class="col-md-5 pr-1">
+              <div class="form-group">
+                <label>Plata</label>
+                <input type="text" class="form-control" disabled="" placeholder="" id="plata" value={{admin.plata}}>
+              </div>
+            </div>
+
+            <div class="col-md-5 pr-1">
+              <div class="form-group">
+                <label>Tekući racun</label>
+                <input type="text" class="form-control" disabled="" placeholder="" id="tekuciRacun" value={{admin.tekuciRacun}}>
+              </div>
+            </div>
+
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>
