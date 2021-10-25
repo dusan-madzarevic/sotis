@@ -26,7 +26,7 @@ public class Test {
     @Column(name = "passed")
     private Boolean passed;
 
-    @OneToMany(mappedBy = "test",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "testId",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonIgnore
     private Set<ChosenAnswer> chosenAnswers;
 

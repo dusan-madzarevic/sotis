@@ -18,10 +18,10 @@ public class Answer {
     private String answerText;
     @Column(name = "correct")
     private Boolean correct;
-    @Column(name = "answerText")
+    @Column(name = "score")
     private Integer score;
 
-    @OneToMany(mappedBy = "answer",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "answerId",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonIgnore
     private Set<ChosenAnswer> chosenAnswers;
 

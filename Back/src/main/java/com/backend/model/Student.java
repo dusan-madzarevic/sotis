@@ -7,7 +7,7 @@ import java.util.Set;
 @Entity
 @DiscriminatorValue("Student")
 public class Student extends User {
-    @OneToMany(mappedBy = "student",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "studentId",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonIgnore
     private Set<Test> tests;
 

@@ -19,7 +19,7 @@ public class Question {
     @Column(name = "score")
     private Integer score;
 
-    @OneToMany(mappedBy = "question",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "questionId",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonIgnore
     private Set<Answer> answers;
 
