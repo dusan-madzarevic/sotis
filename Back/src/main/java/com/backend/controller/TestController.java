@@ -1,10 +1,10 @@
 package com.backend.controller;
 
-import com.backend.dto.TestDTO;
-import com.backend.model.*;
-import com.backend.service.StudentService;
+import com.backend.dto.TestTypeDTO;
+import com.backend.model.Professor;
+import com.backend.model.Test;
+import com.backend.service.ProfessorService;
 import com.backend.service.TestService;
-import com.backend.service.TestTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,52 +16,37 @@ import java.util.Optional;
 
 @RestController
 @CrossOrigin
-@RequestMapping(value = "/test")
+@RequestMapping(value = "/testType")
 public class TestController {
     @Autowired
-    private TestService testService;
+    private TestService testTypeService;
 
     @Autowired
-    private TestTypeService testTypeService;
-
-    @Autowired
-    private StudentService studentService;
+    private ProfessorService professorService;
 
     @PostMapping(consumes = "application/json")
-    public ResponseEntity<Integer> saveTest(@RequestBody TestDTO testDTO, HttpServletRequest httpServletRequest) {
+    public ResponseEntity<Integer> saveTestType(@RequestBody TestTypeDTO testTypeDTO, HttpServletRequest httpServletRequest) {
         try {
             Test test = new Test();
-            if(testDTO.getStudentId() == null || testDTO.getStudentId() == 0 || testDTO.getTestTypeId() == null || testDTO.getTestTypeId() == 0 ||
-                    testDTO.getStartTime().equals("") || testDTO.getEndTime().equals("") || testDTO.getFinalScore().equals("") || testDTO.getPassed() == null)
+            if(testTypeDTO.getProfessorId() == null || testTypeDTO.getProfessorId() == 0 || testTypeDTO.getTitle().equals("") || testTypeDTO.getMaxScore() == null|| testTypeDTO.getMaxScore() == 0 || testTypeDTO.getPassPercentage() == null || testTypeDTO.getPassPercentage() == 0)
             {
                 return new ResponseEntity<>(0, HttpStatus.NOT_MODIFIED);
             }
-            test.setStartTime(testDTO.getStartTime());
-            test.setEndTime(testDTO.getEndTime());
-            test.setFinalScore(testDTO.getFinalScore());
-            test.setPassed(testDTO.getPassed());
+            test.setTitle(testTypeDTO.getTitle());
+            test.setMaxScore(testTypeDTO.getMaxScore());
+            test.setPassPercentage(testTypeDTO.getPassPercentage());
 
-            Optional<Student> student = studentService.findById(testDTO.getStudentId());
-            if(student.isPresent() ) {
-                student.ifPresent(student1 -> {
-                    test.setStudentId(student1);
+            Optional<Professor> professor = professorService.findById(testTypeDTO.getProfessorId());
+            if(professor.isPresent() ) {
+                professor.ifPresent(professor1 -> {
+                    test.setProfessorId(professor1);
                 });
             }
             else{
                 return new ResponseEntity<>(0, HttpStatus.NOT_MODIFIED);
             }
 
-            Optional<TestType> testType = testTypeService.findById(testDTO.getTestTypeId());
-            if(testType.isPresent() ) {
-                testType.ifPresent(testType1 -> {
-                    test.setTestTypeId(testType1);
-                });
-            }
-            else{
-                return new ResponseEntity<>(0, HttpStatus.NOT_MODIFIED);
-            }
-
-            testService.save(test);
+            testTypeService.save(test);
             return new ResponseEntity<>(test.getId(), HttpStatus.CREATED);
         }catch(Exception e){
             return new ResponseEntity<>(0,HttpStatus.NOT_MODIFIED);
@@ -69,8 +54,8 @@ public class TestController {
 
     }
     @GetMapping(produces = "application/json")
-    public ResponseEntity<List<Test>> getTests() {
-        List<Test> tests = testService.findAll();
+    public ResponseEntity<List<Test>> getTestTypes() {
+        List<Test> tests = testTypeService.findAll();
         if(tests != null)
         {
             return new ResponseEntity<>(tests, HttpStatus.OK);
@@ -79,8 +64,8 @@ public class TestController {
     }
 
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<Void> deleteTest(@PathVariable Integer id) {
-        testService.remove(id);
+    public ResponseEntity<Void> deleteTestType(@PathVariable Integer id) {
+        testTypeService.remove(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

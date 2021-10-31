@@ -12,23 +12,18 @@ public class Test {
     @Column(name = "id")
     private Integer id;
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "studentId")
-    private Student studentId;
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "testTypeId")
-    private TestType testTypeId;
-    @Column(name = "startTime")
-    private String startTime;
-    @Column(name = "endTime")
-    private String endTime;
-    @Column(name = "finalScore")
-    private String finalScore;
-    @Column(name = "passed")
-    private Boolean passed;
+    @JoinColumn(name = "professorId")
+    private Professor professorId;
+    @Column(name = "title")
+    private String title;
+    @Column(name = "maxScore")
+    private Integer maxScore;
+    @Column(name = "passPercentage")
+    private Integer passPercentage;
 
-    @OneToMany(mappedBy = "testId",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "sectionId",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonIgnore
-    private Set<ChosenAnswer> chosenAnswers;
+    private Set<Question> questions;
 
     public Test() {
     }
@@ -41,59 +36,43 @@ public class Test {
         this.id = id;
     }
 
-    public Student getStudentId() {
-        return studentId;
+    public Professor getProfessorId() {
+        return professorId;
     }
 
-    public void setStudentId(Student studentId) {
-        this.studentId = studentId;
+    public void setProfessorId(Professor professorId) {
+        this.professorId = professorId;
     }
 
-    public TestType getTestTypeId() {
-        return testTypeId;
+    public String getTitle() {
+        return title;
     }
 
-    public void setTestTypeId(TestType testTypeId) {
-        this.testTypeId = testTypeId;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public String getStartTime() {
-        return startTime;
+    public Integer getMaxScore() {
+        return maxScore;
     }
 
-    public void setStartTime(String startTime) {
-        this.startTime = startTime;
+    public void setMaxScore(Integer maxScore) {
+        this.maxScore = maxScore;
     }
 
-    public String getEndTime() {
-        return endTime;
+    public Integer getPassPercentage() {
+        return passPercentage;
     }
 
-    public void setEndTime(String endTime) {
-        this.endTime = endTime;
+    public void setPassPercentage(Integer passPercentage) {
+        this.passPercentage = passPercentage;
     }
 
-    public String getFinalScore() {
-        return finalScore;
+    public Set<Question> getQuestions() {
+        return questions;
     }
 
-    public void setFinalScore(String finalScore) {
-        this.finalScore = finalScore;
-    }
-
-    public Boolean getPassed() {
-        return passed;
-    }
-
-    public void setPassed(Boolean passed) {
-        this.passed = passed;
-    }
-
-    public Set<ChosenAnswer> getChosenAnswers() {
-        return chosenAnswers;
-    }
-
-    public void setChosenAnswers(Set<ChosenAnswer> chosenAnswers) {
-        this.chosenAnswers = chosenAnswers;
+    public void setQuestions(Set<Question> questions) {
+        this.questions = questions;
     }
 }

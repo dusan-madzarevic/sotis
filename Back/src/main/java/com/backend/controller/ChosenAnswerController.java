@@ -3,10 +3,10 @@ package com.backend.controller;
 import com.backend.dto.ChosenAnswerDTO;
 import com.backend.model.Answer;
 import com.backend.model.ChosenAnswer;
-import com.backend.model.Test;
+import com.backend.model.TestAttempt;
 import com.backend.service.AnswerService;
 import com.backend.service.ChosenAnswerService;
-import com.backend.service.TestService;
+import com.backend.service.TestAttemptService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +24,7 @@ public class ChosenAnswerController {
     private ChosenAnswerService chosenAnswerService;
 
     @Autowired
-    private TestService testService;
+    private TestAttemptService testService;
 
     @Autowired
     private AnswerService answerService;
@@ -38,7 +38,7 @@ public class ChosenAnswerController {
                 return new ResponseEntity<>(0, HttpStatus.NOT_MODIFIED);
             }
 
-            Optional<Test> test = testService.findById(chosenAnswerDTO.getTestId());
+            Optional<TestAttempt> test = testService.findById(chosenAnswerDTO.getTestId());
             if(test.isPresent() ) {
                 test.ifPresent(test1 -> {
                     chosenAnswer.setTestId(test1);

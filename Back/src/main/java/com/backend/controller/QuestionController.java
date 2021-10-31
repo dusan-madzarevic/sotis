@@ -2,13 +2,16 @@ package com.backend.controller;
 
 import com.backend.dto.QuestionDTO;
 import com.backend.model.Question;
-import com.backend.model.TestType;
+import com.backend.model.Section;
+import com.backend.model.Test;
 import com.backend.service.QuestionService;
-import com.backend.service.TestTypeService;
+import com.backend.service.SectionService;
+import com.backend.service.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -22,28 +25,43 @@ public class QuestionController {
     private QuestionService questionService;
 
     @Autowired
-    private TestTypeService testTypeService;
+    private TestService testService;
+
+    @Autowired
+    private SectionService sectionService;
 
     @PostMapping(consumes = "application/json")
-    public ResponseEntity<Integer> saveQuestion(@RequestBody QuestionDTO questionDTO, HttpServletRequest httpServletRequest) {
+    public ResponseEntity<Integer> saveQuestion(@RequestParam("imgFile") MultipartFile imgFile, @RequestBody QuestionDTO questionDTO, HttpServletRequest httpServletRequest) {
         try {
             Question question = new Question();
-            if(questionDTO.getTestTypeId() == null || questionDTO.getTestTypeId() == 0 || questionDTO.getQuestionText().equals("") || questionDTO.getScore() == null|| questionDTO.getScore() == 0)
+            if(questionDTO.getTestId() == null || questionDTO.getTestId() == 0 || questionDTO.getQuestionText().equals("") || questionDTO.getScore() == null|| questionDTO.getScore() == 0)
             {
                 return new ResponseEntity<>(0, HttpStatus.NOT_MODIFIED);
             }
             question.setQuestionText(questionDTO.getQuestionText());
             question.setScore(questionDTO.getScore());
 
-            Optional<TestType> testType = testTypeService.findById(questionDTO.getTestTypeId());
-            if(testType.isPresent() ) {
-                testType.ifPresent(testType1 -> {
-                    question.setTestTypeId(testType1);
+            Optional<Test> test = testService.findById(questionDTO.getTestId());
+
+            if(test.isPresent() ) {
+                test.ifPresent(test1 -> {
+                    question.setTestId(test1);
                 });
             }
             else{
                 return new ResponseEntity<>(0, HttpStatus.NOT_MODIFIED);
             }
+
+            Optional<Section> section = sectionService.findById(questionDTO.getSectionId());
+            if(section.isPresent()){
+                if(section.get().getTestId().equals(test.get())){
+                    question.setSectionId(section.get());
+                }
+            }
+
+            byte[] img = imgFile.getBytes();
+
+            question.setQuestionImage(img);
 
             questionService.save(question);
             return new ResponseEntity<>(question.getId(), HttpStatus.CREATED);

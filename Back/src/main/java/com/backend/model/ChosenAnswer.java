@@ -10,7 +10,7 @@ public class ChosenAnswer {
     private Integer id;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "testId")
-    private Test testId;
+    private TestAttempt testAttemptId;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "answerId")
     private Answer answerId;
@@ -26,12 +26,12 @@ public class ChosenAnswer {
         this.id = id;
     }
 
-    public Test getTestId() {
-        return testId;
+    public TestAttempt getTestId() {
+        return testAttemptId;
     }
 
-    public void setTestId(Test testId) {
-        this.testId = testId;
+    public void setTestId(TestAttempt testAttemptId) {
+        this.testAttemptId = testAttemptId;
     }
 
     public Answer getAnswerId() {
