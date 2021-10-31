@@ -21,7 +21,7 @@ public class Test {
     @Column(name = "passPercentage")
     private Integer passPercentage;
 
-    @OneToMany(mappedBy = "sectionId",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "testId",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonIgnore
     private Set<Question> questions;
 

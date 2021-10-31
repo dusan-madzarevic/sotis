@@ -1,6 +1,6 @@
 package com.backend.controller;
 
-import com.backend.dto.TestDTO;
+import com.backend.dto.TestAttemptDTO;
 import com.backend.model.*;
 import com.backend.service.StudentService;
 import com.backend.service.TestAttemptService;
@@ -16,32 +16,32 @@ import java.util.Optional;
 
 @RestController
 @CrossOrigin
-@RequestMapping(value = "/test")
+@RequestMapping(value = "/testAttempt")
 public class TestAttemptController {
     @Autowired
-    private TestAttemptService testService;
+    private TestAttemptService testAttemptService;
 
     @Autowired
-    private TestService testTypeService;
+    private TestService testService;
 
     @Autowired
     private StudentService studentService;
 
     @PostMapping(consumes = "application/json")
-    public ResponseEntity<Integer> saveTestAttempt(@RequestBody TestDTO testDTO, HttpServletRequest httpServletRequest) {
+    public ResponseEntity<Integer> saveTestAttempt(@RequestBody TestAttemptDTO testAttemptDTO, HttpServletRequest httpServletRequest) {
         try {
             TestAttempt testAttempt = new TestAttempt();
-            if(testDTO.getStudentId() == null || testDTO.getStudentId() == 0 || testDTO.getTestTypeId() == null || testDTO.getTestTypeId() == 0 ||
-                    testDTO.getStartTime().equals("") || testDTO.getEndTime().equals("") || testDTO.getFinalScore().equals("") || testDTO.getPassed() == null)
+            if(testAttemptDTO.getStudentId() == null || testAttemptDTO.getStudentId() == 0 || testAttemptDTO.getTestTypeId() == null || testAttemptDTO.getTestTypeId() == 0 ||
+                    testAttemptDTO.getStartTime().equals("") || testAttemptDTO.getEndTime().equals("") || testAttemptDTO.getFinalScore().equals("") || testAttemptDTO.getPassed() == null)
             {
                 return new ResponseEntity<>(0, HttpStatus.NOT_MODIFIED);
             }
-            testAttempt.setStartTime(testDTO.getStartTime());
-            testAttempt.setEndTime(testDTO.getEndTime());
-            testAttempt.setFinalScore(testDTO.getFinalScore());
-            testAttempt.setPassed(testDTO.getPassed());
+            testAttempt.setStartTime(testAttemptDTO.getStartTime());
+            testAttempt.setEndTime(testAttemptDTO.getEndTime());
+            testAttempt.setFinalScore(testAttemptDTO.getFinalScore());
+            testAttempt.setPassed(testAttemptDTO.getPassed());
 
-            Optional<Student> student = studentService.findById(testDTO.getStudentId());
+            Optional<Student> student = studentService.findById(testAttemptDTO.getStudentId());
             if(student.isPresent() ) {
                 student.ifPresent(student1 -> {
                     testAttempt.setStudentId(student1);
@@ -51,7 +51,7 @@ public class TestAttemptController {
                 return new ResponseEntity<>(0, HttpStatus.NOT_MODIFIED);
             }
 
-            Optional<Test> testType = testTypeService.findById(testDTO.getTestTypeId());
+            Optional<Test> testType = testService.findById(testAttemptDTO.getTestTypeId());
             if(testType.isPresent() ) {
                 testType.ifPresent(testType1 -> {
                     testAttempt.setTestTypeId(testType1);
@@ -61,7 +61,7 @@ public class TestAttemptController {
                 return new ResponseEntity<>(0, HttpStatus.NOT_MODIFIED);
             }
 
-            testService.save(testAttempt);
+            testAttemptService.save(testAttempt);
             return new ResponseEntity<>(testAttempt.getId(), HttpStatus.CREATED);
         }catch(Exception e){
             return new ResponseEntity<>(0,HttpStatus.NOT_MODIFIED);
@@ -69,8 +69,8 @@ public class TestAttemptController {
 
     }
     @GetMapping(produces = "application/json")
-    public ResponseEntity<List<TestAttempt>> getTests() {
-        List<TestAttempt> testAttempts = testService.findAll();
+    public ResponseEntity<List<TestAttempt>> getTestAttempts() {
+        List<TestAttempt> testAttempts = testAttemptService.findAll();
         if(testAttempts != null)
         {
             return new ResponseEntity<>(testAttempts, HttpStatus.OK);
@@ -79,8 +79,8 @@ public class TestAttemptController {
     }
 
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<Void> deleteTest(@PathVariable Integer id) {
-        testService.remove(id);
+    public ResponseEntity<Void> deleteTestAttempt(@PathVariable Integer id) {
+        testAttemptService.remove(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

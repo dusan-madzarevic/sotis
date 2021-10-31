@@ -24,7 +24,7 @@ public class ChosenAnswerController {
     private ChosenAnswerService chosenAnswerService;
 
     @Autowired
-    private TestAttemptService testService;
+    private TestAttemptService testAttemptService;
 
     @Autowired
     private AnswerService answerService;
@@ -38,7 +38,7 @@ public class ChosenAnswerController {
                 return new ResponseEntity<>(0, HttpStatus.NOT_MODIFIED);
             }
 
-            Optional<TestAttempt> test = testService.findById(chosenAnswerDTO.getTestId());
+            Optional<TestAttempt> test = testAttemptService.findById(chosenAnswerDTO.getTestId());
             if(test.isPresent() ) {
                 test.ifPresent(test1 -> {
                     chosenAnswer.setTestId(test1);

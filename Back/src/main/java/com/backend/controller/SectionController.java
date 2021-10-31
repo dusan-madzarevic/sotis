@@ -1,8 +1,6 @@
 package com.backend.controller;
 
-import com.backend.dto.QuestionDTO;
 import com.backend.dto.SectionDTO;
-import com.backend.model.Question;
 import com.backend.model.Section;
 import com.backend.model.Test;
 import com.backend.service.SectionService;
@@ -62,19 +60,19 @@ public class SectionController {
         Optional<Test> test = testService.findById(testId);
         List<SectionDTO> response = new ArrayList<>();
 
-        if(test.isPresent()) {
+        if(test.isPresent())
+        {
             List<Section> sections = sectionService.findByTest(test.get());
 
-            for (Section section :
-                    sections) {
+            for (Section section : sections)
+            {
                 response.add(new SectionDTO(testId, section.getName()));
             }
             return new ResponseEntity<>(response, HttpStatus.OK);
-        }else{
+        }else
+        {
             return new ResponseEntity<>(null,HttpStatus.NOT_MODIFIED);
         }
-
-
     }
 
     @DeleteMapping(value = "/{id}")

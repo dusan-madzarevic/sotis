@@ -11,16 +11,16 @@ import java.util.Optional;
 @Service
 public class TestAttemptService {
     @Autowired
-    private TestAttemptRepository testRepository;
+    private TestAttemptRepository testAttemptRepository;
 
     public TestAttempt save(TestAttempt testAttempt) {
-        return testRepository.save(testAttempt);
+        return testAttemptRepository.save(testAttempt);
     }
-    public Optional<TestAttempt> findById(Integer id) { return  testRepository.findById(id); }
+    public Optional<TestAttempt> findById(Integer id) { return  testAttemptRepository.findById(id); }
     public List<TestAttempt> findAll() {
-        return testRepository.findAll(); }
+        return testAttemptRepository.findAll(); }
 
     public void remove(Integer id) {
-        testRepository.deleteById(id);
+        testAttemptRepository.deleteById(id);
     }
 }

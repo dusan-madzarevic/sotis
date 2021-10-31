@@ -9,7 +9,7 @@ public class ChosenAnswer {
     @Column(name = "id")
     private Integer id;
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "testId")
+    @JoinColumn(name = "testAttemptId")
     private TestAttempt testAttemptId;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "answerId")

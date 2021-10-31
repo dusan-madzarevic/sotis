@@ -13,22 +13,19 @@ public class Section {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
-
     @Column(name = "name")
     private String name;
-
     @ManyToOne(fetch = FetchType.EAGER)
     private Test testId;
-
     @OneToMany(mappedBy = "sectionId",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonIgnore
     private Set<Question> questions;
 
-    public int getId() {
-        return id;
+    public Section() {
     }
 
-    public Section() {
+    public int getId() {
+        return id;
     }
 
     public void setId(int id) {

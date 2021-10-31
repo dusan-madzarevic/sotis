@@ -15,7 +15,7 @@ public class TestAttempt {
     @JoinColumn(name = "studentId")
     private Student studentId;
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "testTypeId")
+    @JoinColumn(name = "testId")
     private Test testId;
     @Column(name = "startTime")
     private String startTime;
@@ -26,7 +26,7 @@ public class TestAttempt {
     @Column(name = "passed")
     private Boolean passed;
 
-    @OneToMany(mappedBy = "testId",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "testAttemptId",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonIgnore
     private Set<ChosenAnswer> chosenAnswers;
 

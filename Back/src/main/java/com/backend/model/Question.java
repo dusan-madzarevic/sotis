@@ -11,15 +11,12 @@ public class Question {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
-
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "testId")
     private Test testId;
-
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "sectionId")
     private Section sectionId;
-
     @Column(name = "questionText")
     private String questionText;
     @Column(name = "score")

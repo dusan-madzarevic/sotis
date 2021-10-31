@@ -1,6 +1,6 @@
 package com.backend.controller;
 
-import com.backend.dto.TestTypeDTO;
+import com.backend.dto.TestDTO;
 import com.backend.model.Professor;
 import com.backend.model.Test;
 import com.backend.service.ProfessorService;
@@ -16,27 +16,27 @@ import java.util.Optional;
 
 @RestController
 @CrossOrigin
-@RequestMapping(value = "/testType")
+@RequestMapping(value = "/test")
 public class TestController {
     @Autowired
-    private TestService testTypeService;
+    private TestService testService;
 
     @Autowired
     private ProfessorService professorService;
 
     @PostMapping(consumes = "application/json")
-    public ResponseEntity<Integer> saveTestType(@RequestBody TestTypeDTO testTypeDTO, HttpServletRequest httpServletRequest) {
+    public ResponseEntity<Integer> saveTest(@RequestBody TestDTO testDTO, HttpServletRequest httpServletRequest) {
         try {
             Test test = new Test();
-            if(testTypeDTO.getProfessorId() == null || testTypeDTO.getProfessorId() == 0 || testTypeDTO.getTitle().equals("") || testTypeDTO.getMaxScore() == null|| testTypeDTO.getMaxScore() == 0 || testTypeDTO.getPassPercentage() == null || testTypeDTO.getPassPercentage() == 0)
+            if(testDTO.getProfessorId() == null || testDTO.getProfessorId() == 0 || testDTO.getTitle().equals("") || testDTO.getMaxScore() == null|| testDTO.getMaxScore() == 0 || testDTO.getPassPercentage() == null || testDTO.getPassPercentage() == 0)
             {
                 return new ResponseEntity<>(0, HttpStatus.NOT_MODIFIED);
             }
-            test.setTitle(testTypeDTO.getTitle());
-            test.setMaxScore(testTypeDTO.getMaxScore());
-            test.setPassPercentage(testTypeDTO.getPassPercentage());
+            test.setTitle(testDTO.getTitle());
+            test.setMaxScore(testDTO.getMaxScore());
+            test.setPassPercentage(testDTO.getPassPercentage());
 
-            Optional<Professor> professor = professorService.findById(testTypeDTO.getProfessorId());
+            Optional<Professor> professor = professorService.findById(testDTO.getProfessorId());
             if(professor.isPresent() ) {
                 professor.ifPresent(professor1 -> {
                     test.setProfessorId(professor1);
@@ -46,7 +46,7 @@ public class TestController {
                 return new ResponseEntity<>(0, HttpStatus.NOT_MODIFIED);
             }
 
-            testTypeService.save(test);
+            testService.save(test);
             return new ResponseEntity<>(test.getId(), HttpStatus.CREATED);
         }catch(Exception e){
             return new ResponseEntity<>(0,HttpStatus.NOT_MODIFIED);
@@ -54,8 +54,8 @@ public class TestController {
 
     }
     @GetMapping(produces = "application/json")
-    public ResponseEntity<List<Test>> getTestTypes() {
-        List<Test> tests = testTypeService.findAll();
+    public ResponseEntity<List<Test>> getTests() {
+        List<Test> tests = testService.findAll();
         if(tests != null)
         {
             return new ResponseEntity<>(tests, HttpStatus.OK);
@@ -64,8 +64,8 @@ public class TestController {
     }
 
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<Void> deleteTestType(@PathVariable Integer id) {
-        testTypeService.remove(id);
+    public ResponseEntity<Void> deleteTest(@PathVariable Integer id) {
+        testService.remove(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }
