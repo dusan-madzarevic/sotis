@@ -1,10 +1,10 @@
 package com.backend.controller;
 
 import com.backend.dto.TestDTO;
-import com.backend.model.*;
-import com.backend.service.StudentService;
+import com.backend.model.Professor;
+import com.backend.model.Test;
+import com.backend.service.ProfessorService;
 import com.backend.service.TestService;
-import com.backend.service.TestTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,39 +22,24 @@ public class TestController {
     private TestService testService;
 
     @Autowired
-    private TestTypeService testTypeService;
-
-    @Autowired
-    private StudentService studentService;
+    private ProfessorService professorService;
 
     @PostMapping(consumes = "application/json")
     public ResponseEntity<Integer> saveTest(@RequestBody TestDTO testDTO, HttpServletRequest httpServletRequest) {
         try {
             Test test = new Test();
-            if(testDTO.getStudentId() == null || testDTO.getStudentId() == 0 || testDTO.getTestTypeId() == null || testDTO.getTestTypeId() == 0 ||
-                    testDTO.getStartTime().equals("") || testDTO.getEndTime().equals("") || testDTO.getFinalScore().equals("") || testDTO.getPassed() == null)
+            if(testDTO.getProfessorId() == null || testDTO.getProfessorId() == 0 || testDTO.getTitle().equals("") || testDTO.getMaxScore() == null|| testDTO.getMaxScore() == 0 || testDTO.getPassPercentage() == null || testDTO.getPassPercentage() == 0)
             {
                 return new ResponseEntity<>(0, HttpStatus.NOT_MODIFIED);
             }
-            test.setStartTime(testDTO.getStartTime());
-            test.setEndTime(testDTO.getEndTime());
-            test.setFinalScore(testDTO.getFinalScore());
-            test.setPassed(testDTO.getPassed());
+            test.setTitle(testDTO.getTitle());
+            test.setMaxScore(testDTO.getMaxScore());
+            test.setPassPercentage(testDTO.getPassPercentage());
 
-            Optional<Student> student = studentService.findById(testDTO.getStudentId());
-            if(student.isPresent() ) {
-                student.ifPresent(student1 -> {
-                    test.setStudentId(student1);
-                });
-            }
-            else{
-                return new ResponseEntity<>(0, HttpStatus.NOT_MODIFIED);
-            }
-
-            Optional<TestType> testType = testTypeService.findById(testDTO.getTestTypeId());
-            if(testType.isPresent() ) {
-                testType.ifPresent(testType1 -> {
-                    test.setTestTypeId(testType1);
+            Optional<Professor> professor = professorService.findById(testDTO.getProfessorId());
+            if(professor.isPresent() ) {
+                professor.ifPresent(professor1 -> {
+                    test.setProfessorId(professor1);
                 });
             }
             else{
