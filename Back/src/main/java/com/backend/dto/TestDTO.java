@@ -1,17 +1,17 @@
 package com.backend.dto;
 
 public class TestDTO {
-    private Integer professorId;
+    private String username;
     private String title;
     private Integer maxScore;
     private Integer passPercentage;
 
-    public Integer getProfessorId() {
-        return professorId;
+    public String getUsername() {
+        return username;
     }
 
-    public void setProfessorId(Integer professorId) {
-        this.professorId = professorId;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getTitle() {

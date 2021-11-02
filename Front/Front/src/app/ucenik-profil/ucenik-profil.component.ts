@@ -11,8 +11,7 @@ import {first} from 'rxjs/operators';
 })
 export class UcenikProfilComponent implements OnInit {
 
-  admin: any = [];
-  korisnik: any = [];
+  user: any = [];
   constructor(private formBuilder: FormBuilder,
               private router: Router, private adminService: AdminServiceService) { }
 
@@ -25,8 +24,10 @@ export class UcenikProfilComponent implements OnInit {
     this.adminService.getUser(localStorage.getItem('currentuser').toString())
       .pipe(first())
       .subscribe((data: {}) => {
-          this.korisnik = data;
-          this.admin = this.korisnik.radnikRId;
+          this.user = data;
+          if (this.user.userType !== 'Student') {
+          this.router.navigate(['/']);
+        }
         }
       );
   }

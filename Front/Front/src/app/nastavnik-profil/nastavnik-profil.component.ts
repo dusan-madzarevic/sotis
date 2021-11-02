@@ -10,8 +10,7 @@ import {first} from 'rxjs/operators';
   styleUrls: ['./nastavnik-profil.component.css']
 })
 export class NastavnikProfilComponent implements OnInit {
-  admin: any = [];
-  korisnik: any = [];
+  user: any = [];
   constructor(private formBuilder: FormBuilder,
               private router: Router, private adminService: AdminServiceService) { }
 
@@ -24,8 +23,10 @@ export class NastavnikProfilComponent implements OnInit {
     this.adminService.getUser(localStorage.getItem('currentuser').toString())
       .pipe(first())
       .subscribe((data: {}) => {
-          this.korisnik = data;
-          this.admin = this.korisnik.radnikRId;
+          this.user = data;
+          if (this.user.userType !== 'Professor') {
+          this.router.navigate(['/']);
+        }
         }
       );
   }
