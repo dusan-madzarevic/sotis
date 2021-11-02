@@ -25,7 +25,9 @@ export class AdminProfilComponent implements OnInit {
       .pipe(first())
       .subscribe((data: {}) => {
           this.korisnik = data;
-          this.admin = this.korisnik.radnikRId;
+          if (this.korisnik.userType !== 'Administrator') {
+          this.router.navigate(['/']);
+        }
         }
       );
   }

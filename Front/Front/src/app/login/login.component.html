@@ -4,8 +4,8 @@
 
 <!-- Login Form -->
 <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-  <input type="text" formControlName="korisnickoIme" class="form-control" id="korisnickoIme" name="korisnickoIme" placeholder="Korisničko ime">
-  <input type="password" formControlName="lozinka" class="form-control" id="lozinka" name="lozinka" placeholder="Lozinka">
+  <input type="text" formControlName="username" class="form-control" id="username" name="username" placeholder="Korisničko ime">
+  <input type="password" formControlName="password" class="form-control" id="password" name="password" placeholder="Lozinka">
   <input type="submit" class="btn btn-primary"  value="Uloguj se">
 </form>
 

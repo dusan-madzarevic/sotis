@@ -10,8 +10,7 @@ import {AdminServiceService} from '../services/admin-service.service';
   styleUrls: ['./ucenik-layout.component.css']
 })
 export class UcenikLayoutComponent implements OnInit {
-  admin: any = [];
-  korisnik: any = [];
+  user: any = [];
   constructor(private formBuilder: FormBuilder,
               private router: Router, private adminService: AdminServiceService) { }
 
@@ -24,9 +23,8 @@ export class UcenikLayoutComponent implements OnInit {
     this.adminService.getUser(localStorage.getItem('currentuser').toString())
       .pipe(first())
       .subscribe((data: {}) => {
-          this.korisnik = data;
-          this.admin = this.korisnik.radnikRId;
-          if (this.admin.radnikTip !== 'Ucenik') {
+          this.user = data;
+          if (this.user.userType !== 'Student') {
           this.router.navigate(['/']);
         }
         }

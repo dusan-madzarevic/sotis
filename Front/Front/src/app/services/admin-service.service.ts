@@ -21,14 +21,14 @@ export class AdminServiceService {
 
   // tslint:disable-next-line:typedef
   login(user) {
-    return this.http.post('http://localhost:8090/korisnik/login', user,      {
+    return this.http.post('http://localhost:8090/user/login', user,      {
       headers: new HttpHeaders().set('Content-Type', 'application/json')
     });
   }
 
   // tslint:disable-next-line:typedef
   getUser(username) {
-    return this.http.get('http://localhost:8090/korisnik/' + username,      {
+    return this.http.get('http://localhost:8090/user/' + username,      {
       headers: new HttpHeaders().set('Content-Type', 'application/json')
     });
   }

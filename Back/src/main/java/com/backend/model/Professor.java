@@ -14,11 +14,11 @@ public class Professor extends User {
 
     public Professor(){}
 
-    public Set<Test> getTestTypes() {
+    public Set<Test> getTests() {
         return tests;
     }
 
-    public void setTestTypes(Set<Test> tests) {
+    public void setTests(Set<Test> tests) {
         this.tests = tests;
     }
 }

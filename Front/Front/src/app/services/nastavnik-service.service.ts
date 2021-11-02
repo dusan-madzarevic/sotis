@@ -52,4 +52,27 @@ export class NastavnikServiceService {
       responseType: 'text'
     });
   }
+
+  // tslint:disable-next-line:typedef
+  getTestovi() {
+    return this.http.get('http://localhost:8090/test',      {
+      headers: new HttpHeaders().set('Content-Type', 'application/json')
+    });
+  }
+
+  // tslint:disable-next-line:typedef
+  deleteTest(id) {
+    return this.http.delete('http://localhost:8090/test/' + id,      {
+      headers: new HttpHeaders().set('Content-Type', 'application/json'),
+      responseType: 'text'
+    });
+  }
+
+  // tslint:disable-next-line:typedef
+  kreirajTest(user) {
+    return this.http.post('http://localhost:8090/test', user,      {
+      headers: new HttpHeaders().set('Content-Type', 'application/json'),
+      responseType: 'text'
+    });
+  }
 }

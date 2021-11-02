@@ -9,12 +9,14 @@ import {NastavnikCompModule} from '../nastavnik-comp/nastavnik-comp.module';
 import {NastavnikLayoutRutes} from './nastavnik-layout.routing';
 import {NastavnikProfilComponent} from '../nastavnik-profil/nastavnik-profil.component';
 import {MatFormFieldModule, MatSelectModule} from '@angular/material';
+import {NastavnikTestComponent} from '../nastavnik-test/nastavnik-test.component';
 
 
 
 @NgModule({
   declarations: [NastavnikLayoutComponent,
-    NastavnikProfilComponent
+    NastavnikProfilComponent,
+    NastavnikTestComponent
   ],
   exports: [NastavnikLayoutComponent],
   imports: [

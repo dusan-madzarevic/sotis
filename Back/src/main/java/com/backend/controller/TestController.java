@@ -28,7 +28,7 @@ public class TestController {
     public ResponseEntity<Integer> saveTest(@RequestBody TestDTO testDTO, HttpServletRequest httpServletRequest) {
         try {
             Test test = new Test();
-            if(testDTO.getProfessorId() == null || testDTO.getProfessorId() == 0 || testDTO.getTitle().equals("") || testDTO.getMaxScore() == null|| testDTO.getMaxScore() == 0 || testDTO.getPassPercentage() == null || testDTO.getPassPercentage() == 0)
+            if(testDTO.getUsername() == null || testDTO.getUsername().equals("") || testDTO.getTitle().equals("") || testDTO.getMaxScore() == null|| testDTO.getMaxScore() == 0 || testDTO.getPassPercentage() == null || testDTO.getPassPercentage() == 0)
             {
                 return new ResponseEntity<>(0, HttpStatus.NOT_MODIFIED);
             }
@@ -36,7 +36,21 @@ public class TestController {
             test.setMaxScore(testDTO.getMaxScore());
             test.setPassPercentage(testDTO.getPassPercentage());
 
-            Optional<Professor> professor = professorService.findById(testDTO.getProfessorId());
+            Professor professor = new Professor();
+
+            List<Professor> professors = professorService.findAllByUserType("Professor");
+            for (Professor p : professors){
+                if(p.getUsername().equals(testDTO.getUsername()))
+                    professor = p;
+            }
+
+            if(professor!= null){
+                test.setProfessorId(professor);
+            } else{
+                return new ResponseEntity<>(0, HttpStatus.NOT_MODIFIED);
+            }
+
+            /*Optional<Professor> professor = professorService.findById(testDTO.getProfessorId());
             if(professor.isPresent() ) {
                 professor.ifPresent(professor1 -> {
                     test.setProfessorId(professor1);
@@ -44,7 +58,7 @@ public class TestController {
             }
             else{
                 return new ResponseEntity<>(0, HttpStatus.NOT_MODIFIED);
-            }
+            }*/
 
             testService.save(test);
             return new ResponseEntity<>(test.getId(), HttpStatus.CREATED);
@@ -65,6 +79,15 @@ public class TestController {
 
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> deleteTest(@PathVariable Integer id) {
+        List<Professor> professors = professorService.findAllByUserType("Professor");
+        Optional<Test> test = testService.findById(id);
+        for(Professor p : professors){
+            if(test.isPresent() ) {
+                test.ifPresent(student1 -> {
+                    p.getTests().remove(student1);
+                });
+            }
+        }
         testService.remove(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
