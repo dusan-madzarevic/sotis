@@ -27,7 +27,7 @@ public class SectionController {
     private TestService testService;
 
     @PostMapping(consumes = "application/json")
-    public ResponseEntity<Integer> saveQuestion(@RequestBody SectionDTO sectionDTO, HttpServletRequest httpServletRequest) {
+    public ResponseEntity<Integer> saveSection(@RequestBody SectionDTO sectionDTO, HttpServletRequest httpServletRequest) {
         try {
             Section section = new Section();
             if(sectionDTO.getTestId() == null || sectionDTO.getTestId() == 0 || sectionDTO.getName().equals(""))
@@ -46,8 +46,6 @@ public class SectionController {
             else{
                 return new ResponseEntity<>(0, HttpStatus.NOT_MODIFIED);
             }
-
-
             sectionService.save(section);
             return new ResponseEntity<>(section.getId(), HttpStatus.CREATED);
         }catch(Exception e){
@@ -66,7 +64,7 @@ public class SectionController {
 
             for (Section section : sections)
             {
-                response.add(new SectionDTO(testId, section.getName()));
+                response.add(new SectionDTO(section.getId(), testId, section.getName()));
             }
             return new ResponseEntity<>(response, HttpStatus.OK);
         }else
@@ -75,9 +73,19 @@ public class SectionController {
         }
     }
 
-    @DeleteMapping(value = "/{id}")
-    public ResponseEntity<Void> deleteSection(@PathVariable Integer id) {
-        sectionService.remove(id);
+    @DeleteMapping(value = "/{sectionId}/{testId}")
+    public ResponseEntity<Void> deleteSection(@PathVariable("sectionId") Integer sectionId, @PathVariable("testId") Integer testId) {
+        Optional<Test> test = testService.findById(testId);
+        Optional<Section> section = sectionService.findById(sectionId);
+        if(test.isPresent() ) {
+            test.ifPresent(test1 -> {
+                test1.getSections().remove(section.get());
+            });
+        }
+        else{
+            return new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
+        }
+        sectionService.remove(sectionId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

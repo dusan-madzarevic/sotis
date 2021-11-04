@@ -13,12 +13,7 @@ import {AdminServiceService} from '../services/admin-service.service';
 })
 export class RegistracionComponent implements OnInit {
   korisnikForm: FormGroup;
-  radnikRId;
-  radnik: any = [];
 
-  pogoni: any = [];
-  magacini: any = [];
-  kancelarije: any = [];
   constructor(    private formBuilder: FormBuilder,
                   private router: Router,
                   private nastavnikService: NastavnikServiceService,
@@ -27,108 +22,43 @@ export class RegistracionComponent implements OnInit {
 
   ngOnInit(): void {
     this.korisnikForm = this.formBuilder.group({
-      korisnickoIme: ['', Validators.required],
-      lozinka: ['', Validators.required],
-      ime: ['', Validators.required],
-      prezime: ['', Validators.required],
-      jmbg: ['', Validators.required],
-      tekuciRacun: ['', Validators.required],
-      uloga: ['Operater', Validators.required],
-      plata: [50000],
-      radnikRId: [],
-      kancelarija_Ka_id: [],
-      magacinMId: [],
-      pogonPId: []
+      name: ['', Validators.required],
+      lastName: ['', Validators.required],
+      username: ['', Validators.required],
+      email: ['', Validators.required],
+      password: ['', Validators.required],
+      userType: ['Student']
     });
-
-    this.ucitajPogone();
-    this.ucitajMagacine();
-    this.ucitajKancelarije();
   }
-
-  // tslint:disable-next-line:typedef
-  ucitajPogone() {
-    this.adminService.getPogone()
-      .pipe(first())
-      .subscribe(data => {
-        this.pogoni = data;
-      });
-  }
-
-  // tslint:disable-next-line:typedef
-  ucitajKancelarije() {
-    this.adminService.getKancelarijas()
-      .pipe(first())
-      .subscribe(data => {
-        this.kancelarije = data;
-      });
-  }
-
-  // tslint:disable-next-line:typedef
-  ucitajMagacine() {
-    this.adminService.getMagacine()
-      .pipe(first())
-      .subscribe(data => {
-        this.magacini = data;
-      });
-  }
-
 
   // tslint:disable-next-line:typedef
   get formControls() { return this.korisnikForm.controls; }
 
   // tslint:disable-next-line:typedef
   get myUloga() {
-    console.log(this.korisnikForm.get('uloga'));
-    return this.korisnikForm.get('uloga');
+    console.log(this.korisnikForm.get('userType'));
+    return this.korisnikForm.get('userType');
   }
 
   // tslint:disable-next-line:typedef
   onSubmit() {
-    if (this.myUloga.value === 'Admin'){
+    if (this.myUloga.value === 'Administrator'){
       this.adminService.registrujAdmina(JSON.stringify(this.korisnikForm.value))
         .pipe(first())
-        .subscribe(mesData => {
-          const rradnik = {
-            radnikRId: mesData,
-            korisnickoIme: this.korisnikForm.value.korisnickoIme,
-            lozinka: this.korisnikForm.value.lozinka
-          };
-          this.adminService.registrujKorisnika(JSON.stringify(rradnik))
-            .pipe(first())
-            .subscribe();
-          this.router.navigate(['/']);
-        });
+        .subscribe();
+      this.router.navigate(['/']);
     }
-    if (this.myUloga.value === 'Magacioner'){
-        this.nastavnikService.registrujMagacionera(this.korisnikForm.value)
+    if (this.myUloga.value === 'Student'){
+      this.adminService.registrujStudent(JSON.stringify(this.korisnikForm.value))
         .pipe(first())
-        .subscribe(mesData => {
-          const rradnik = {
-            radnikRId: mesData,
-            korisnickoIme: this.korisnikForm.value.korisnickoIme,
-            lozinka: this.korisnikForm.value.lozinka
-          };
-          this.adminService.registrujKorisnika(JSON.stringify(rradnik))
-            .pipe(first())
-            .subscribe();
-          this.router.navigate(['/']);
-        });
+        .subscribe();
+      this.router.navigate(['/']);
     }
-    if (this.myUloga.value === 'Operater'){
-      this.ucenikService.registrujOperatera(this.korisnikForm.value)
+    if (this.myUloga.value === 'Professor'){
+      this.adminService.registrujProfessor(JSON.stringify(this.korisnikForm.value))
         .pipe(first())
-        .subscribe(mesData => {
-          const rradnik = {
-            radnikRId: mesData,
-            korisnickoIme: this.korisnikForm.value.korisnickoIme,
-            lozinka: this.korisnikForm.value.lozinka
-          };
-          this.adminService.registrujKorisnika(JSON.stringify(rradnik))
-            .pipe(first())
-            .subscribe();
-          this.router.navigate(['/']);
-        });
+        .subscribe();
+      this.router.navigate(['/']);
     }
 
   }

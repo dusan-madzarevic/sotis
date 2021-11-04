@@ -76,7 +76,23 @@ export class AdminServiceService {
 
   // tslint:disable-next-line:typedef
   registrujAdmina(user) {
-    return this.http.post('http://localhost:8090/admin', user,      {
+    return this.http.post('http://localhost:8090/administrator', user,      {
+      headers: new HttpHeaders().set('Content-Type', 'application/json'),
+      responseType: 'text'
+    });
+  }
+
+  // tslint:disable-next-line:typedef
+  registrujStudent(user) {
+    return this.http.post('http://localhost:8090/student', user,      {
+      headers: new HttpHeaders().set('Content-Type', 'application/json'),
+      responseType: 'text'
+    });
+  }
+
+  // tslint:disable-next-line:typedef
+  registrujProfessor(user) {
+    return this.http.post('http://localhost:8090/professor', user,      {
       headers: new HttpHeaders().set('Content-Type', 'application/json'),
       responseType: 'text'
     });

@@ -49,7 +49,7 @@ public class UserController {
     @GetMapping(value = "/{username}", produces = "application/json")
     public ResponseEntity<User> getUser(@PathVariable String username) {
         List<User> users = userService.findAll();
-        if(users != null)
+        if(users.size() != 0)
         {
             for(User k : users){
                 if(k.getUsername().equals(username)){

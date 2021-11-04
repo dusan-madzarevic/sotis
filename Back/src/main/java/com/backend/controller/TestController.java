@@ -1,16 +1,18 @@
 package com.backend.controller;
 
+import com.backend.dto.QuestionDTO;
 import com.backend.dto.TestDTO;
-import com.backend.model.Professor;
-import com.backend.model.Test;
+import com.backend.model.*;
 import com.backend.service.ProfessorService;
 import com.backend.service.TestService;
+import com.backend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,6 +25,9 @@ public class TestController {
 
     @Autowired
     private ProfessorService professorService;
+
+    @Autowired
+    private UserService userService;
 
     @PostMapping(consumes = "application/json")
     public ResponseEntity<Integer> saveTest(@RequestBody TestDTO testDTO, HttpServletRequest httpServletRequest) {
@@ -50,16 +55,6 @@ public class TestController {
                 return new ResponseEntity<>(0, HttpStatus.NOT_MODIFIED);
             }
 
-            /*Optional<Professor> professor = professorService.findById(testDTO.getProfessorId());
-            if(professor.isPresent() ) {
-                professor.ifPresent(professor1 -> {
-                    test.setProfessorId(professor1);
-                });
-            }
-            else{
-                return new ResponseEntity<>(0, HttpStatus.NOT_MODIFIED);
-            }*/
-
             testService.save(test);
             return new ResponseEntity<>(test.getId(), HttpStatus.CREATED);
         }catch(Exception e){
@@ -75,6 +70,28 @@ public class TestController {
             return new ResponseEntity<>(tests, HttpStatus.OK);
         }
         return new ResponseEntity<>(tests, HttpStatus.NOT_MODIFIED);
+    }
+
+    @GetMapping(value = "/byProfessor/{username}", produces = "application/json")
+    public ResponseEntity<List<TestDTO>> getProfessorTests(@PathVariable("username") String professorUsername) {
+        List<User> users = userService.findAll();
+        List<Test> tests = testService.findAll();
+        List<TestDTO> response = new ArrayList<>();
+
+        if(!users.isEmpty()){
+            for( User u : users){
+                if(u.getUsername().equals(professorUsername)){
+                    for( Test t : tests){
+                        if(t.getProfessorId().getUsername().equals(professorUsername)){
+                            response.add(new TestDTO(t.getId(), professorUsername, t.getTitle(), t.getMaxScore(), t.getPassPercentage()));
+                        }
+                    }
+                }
+            }
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        }else{
+            return new ResponseEntity<List<TestDTO>>(response, HttpStatus.NOT_MODIFIED);
+        }
     }
 
     @DeleteMapping(value = "/{id}")
