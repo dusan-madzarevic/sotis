@@ -26,7 +26,7 @@ public class AnswerService {
         answerRepository.deleteById(id);
     }
 
-    public List<Answer> findByQuestion(Integer questionId){
-        return answerRepository.findByQuestionId(questionId);
+    public List<Answer> findByQuestion(Question question){
+        return answerRepository.findByQuestionId(question);
     }
 }

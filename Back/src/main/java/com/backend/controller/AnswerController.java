@@ -31,7 +31,7 @@ public class AnswerController {
     public ResponseEntity<Integer> saveAnswer(@RequestBody AnswerDTO answerDTO, HttpServletRequest httpServletRequest) {
         try {
             Answer answer = new Answer();
-            if(answerDTO.getQuestionId() == null || answerDTO.getQuestionId() == 0 || answerDTO.getAnswerText().equals("") || answerDTO.getScore() == null|| answerDTO.getScore() == 0 || answerDTO.getCorrect() == null)
+            if(answerDTO.getQuestionId() == null || answerDTO.getQuestionId() == 0 || answerDTO.getAnswerText().equals("") || answerDTO.getScore() == null || answerDTO.getCorrect() == null)
             {
                 return new ResponseEntity<>(0, HttpStatus.NOT_MODIFIED);
             }
@@ -73,7 +73,7 @@ public class AnswerController {
 
         if(question.isPresent())
         {
-            List<Answer> answers = answerService.findByQuestion(question.get().getId());
+            List<Answer> answers = answerService.findByQuestion(question.get());
 
             for (Answer answer : answers)
             {
@@ -86,9 +86,19 @@ public class AnswerController {
         }
     }
 
-    @DeleteMapping(value = "/{id}")
-    public ResponseEntity<Void> deleteAnswer(@PathVariable Integer id) {
-        answerService.remove(id);
+    @DeleteMapping(value = "/{answerId}/{questionId}")
+    public ResponseEntity<Void> deleteAnswer( @PathVariable("answerId") Integer answerId, @PathVariable("questionId") Integer questionId) {
+        Optional<Question> question = questionService.findById(questionId);
+        Optional<Answer> answer = answerService.findById(answerId);
+        if(question.isPresent() ) {
+            question.ifPresent(question1 -> {
+                question1.getAnswers().remove(answer.get());
+            });
+        }
+        else{
+            return new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
+        }
+        answerService.remove(answerId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

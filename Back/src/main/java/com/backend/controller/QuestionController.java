@@ -30,10 +30,10 @@ public class QuestionController {
     private SectionService sectionService;
 
     @PostMapping(consumes = "application/json")
-    public ResponseEntity<Integer> saveQuestion(@RequestParam("imgFile") MultipartFile imgFile, @RequestBody QuestionDTO questionDTO, HttpServletRequest httpServletRequest) {
+    public ResponseEntity<Integer> saveQuestion(/*@RequestParam("imgFile") MultipartFile imgFile,*/ @RequestBody QuestionDTO questionDTO, HttpServletRequest httpServletRequest) {
         try {
             Question question = new Question();
-            if(questionDTO.getQuestionText().equals("") || questionDTO.getScore() == null|| questionDTO.getScore() == 0)
+            if(questionDTO.getQuestionText().equals("") || questionDTO.getScore() == null)
             {
                 return new ResponseEntity<>(0, HttpStatus.NOT_MODIFIED);
             }
@@ -51,9 +51,9 @@ public class QuestionController {
                 return new ResponseEntity<>(0, HttpStatus.NOT_MODIFIED);
             }
 
-            byte[] img = imgFile.getBytes();
+            //byte[] img = imgFile.getBytes();
 
-            question.setQuestionImage(img);
+            //question.setQuestionImage(img);
 
             questionService.save(question);
             return new ResponseEntity<>(question.getId(), HttpStatus.CREATED);
@@ -83,18 +83,28 @@ public class QuestionController {
 
             for (Question question : questions)
             {
-                response.add(new QuestionDTO(sectionId, question.getQuestionText(), question.getScore()));
+                response.add(new QuestionDTO(question.getId(), sectionId, question.getQuestionText(), question.getScore()));
             }
-            return new ResponseEntity<>(response, HttpStatus.OK);
+            return new ResponseEntity<List<QuestionDTO>>(response, HttpStatus.OK);
         }else
         {
             return new ResponseEntity<>(null,HttpStatus.NOT_MODIFIED);
         }
     }
 
-    @DeleteMapping(value = "/{id}")
-    public ResponseEntity<Void> deleteQuestion(@PathVariable Integer id) {
-        questionService.remove(id);
+    @DeleteMapping(value = "/{questionId}/{sectionId}")
+    public ResponseEntity<Void> deleteQuestion( @PathVariable("questionId") Integer questionId, @PathVariable("sectionId") Integer sectionId) {
+        Optional<Section> section = sectionService.findById(sectionId);
+        Optional<Question> question = questionService.findById(questionId);
+        if(section.isPresent() ) {
+            section.ifPresent(section1 -> {
+                section1.getQuestions().remove(question.get());
+            });
+        }
+        else{
+            return new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
+        }
+        questionService.remove(questionId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

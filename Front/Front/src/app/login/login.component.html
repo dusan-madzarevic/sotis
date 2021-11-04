@@ -1,11 +1,11 @@
 <div class="col-md-12 text-center">
-  <h1>Logovanje</h1>
+  <h1>Prijavljivanje</h1>
 </div>
 
 <!-- Login Form -->
 <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-  <input type="text" formControlName="username" class="form-control" id="username" name="username" placeholder="Korisničko ime">
-  <input type="password" formControlName="password" class="form-control" id="password" name="password" placeholder="Lozinka">
+  Korisničko ime <input type="text" formControlName="username" class="form-control" id="username" name="username" placeholder="Korisničko ime">
+  Lozinka <input type="password" formControlName="password" class="form-control" id="password" name="password" placeholder="Lozinka">
   <input type="submit" class="btn btn-primary"  value="Uloguj se">
 </form>
 

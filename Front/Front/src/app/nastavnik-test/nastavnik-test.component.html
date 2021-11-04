@@ -19,6 +19,9 @@
     <table class="table table-striped">
       <thead class=" text-primary">
       <th>
+        Id
+      </th>
+      <th>
         Naziv
       </th>
       <th>
@@ -40,6 +43,7 @@
       <tbody>
       <ng-container *ngFor="let test of testovi">
         <tr>
+          <td>{{test.id}}</td>
           <td>{{test.title}}</td>
           <td>{{test.maxScore}}</td>
           <td>{{test.passPercentage}}</td>
@@ -85,9 +89,13 @@
     <div class="card-body">
 
       <form [formGroup]="TestForm" (ngSubmit)="create()">
-        <input type="text" formControlName="title" id="title"  placeholder="Naziv">
-        <input type="number" formControlName="maxScore" id="maxScore" nbInput min="1" max="100"value="1"  placeholder="Maksimalan skor">
-        <input type="number" formControlName="passPercentage" id="passPercentage" nbInput min="1" max="50"value="1"  placeholder="Prolazni %">
+        Naziv <input type="text" formControlName="title" id="title"  placeholder="Naziv">
+        <div>
+          <input type="number" formControlName="maxScore" id="maxScore" nbInput min="1" max="100"value="1"  placeholder="Maksimalan skor">
+        </div>
+        <div>
+          <input type="number" formControlName="passPercentage" id="passPercentage" nbInput min="1" max="50"value="1"  placeholder="Prolazni %">
+        </div>
         <button type="submit" class="btn btn-primary">Kreiraj test</button>
       </form>
 
@@ -113,7 +121,9 @@
     <div class="card-body">
 
       <form [formGroup]="SectionForm" (ngSubmit)="createSekciju()">
-        <input type="text" formControlName="name" id="name"  placeholder="Naziv sekcije">
+        <div>
+          Naziv sekcije <input type="text" formControlName="name" id="name"  placeholder="Naziv sekcije">
+        </div>
         <button type="submit" class="btn btn-primary">Kreiraj sekciju</button>
       </form>
 
@@ -139,6 +149,9 @@
         <table class="table table-striped">
           <thead class=" text-primary">
           <th>
+            Id
+          </th>
+          <th>
             Ime
           </th>
           <th>
@@ -154,6 +167,7 @@
           <tbody>
           <ng-container *ngFor="let sekcija of sekcije">
             <tr>
+              <td>{{sekcija.id}}</td>
               <td>{{sekcija.name}}</td>
               <td>{{sekcija.testId}}</td>
 
@@ -203,8 +217,13 @@
     <div class="card-body">
 
       <form [formGroup]="QuestionForm" (ngSubmit)="createPitanje()">
-        <input type="text" formControlName="questionText" id="questionText"  placeholder="Tekst pitanja">
-        <input type="number" formControlName="score" id="score" nbInput min="1" max="100"value="1"  placeholder="Skor">
+        <div>
+          Tekst pitanja <input type="text" formControlName="questionText" id="questionText"  placeholder="Tekst pitanja">
+        </div>
+        <div>
+          Skor <input type="number" formControlName="score" id="score" nbInput min="1" max="100"value="1"  placeholder="Skor">
+        </div>
+
         <button type="submit" class="btn btn-primary">Kreiraj pitanje</button>
       </form>
 
@@ -230,6 +249,9 @@
         <table class="table table-striped">
           <thead class=" text-primary">
           <th>
+            Id
+          </th>
+          <th>
             Id sekcije
           </th>
           <th>
@@ -239,12 +261,16 @@
             Score
           </th>
           <th>
-            Slika jos nema
+            Brisanje
+          </th>
+          <th>
+            Odgovori
           </th>
           </thead>
           <tbody>
           <ng-container *ngFor="let pitanje of pitanja">
             <tr>
+              <td>{{pitanje.id}}</td>
               <td>{{pitanje.sectionId}}</td>
               <td>{{pitanje.questionText}}</td>
               <td>{{pitanje.score}}</td>
@@ -299,6 +325,9 @@
         <table class="table table-striped">
           <thead class=" text-primary">
           <th>
+            Id
+          </th>
+          <th>
             Tekst odgovora
           </th>
           <th>
@@ -307,13 +336,21 @@
           <th>
             Bodovi
           </th>
+          <th>
+            Id pitanja
+          </th>
+          <th>
+            Brisanje
+          </th>
           </thead>
           <tbody>
           <ng-container *ngFor="let odgovor of odgovori">
             <tr>
+              <td>{{odgovor.id}}</td>
               <td>{{odgovor.answerText}}</td>
               <td>{{odgovor.correct}}</td>
               <td>{{odgovor.score}}</td>
+              <td>{{odgovor.questionId}}</td>
 
               <td>
                 <div ngbDropdown class="d-inline-block">
@@ -353,9 +390,13 @@
     <div class="card-body">
 
       <form [formGroup]="AnswerForm" (ngSubmit)="createOdgovor()">
-        <input type="text" formControlName="answerText" id="answerText"  placeholder="Tekst odgovora">
-        <input type="number" formControlName="correct" id="correct" nbInput min="1" max="100"value="1"  placeholder="Tačan">
-        <input type="number" formControlName="score" id="score1" nbInput min="1" max="100"value="1"  placeholder="Skor">
+        Tekst odgovora <input type="text" formControlName="answerText" id="answerText"  placeholder="Tekst odgovora">
+        <div>
+          Skor <input type="number" formControlName="score" id="score1" nbInput min="1" max="100"value="1"  placeholder="Skor">
+        </div>
+        <div>
+          Tačan <input type="checkbox" [checked]="myVar1" (change)="myVar1 = !myVar1" />
+        </div>
         <button type="submit" class="btn btn-primary">Kreiraj odgovor</button>
       </form>
 

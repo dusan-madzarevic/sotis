@@ -10,54 +10,20 @@
 
     <!-- Login Form -->
     <form [formGroup]="korisnikForm" (ngSubmit)="onSubmit()">
-      <input type="text" formControlName="ime" class="form-control" id="ime" name="ime" placeholder="Ime">
-      <input type="text" formControlName="prezime" class="form-control" id="prezime" name="ime" placeholder="Prezime">
-      <input type="text" formControlName="jmbg" class="form-control" id="jmbg" name="jmbg" placeholder="JMBG">
-      <input type="text" formControlName="tekuciRacun" class="form-control" id="tekuciRacun" name="tekuciRacun" placeholder="Tekući račun">
-      <input type="text" formControlName="korisnickoIme" class="form-control" id="korisnickoIme" name="korisnickoIme" placeholder="Korisničko ime">
-      <input type="text" formControlName="lozinka" class="form-control" id="lozinka" name="lozinka" placeholder="Lozinka">
+      Ime <input type="text" formControlName="name" class="form-control" id="name" name="name" placeholder="Ime">
+      Prezime <input type="text" formControlName="lastName" class="form-control" id="lastName" name="lastName" placeholder="Prezime">
+      Korisničko ime <input type="username" formControlName="username" class="form-control" id="username" name="username" placeholder="Korisnicko ime">
+      E-mail <input type="text" formControlName="email" class="form-control" id="email" name="email" placeholder="E-mail">
+      Lozinka <input type="password" formControlName="password" class="form-control" id="password" name="password" placeholder="Lozinka">
 
       <div>
-        <input id="Admin" type="radio" value="Admin" name="uloga" formControlName="uloga">
-        <label for="Admin">Admin</label>
-
-        <div>
-          <mat-form-field >
-            <mat-label>Kancelarija</mat-label>
-            <mat-select formControlName="kancelarija_Ka_id">
-              <mat-option id="kancelarija_Ka_id"  *ngFor="let kan of kancelarije" [value]="kan.kaId">{{kan.kaId}}</mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-
+        Administrator <input id="Administrator" type="radio" value="Administrator" name="userType" formControlName="userType">
       </div>
       <div>
-        <input id="Magacioner" type="radio" value="Magacioner" name="uloga" formControlName="uloga">
-        <label for="Magacioner">Magacioner</label>
-
-        <div>
-          <mat-form-field >
-            <mat-label>Magacin</mat-label>
-            <mat-select formControlName="magacinMId">
-              <mat-option id="magacinMId"  *ngFor="let mag of magacini" [value]="mag.mid">{{mag.mid}}</mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-
+        Profesor <input id="Professor" type="radio" value="Professor" name="userType" formControlName="userType">
       </div>
       <div>
-        <input id="Operater" type="radio" value="Operater" name="uloga" formControlName="uloga">
-        <label for="Operater">Operater</label>
-
-        <div>
-          <mat-form-field >
-            <mat-label>Pogon</mat-label>
-            <mat-select formControlName="pogonPId">
-              <mat-option id="pogonPId"  *ngFor="let pog of pogoni" [value]="pog.pId">{{pog.pId}}</mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-
+        Student <input id="Student" type="radio" value="Student" name="userType" formControlName="userType">
       </div>
 
       <input type="submit" class="btn btn-primary" value="Registruj se">

@@ -1,16 +1,26 @@
 package com.backend.dto;
 
 public class TestDTO {
+    private Integer id;
     private String username;
     private String title;
     private Integer maxScore;
     private Integer passPercentage;
 
-    public TestDTO(String username, String title, Integer maxScore, Integer passPercentage) {
+    public TestDTO(Integer id, String username, String title, Integer maxScore, Integer passPercentage) {
+        this.id = id;
         this.username = username;
         this.title = title;
         this.maxScore = maxScore;
         this.passPercentage = passPercentage;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getUsername() {

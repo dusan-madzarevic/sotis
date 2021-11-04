@@ -1,16 +1,24 @@
 package com.backend.dto;
 
-import org.springframework.validation.annotation.Validated;
-
 public class QuestionDTO {
+    private Integer id;
     private Integer sectionId;
     private String questionText;
     private Integer score;
 
-    public QuestionDTO(Integer sectionId, String questionText, Integer score) {
+    public QuestionDTO(Integer id, Integer sectionId, String questionText, Integer score) {
+        this.id = id;
         this.sectionId = sectionId;
         this.questionText = questionText;
         this.score = score;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public Integer getSectionId() {

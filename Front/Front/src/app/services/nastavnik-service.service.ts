@@ -76,8 +76,8 @@ export class NastavnikServiceService {
   }
 
   // tslint:disable-next-line:typedef
-  deleteSekcija(id) {
-    return this.http.delete('http://localhost:8090/section/' + id,      {
+  deleteSekcija(sectionId,testId) {
+    return this.http.delete('http://localhost:8090/section/' + sectionId + '/' + testId,      {
       headers: new HttpHeaders().set('Content-Type', 'application/json'),
       responseType: 'text'
     });
@@ -114,16 +114,16 @@ export class NastavnikServiceService {
   }
 
   // tslint:disable-next-line:typedef
-  deletePitanje(id) {
-    return this.http.delete('http://localhost:8090/question/' + id,      {
+  obrisiPitanje(pitanjeId, sectionId) {
+    return this.http.delete('http://localhost:8090/question/' + pitanjeId + '/' + sectionId,      {
       headers: new HttpHeaders().set('Content-Type', 'application/json'),
       responseType: 'text'
     });
   }
 
   // tslint:disable-next-line:typedef
-  deleteOdgovor(id) {
-    return this.http.delete('http://localhost:8090/answer/' + id,      {
+  deleteOdgovor(odgovorId, questionId) {
+    return this.http.delete('http://localhost:8090/answer/' + odgovorId + '/' + questionId,      {
       headers: new HttpHeaders().set('Content-Type', 'application/json'),
       responseType: 'text'
     });

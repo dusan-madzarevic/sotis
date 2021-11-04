@@ -28,6 +28,8 @@ export class NastavnikTestComponent implements OnInit {
 
   pitanje: any = [];
   odgovor: any = [];
+
+  myVar1 = false;
   constructor(private router: Router, private nastavnikService: NastavnikServiceService, private formBuilder: FormBuilder,
               private modalService: NgbModal) { }
 
@@ -96,6 +98,18 @@ export class NastavnikTestComponent implements OnInit {
   }
 
   // tslint:disable-next-line:typedef
+  create() {
+    this.TestForm.value.username = localStorage.getItem('currentuser').toString();
+    this.nastavnikService.kreirajTest(JSON.stringify(this.TestForm.value))
+      .pipe(first())
+      .subscribe();
+    this.testovi = [];
+    this.ucitajTestove();
+    this.modalService.dismissAll();
+    this.laganReload();
+  }
+
+  // tslint:disable-next-line:typedef
   dodajSekciju(test, addSection){
     this.test = test;
     this.modalService.open(addSection, {size: 'xl'}).result.then((result) => {
@@ -129,23 +143,12 @@ export class NastavnikTestComponent implements OnInit {
   // tslint:disable-next-line:typedef
   createPitanje() {
     this.QuestionForm.value.sectionId = this.sekcija.id;
-    this.nastavnikService.kreirajPitanje(JSON.stringify(this.SectionForm.value))
+    this.nastavnikService.kreirajPitanje(JSON.stringify(this.QuestionForm.value))
       .pipe(first())
       .subscribe();
     this.pitanja = [];
     this.ucitajPitanja();
     this.modalService.dismissAll();
-  }
-
-  // tslint:disable-next-line:typedef
-  create() {
-    this.nastavnikService.kreirajTest(JSON.stringify(this.TestForm.value))
-      .pipe(first())
-      .subscribe();
-    this.testovi = [];
-    this.ucitajTestove();
-    this.modalService.dismissAll();
-    this.laganReload();
   }
 
   // tslint:disable-next-line:typedef
@@ -183,11 +186,12 @@ export class NastavnikTestComponent implements OnInit {
 
   // tslint:disable-next-line:typedef
   deleteSekcija(sekcija) {
-    this.nastavnikService.deleteSekcija(sekcija.id)
+    this.nastavnikService.deleteSekcija(sekcija.id, this.test.id)
       .pipe(first())
       .subscribe();
     this.sekcije = [];
     this.ucitajSekcije();
+    this.modalService.dismissAll();
   }
 
   // tslint:disable-next-line:typedef
@@ -208,28 +212,30 @@ export class NastavnikTestComponent implements OnInit {
     this.nastavnikService.getPitanja(this.sekcija.id)
       .pipe(first())
       .subscribe(data => {
-        this.sekcije = data;
+        this.pitanja = data;
       });
   }
 
   // tslint:disable-next-line:typedef
   deletePitanje(pitanje) {
     this.pitanje = pitanje;
-    this.nastavnikService.deletePitanje(pitanje.id)
+    this.nastavnikService.obrisiPitanje(pitanje.id, pitanje.sectionId)
       .pipe(first())
       .subscribe();
     this.pitanja = [];
     this.ucitajPitanja();
+    this.modalService.dismissAll();
   }
 
   // tslint:disable-next-line:typedef
   deleteOdgovor(odgovor) {
     this.odgovor = odgovor;
-    this.nastavnikService.deleteOdgovor(odgovor.id)
+    this.nastavnikService.deleteOdgovor(odgovor.id, odgovor.questionId)
       .pipe(first())
       .subscribe();
     this.odgovori = [];
     this.ucitajOdgovore();
+    this.modalService.dismissAll();
   }
 
   // tslint:disable-next-line:typedef
@@ -267,7 +273,9 @@ export class NastavnikTestComponent implements OnInit {
   // tslint:disable-next-line:typedef
   createOdgovor() {
     this.AnswerForm.value.questionId = this.pitanje.id;
-    this.nastavnikService.kreirajOdgovor(JSON.stringify(this.SectionForm.value))
+    this.AnswerForm.value.correct = this.myVar1;
+    console.log(JSON.stringify(this.AnswerForm.value));
+    this.nastavnikService.kreirajOdgovor(JSON.stringify(this.AnswerForm.value))
       .pipe(first())
       .subscribe();
     this.odgovori = [];
