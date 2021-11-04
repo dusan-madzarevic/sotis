@@ -12,9 +12,6 @@ public class Question {
     @Column(name = "id")
     private Integer id;
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "testId")
-    private Test testId;
-    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "sectionId")
     private Section sectionId;
     @Column(name = "questionText")
@@ -47,14 +44,6 @@ public class Question {
 
     public void setSectionId(Section sectionId) {
         this.sectionId = sectionId;
-    }
-
-    public Test getTestId() {
-        return testId;
-    }
-
-    public void setTestId(Test testId) {
-        this.testId = testId;
     }
 
     public String getQuestionText() {

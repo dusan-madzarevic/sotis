@@ -1,5 +1,8 @@
 package com.backend.service;
 
+import com.backend.model.Professor;
+import com.backend.model.Question;
+import com.backend.model.Section;
 import com.backend.model.Test;
 import com.backend.repository.TestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,5 +25,9 @@ public class TestService {
 
     public void remove(Integer id) {
         testRepository.deleteById(id);
+    }
+
+    public List<Test> findByProfessor(Integer professorId){
+        return testRepository.findByProfessorId(professorId);
     }
 }

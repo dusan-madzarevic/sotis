@@ -13,4 +13,6 @@ public interface ProfessorRepository extends JpaRepository<Professor, Integer> {
     void deleteById(Integer id);
     List<Professor> findAllByUserType(String userType);
     Optional<Professor> findById(Integer id);
+
+    Optional<Professor> findByUsername(String username);
 }

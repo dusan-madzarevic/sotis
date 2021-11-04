@@ -11,5 +11,4 @@ import java.util.List;
 public interface SectionRepository extends JpaRepository<Section, Integer> {
 
     List<Section> findByTestId(Test test);
-
 }

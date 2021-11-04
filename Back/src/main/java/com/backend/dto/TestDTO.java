@@ -6,6 +6,13 @@ public class TestDTO {
     private Integer maxScore;
     private Integer passPercentage;
 
+    public TestDTO(String username, String title, Integer maxScore, Integer passPercentage) {
+        this.username = username;
+        this.title = title;
+        this.maxScore = maxScore;
+        this.passPercentage = passPercentage;
+    }
+
     public String getUsername() {
         return username;
     }

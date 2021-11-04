@@ -23,7 +23,7 @@ public class Test {
 
     @OneToMany(mappedBy = "testId",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonIgnore
-    private Set<Question> questions;
+    private Set<Section> questions;
 
     public Test() {
     }
@@ -68,11 +68,11 @@ public class Test {
         this.passPercentage = passPercentage;
     }
 
-    public Set<Question> getQuestions() {
+    public Set<Section> getQuestions() {
         return questions;
     }
 
-    public void setQuestions(Set<Question> questions) {
+    public void setQuestions(Set<Section> questions) {
         this.questions = questions;
     }
 }

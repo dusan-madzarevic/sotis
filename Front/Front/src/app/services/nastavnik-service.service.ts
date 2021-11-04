@@ -17,14 +17,6 @@ export class NastavnikServiceService {
   }
 
   // tslint:disable-next-line:typedef
-  deleteStanje(id,id1) {
-    return this.http.delete('http://localhost:8090/stanje/' + id + '/' + id1,      {
-      headers: new HttpHeaders().set('Content-Type', 'application/json'),
-      responseType: 'text'
-    });
-  }
-
-  // tslint:disable-next-line:typedef
   getStanja() {
     return this.http.get('http://localhost:8090/stanje',      {
       headers: new HttpHeaders().set('Content-Type', 'application/json')
@@ -71,6 +63,82 @@ export class NastavnikServiceService {
   // tslint:disable-next-line:typedef
   kreirajTest(user) {
     return this.http.post('http://localhost:8090/test', user,      {
+      headers: new HttpHeaders().set('Content-Type', 'application/json'),
+      responseType: 'text'
+    });
+  }
+
+  // tslint:disable-next-line:typedef
+  getSekcije(id) {
+    return this.http.get('http://localhost:8090/section/byTest/' + id,      {
+      headers: new HttpHeaders().set('Content-Type', 'application/json')
+    });
+  }
+
+  // tslint:disable-next-line:typedef
+  deleteSekcija(id) {
+    return this.http.delete('http://localhost:8090/section/' + id,      {
+      headers: new HttpHeaders().set('Content-Type', 'application/json'),
+      responseType: 'text'
+    });
+  }
+
+  // tslint:disable-next-line:typedef
+  getPitanja(id) {
+    return this.http.get('http://localhost:8090/question/bySection/' + id,      {
+      headers: new HttpHeaders().set('Content-Type', 'application/json')
+    });
+  }
+
+  // tslint:disable-next-line:typedef
+  getTestoviProfesora(username) {
+    return this.http.get('http://localhost:8090/test/byProfessor/' + username,      {
+      headers: new HttpHeaders().set('Content-Type', 'application/json')
+    });
+  }
+
+  // tslint:disable-next-line:typedef
+  kreirajSekciju(section) {
+    return this.http.post('http://localhost:8090/section', section,      {
+      headers: new HttpHeaders().set('Content-Type', 'application/json'),
+      responseType: 'text'
+    });
+  }
+
+  // tslint:disable-next-line:typedef
+  kreirajPitanje(question) {
+    return this.http.post('http://localhost:8090/question', question,      {
+      headers: new HttpHeaders().set('Content-Type', 'application/json'),
+      responseType: 'text'
+    });
+  }
+
+  // tslint:disable-next-line:typedef
+  deletePitanje(id) {
+    return this.http.delete('http://localhost:8090/question/' + id,      {
+      headers: new HttpHeaders().set('Content-Type', 'application/json'),
+      responseType: 'text'
+    });
+  }
+
+  // tslint:disable-next-line:typedef
+  deleteOdgovor(id) {
+    return this.http.delete('http://localhost:8090/answer/' + id,      {
+      headers: new HttpHeaders().set('Content-Type', 'application/json'),
+      responseType: 'text'
+    });
+  }
+
+  // tslint:disable-next-line:typedef
+  getOdgovori(id) {
+    return this.http.get('http://localhost:8090/answer/byQuestion/' + id,      {
+      headers: new HttpHeaders().set('Content-Type', 'application/json')
+    });
+  }
+
+  // tslint:disable-next-line:typedef
+  kreirajOdgovor(odgovor) {
+    return this.http.post('http://localhost:8090/answer', odgovor,      {
       headers: new HttpHeaders().set('Content-Type', 'application/json'),
       responseType: 'text'
     });
