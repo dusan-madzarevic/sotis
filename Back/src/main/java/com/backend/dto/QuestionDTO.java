@@ -1,16 +1,32 @@
 package com.backend.dto;
 
 public class QuestionDTO {
-    private Integer testTypeId;
+    private Integer id;
+    private Integer sectionId;
     private String questionText;
     private Integer score;
 
-    public Integer getTestTypeId() {
-        return testTypeId;
+    public QuestionDTO(Integer id, Integer sectionId, String questionText, Integer score) {
+        this.id = id;
+        this.sectionId = sectionId;
+        this.questionText = questionText;
+        this.score = score;
     }
 
-    public void setTestTypeId(Integer testTypeId) {
-        this.testTypeId = testTypeId;
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getSectionId() {
+        return sectionId;
+    }
+
+    public void setSectionId(Integer sectionId) {
+        this.sectionId = sectionId;
     }
 
     public String getQuestionText() {

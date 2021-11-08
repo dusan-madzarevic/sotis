@@ -13,4 +13,5 @@ public interface TestRepository extends JpaRepository<Test, Integer> {
     Test save(Test test);
     Optional<Test> findById(Integer id);
     void deleteById(Integer id);
+    List<Test> findByProfessorId(Integer id);
 }

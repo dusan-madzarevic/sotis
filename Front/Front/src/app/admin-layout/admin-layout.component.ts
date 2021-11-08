@@ -10,7 +10,6 @@ import {first} from 'rxjs/operators';
   styleUrls: ['./admin-layout.component.css']
 })
 export class AdminLayoutComponent implements OnInit {
-  admin: any = [];
   korisnik: any = [];
   constructor(private formBuilder: FormBuilder,
               private router: Router, private adminService: AdminServiceService) { }
@@ -25,10 +24,9 @@ export class AdminLayoutComponent implements OnInit {
       .pipe(first())
       .subscribe((data: {}) => {
           this.korisnik = data;
-          this.admin = this.korisnik.radnikRId;
-          if (this.admin.radnikTip !== 'Admin') {
-            this.router.navigate(['/']);
-          }
+          if (this.korisnik.userType !== 'Administrator') {
+          this.router.navigate(['/']);
+           }
         }
       );
   }

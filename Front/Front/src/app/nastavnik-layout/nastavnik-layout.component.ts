@@ -10,7 +10,6 @@ import {first} from 'rxjs/operators';
   styleUrls: ['./nastavnik-layout.component.css']
 })
 export class NastavnikLayoutComponent implements OnInit {
-  admin: any = [];
   korisnik: any = [];
   constructor(private formBuilder: FormBuilder,
               private router: Router, private adminService: AdminServiceService) { }
@@ -25,8 +24,7 @@ export class NastavnikLayoutComponent implements OnInit {
       .pipe(first())
       .subscribe((data: {}) => {
           this.korisnik = data;
-          this.admin = this.korisnik.radnikRId;
-          if (this.admin.radnikTip !== 'Nastavnik') {
+          if (this.korisnik.userType !== 'Professor') {
             this.router.navigate(['/']);
           }
         }

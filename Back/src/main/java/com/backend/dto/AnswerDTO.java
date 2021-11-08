@@ -1,10 +1,27 @@
 package com.backend.dto;
 
 public class AnswerDTO {
+    private Integer id;
     private Integer questionId;
     private String answerText;
     private Boolean correct;
     private Integer score;
+
+    public AnswerDTO(Integer id, Integer questionId, String answerText, Boolean correct, Integer score) {
+        this.id = id;
+        this.questionId = questionId;
+        this.answerText = answerText;
+        this.correct = correct;
+        this.score = score;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public Integer getQuestionId() {
         return questionId;

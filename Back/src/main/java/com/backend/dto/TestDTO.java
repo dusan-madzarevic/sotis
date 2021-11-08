@@ -1,58 +1,57 @@
 package com.backend.dto;
 
 public class TestDTO {
-    private Integer studentId;
-    private Integer testTypeId;
-    private String startTime;
-    private String endTime;
-    private String finalScore;
-    private Boolean passed;
+    private Integer id;
+    private String username;
+    private String title;
+    private Integer maxScore;
+    private Integer passPercentage;
 
-    public Integer getStudentId() {
-        return studentId;
+    public TestDTO(Integer id, String username, String title, Integer maxScore, Integer passPercentage) {
+        this.id = id;
+        this.username = username;
+        this.title = title;
+        this.maxScore = maxScore;
+        this.passPercentage = passPercentage;
     }
 
-    public void setStudentId(Integer studentId) {
-        this.studentId = studentId;
+    public Integer getId() {
+        return id;
     }
 
-    public Integer getTestTypeId() {
-        return testTypeId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public void setTestTypeId(Integer testTypeId) {
-        this.testTypeId = testTypeId;
+    public String getUsername() {
+        return username;
     }
 
-    public String getStartTime() {
-        return startTime;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public void setStartTime(String startTime) {
-        this.startTime = startTime;
+    public String getTitle() {
+        return title;
     }
 
-    public String getEndTime() {
-        return endTime;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public void setEndTime(String endTime) {
-        this.endTime = endTime;
+    public Integer getMaxScore() {
+        return maxScore;
     }
 
-    public String getFinalScore() {
-        return finalScore;
+    public void setMaxScore(Integer maxScore) {
+        this.maxScore = maxScore;
     }
 
-    public void setFinalScore(String finalScore) {
-        this.finalScore = finalScore;
+    public Integer getPassPercentage() {
+        return passPercentage;
     }
 
-    public Boolean getPassed() {
-        return passed;
-    }
-
-    public void setPassed(Boolean passed) {
-        this.passed = passed;
+    public void setPassPercentage(Integer passPercentage) {
+        this.passPercentage = passPercentage;
     }
 }

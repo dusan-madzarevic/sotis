@@ -9,15 +9,15 @@ import java.util.Set;
 public class Student extends User {
     @OneToMany(mappedBy = "studentId",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonIgnore
-    private Set<Test> tests;
+    private Set<TestAttempt> testAttempts;
 
     public Student(){}
 
-    public Set<Test> getTests() {
-        return tests;
+    public Set<TestAttempt> getTests() {
+        return testAttempts;
     }
 
-    public void setTests(Set<Test> tests) {
-        this.tests = tests;
+    public void setTests(Set<TestAttempt> testAttempts) {
+        this.testAttempts = testAttempts;
     }
 }

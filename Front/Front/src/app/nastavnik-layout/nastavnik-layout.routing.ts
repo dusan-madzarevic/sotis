@@ -1,6 +1,8 @@
 import {Routes} from '@angular/router';
-import {AdminProfilComponent} from '../admin-profil/admin-profil.component';
+import {NastavnikProfilComponent} from '../nastavnik-profil/nastavnik-profil.component';
+import {NastavnikTestComponent} from '../nastavnik-test/nastavnik-test.component';
 
 export const NastavnikLayoutRutes: Routes = [
-  { path: 'magacionerProfil',      component: AdminProfilComponent }
+  { path: 'nastavnikProfil',      component: NastavnikProfilComponent },
+  { path: 'nastavnikTest',      component: NastavnikTestComponent }
 ];

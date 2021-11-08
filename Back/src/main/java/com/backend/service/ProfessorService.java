@@ -25,4 +25,6 @@ public class ProfessorService {
         return professorRepository.findAllByUserType(userType); }
 
     public Optional<Professor> findById(Integer id) { return  professorRepository.findById(id); }
+
+    public Optional<Professor> findByUsername(String username) { return  professorRepository.findByUsername(username); }
 }

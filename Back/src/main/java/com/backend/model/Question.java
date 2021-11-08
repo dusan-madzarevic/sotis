@@ -12,12 +12,16 @@ public class Question {
     @Column(name = "id")
     private Integer id;
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "testTypeId")
-    private TestType testTypeId;
+    @JoinColumn(name = "sectionId")
+    private Section sectionId;
     @Column(name = "questionText")
     private String questionText;
     @Column(name = "score")
     private Integer score;
+
+    @Lob
+    @Column(name = "questionImage")
+    private byte[] questionImage;
 
     @OneToMany(mappedBy = "questionId",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonIgnore
@@ -34,12 +38,12 @@ public class Question {
         this.id = id;
     }
 
-    public TestType getTestTypeId() {
-        return testTypeId;
+    public Section getSectionId() {
+        return sectionId;
     }
 
-    public void setTestTypeId(TestType testTypeId) {
-        this.testTypeId = testTypeId;
+    public void setSectionId(Section sectionId) {
+        this.sectionId = sectionId;
     }
 
     public String getQuestionText() {
@@ -64,5 +68,13 @@ public class Question {
 
     public void setAnswers(Set<Answer> answers) {
         this.answers = answers;
+    }
+
+    public byte[] getQuestionImage() {
+        return questionImage;
+    }
+
+    public void setQuestionImage(byte[] questionImage) {
+        this.questionImage = questionImage;
     }
 }

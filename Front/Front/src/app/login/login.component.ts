@@ -10,7 +10,7 @@ import {AdminServiceService} from '../services/admin-service.service';
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
-  korisnik;
+  user;
 
   constructor(private formBuilder: FormBuilder,
               private router: Router,
@@ -18,26 +18,26 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
-      korisnickoIme: ['', Validators.required],
-      lozinka: ['', Validators.required]
+      username: ['', Validators.required],
+      password: ['', Validators.required]
     });
   }
   // tslint:disable-next-line:typedef
   onSubmit() {
     this.service.login(this.loginForm.value)
       .subscribe( data => {
-        this.korisnik = data;
-        if (this.korisnik.aktivan && this.korisnik.radnikRId.radnikTip === 'Admin'){
-          localStorage.setItem('currentuser', this.loginForm.value.korisnickoIme);
+        this.user = data;
+        if (this.user.userType === 'Administrator'){
+          localStorage.setItem('currentuser', this.loginForm.value.username);
           this.router.navigate(['/admin']);
         }
-        if (this.korisnik.aktivan && this.korisnik.radnikRId.radnikTip === 'Magacioner'){
-          localStorage.setItem('currentuser', this.loginForm.value.korisnickoIme);
-          this.router.navigate(['/magacioner']);
+        if (this.user.userType === 'Student'){
+          localStorage.setItem('currentuser', this.loginForm.value.username);
+          this.router.navigate(['/ucenik']);
         }
-        if (this.korisnik.aktivan && this.korisnik.radnikRId.radnikTip === 'Operater'){
-          localStorage.setItem('currentuser', this.loginForm.value.korisnickoIme);
-          this.router.navigate(['/operater']);
+        if (this.user.userType === 'Professor'){
+          localStorage.setItem('currentuser', this.loginForm.value.username);
+          this.router.navigate(['/nastavnik']);
         }
       })
     ;

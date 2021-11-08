@@ -1,6 +1,8 @@
 package com.backend.service;
 
 import com.backend.model.Question;
+import com.backend.model.Section;
+import com.backend.model.Test;
 import com.backend.repository.QuestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,5 +24,9 @@ public class QuestionService {
 
     public void remove(Integer id) {
         questionRepository.deleteById(id);
+    }
+
+    public List<Question> findBySection(Section section){
+        return questionRepository.findBySectionId(section);
     }
 }
