@@ -283,4 +283,18 @@ export class NastavnikTestComponent implements OnInit {
     this.modalService.dismissAll();
   }
 
+  preuzmiRezultate(id) {
+
+    this.nastavnikService.preuzmiRezultate(id).subscribe(res => {
+
+      const blob = new Blob([res], { type: 'application/octet-stream' });
+      const url = window.URL.createObjectURL(blob);
+      const anchor = document.createElement("a");
+      anchor.download = "testResults"+id+".csv";
+      anchor.href = url;
+      anchor.click();
+
+
+    });
+  }
 }

@@ -1,0 +1,57 @@
+<div class="panel-header panel-header-sm">
+</div>
+<html>
+<body>
+<!-- header -->
+<nav class="navbar">
+  <!--
+    <div class="navbar-brand">
+      <button class="navbar-item navbar-item-right">gfdgfdg</button>
+    </div>
+
+  -->
+  <a class="mat-button" (click)="logout()">Logout</a>
+</nav>
+
+<div class="row">
+  <div class="col-6">
+    <h3>Polaganje testa</h3>
+  </div>
+</div>
+<div id="quiz">
+  <h2 class="text-center font-weight-normal">{{test.testName}}</h2>
+  <hr />
+
+  <div *ngIf=test>
+    <div *ngFor="let question of test.questions;">
+      <div class="badge badge-info">Question {{pager.index + 1}} of {{pager.count}}.</div>
+      <h3 class="font-weight-normal">{{pager.index + 1}}.
+        <span [innerHTML]="question.questionText"></span>
+      </h3>
+      <div class="row text-left options">
+        <div class="col-6" *ngFor="let answer of question.answers">
+          <div class="option">
+            <label class="font-weight-normal" [attr.for]="answer.answerID">
+              <input id="{{answer.answerID}}" type="checkbox" [(ngModel)]="answer.selected" (change)="onSelect(question, answer);" /> {{answer.answerText}}
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr />
+    <div class="text-center">
+      <button class="btn btn-default" (click)="goTo(0);">First</button>
+      <button class="btn btn-default" (click)="goTo(pager.index - 1);">Prev</button>
+      <button class="btn btn-primary" (click)="goTo(pager.index + 1);">Next</button>
+      <button class="btn btn-default" (click)="goTo(pager.count - 1);">Last</button>
+      <!--<pagination *ngIf="config.showPager" direction-links="false" total-items="totalItems" items-per-page="itemsPerPage" ng-model="currentPage" ng-change="pageChanged()"></pagination>-->
+    </div>
+  </div>
+
+  <div>
+    <button class="btn btn-primary" (click)="onSubmit();">Submit Quiz</button>
+  </div>
+</div>
+
+</body>
+</html>

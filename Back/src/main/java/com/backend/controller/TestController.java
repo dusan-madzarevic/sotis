@@ -63,13 +63,16 @@ public class TestController {
 
     }
     @GetMapping(produces = "application/json")
-    public ResponseEntity<List<Test>> getTests() {
+    public ResponseEntity<List<TestDTO>> getTests() {
         List<Test> tests = testService.findAll();
-        if(tests != null)
-        {
-            return new ResponseEntity<>(tests, HttpStatus.OK);
+        List<TestDTO> response = new ArrayList<>();
+        for (Test test :
+                tests) {
+            response.add(new TestDTO(test.getId(), test.getProfessorId().getUsername(), test.getProfessorId().getName()+ " "+ test.getProfessorId().getLastName(), test.getTitle(), test.getMaxScore(), test.getPassPercentage()));
         }
-        return new ResponseEntity<>(tests, HttpStatus.NOT_MODIFIED);
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
+
     }
 
     @GetMapping(value = "/byProfessor/{username}", produces = "application/json")
@@ -83,7 +86,7 @@ public class TestController {
                 if(u.getUsername().equals(professorUsername)){
                     for( Test t : tests){
                         if(t.getProfessorId().getUsername().equals(professorUsername)){
-                            response.add(new TestDTO(t.getId(), professorUsername, t.getTitle(), t.getMaxScore(), t.getPassPercentage()));
+                            response.add(new TestDTO(t.getId(), professorUsername, t.getProfessorId().getName()+ " "+ t.getProfessorId().getLastName(), t.getTitle(), t.getMaxScore(), t.getPassPercentage()));
                         }
                     }
                 }
@@ -108,4 +111,6 @@ public class TestController {
         testService.remove(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+
 }

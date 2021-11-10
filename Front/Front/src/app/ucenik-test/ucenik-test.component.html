@@ -1,0 +1,61 @@
+<div class="panel-header panel-header-sm">
+</div>
+<html>
+<body>
+<!-- header -->
+<nav class="navbar">
+  <!--
+    <div class="navbar-brand">
+      <button class="navbar-item navbar-item-right">gfdgfdg</button>
+    </div>
+
+  -->
+  <a class="mat-button" (click)="logout()">Logout</a>
+</nav>
+
+<h1>Svi testovi profesora</h1>
+<div>
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <thead class=" text-primary">
+      <th>
+        Id
+      </th>
+      <th>
+        Naziv
+      </th>
+      <th>
+        Max skor
+      </th>
+      <th>
+        Prolazni %
+      </th>
+      <th>
+        Kreirao
+      </th>
+      <th>
+        Opcije
+      </th>
+      </thead>
+      <tbody>
+      <ng-container *ngFor="let test of testovi">
+        <tr>
+          <td>{{test.id}}</td>
+          <td>{{test.title}}</td>
+          <td>{{test.maxScore}}</td>
+          <td>{{test.passPercentage}}</td>
+          <td>{{test.professorName}}</td>
+
+          <td>
+            <a mat-button color="primary" (click)="startAttempt(test.id)">Polaži</a>
+          </td>
+
+
+        </tr>
+      </ng-container>
+      </tbody>
+    </table>
+  </div>
+</div>
+</body>
+</html>

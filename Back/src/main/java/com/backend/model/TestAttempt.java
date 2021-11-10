@@ -26,9 +26,13 @@ public class TestAttempt {
     @Column(name = "passed")
     private Boolean passed;
 
-    @OneToMany(mappedBy = "testAttemptId",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany
+    @JoinTable(
+            name = "chosen_answers",
+            joinColumns = @JoinColumn(name = "testAttemptId"),
+            inverseJoinColumns = @JoinColumn(name = "answerId"))
     @JsonIgnore
-    private Set<ChosenAnswer> chosenAnswers;
+    private Set<Answer> chosenAnswers;
 
     public TestAttempt() {
     }
@@ -88,12 +92,12 @@ public class TestAttempt {
     public void setPassed(Boolean passed) {
         this.passed = passed;
     }
-
-    public Set<ChosenAnswer> getChosenAnswers() {
+    @JsonIgnore
+    public Set<Answer> getChosenAnswers() {
         return chosenAnswers;
     }
 
-    public void setChosenAnswers(Set<ChosenAnswer> chosenAnswers) {
+    public void setChosenAnswers(Set<Answer> chosenAnswers) {
         this.chosenAnswers = chosenAnswers;
     }
 }

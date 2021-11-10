@@ -3,13 +3,15 @@ package com.backend.dto;
 public class TestDTO {
     private Integer id;
     private String username;
+    private String professorName;
     private String title;
     private Integer maxScore;
     private Integer passPercentage;
 
-    public TestDTO(Integer id, String username, String title, Integer maxScore, Integer passPercentage) {
+    public TestDTO(Integer id, String username, String professorName, String title, Integer maxScore, Integer passPercentage) {
         this.id = id;
         this.username = username;
+        this.professorName = professorName;
         this.title = title;
         this.maxScore = maxScore;
         this.passPercentage = passPercentage;
@@ -29,6 +31,14 @@ public class TestDTO {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getProfessorName() {
+        return professorName;
+    }
+
+    public void setProfessorName(String professorName) {
+        this.professorName = professorName;
     }
 
     public String getTitle() {

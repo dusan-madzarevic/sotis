@@ -76,7 +76,7 @@ export class NastavnikServiceService {
   }
 
   // tslint:disable-next-line:typedef
-  deleteSekcija(sectionId,testId) {
+  deleteSekcija(sectionId, testId) {
     return this.http.delete('http://localhost:8090/section/' + sectionId + '/' + testId,      {
       headers: new HttpHeaders().set('Content-Type', 'application/json'),
       responseType: 'text'
@@ -142,5 +142,12 @@ export class NastavnikServiceService {
       headers: new HttpHeaders().set('Content-Type', 'application/json'),
       responseType: 'text'
     });
+  }
+
+  preuzmiRezultate(id) {
+
+
+    return this.http.get('http://localhost:8090/testAttempt/'+id+'/results', {responseType: 'blob'});
+
   }
 }

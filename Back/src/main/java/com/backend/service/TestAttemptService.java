@@ -1,5 +1,6 @@
 package com.backend.service;
 
+import com.backend.model.Test;
 import com.backend.model.TestAttempt;
 import com.backend.repository.TestAttemptRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ public class TestAttemptService {
     public Optional<TestAttempt> findById(Integer id) { return  testAttemptRepository.findById(id); }
     public List<TestAttempt> findAll() {
         return testAttemptRepository.findAll(); }
+    public List<TestAttempt> findAllByTest(Test test){ return testAttemptRepository.findByTestId(test);}
 
     public void remove(Integer id) {
         testAttemptRepository.deleteById(id);

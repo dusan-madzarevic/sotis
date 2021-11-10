@@ -12,7 +12,7 @@ public class Student extends User {
     private Set<TestAttempt> testAttempts;
 
     public Student(){}
-
+    @JsonIgnore
     public Set<TestAttempt> getTests() {
         return testAttempts;
     }

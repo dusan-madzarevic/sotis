@@ -45,6 +45,10 @@ const routes: Routes = [
       {
         path: '',
         loadChildren: './ucenik-layout/ucenik-layout.module#UcenikLayoutModule'
+      },
+      {
+        path: '',
+        loadChildren: './ucenik-test/ucenik-test.module#UcenikTestModule'
       }]
   },
 ];

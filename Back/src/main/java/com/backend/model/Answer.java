@@ -21,9 +21,9 @@ public class Answer {
     @Column(name = "score")
     private Integer score;
 
-    @OneToMany(mappedBy = "answerId",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "chosenAnswers")
     @JsonIgnore
-    private Set<ChosenAnswer> chosenAnswers;
+    Set<TestAttempt> testAttempts;
 
     public Answer() {
     }
@@ -68,11 +68,4 @@ public class Answer {
         this.score = score;
     }
 
-    public Set<ChosenAnswer> getChosenAnswers() {
-        return chosenAnswers;
-    }
-
-    public void setChosenAnswers(Set<ChosenAnswer> chosenAnswers) {
-        this.chosenAnswers = chosenAnswers;
-    }
 }

@@ -25,4 +25,8 @@ public class StudentService {
         return studentRepository.findAllByUserType(userType); }
 
     public Optional<Student> findById(Integer id) { return  studentRepository.findById(id); }
+
+    public Optional<Student> findByUsername(String username){
+        return studentRepository.findByUsername(username);
+    }
 }
