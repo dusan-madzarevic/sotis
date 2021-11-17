@@ -29,20 +29,20 @@ public class KnowledgeStateController {
             }
             knowledgeState.setName(knowledgeStateDTO.getName());
 
-            Optional<KnowledgeState> knowledgeState1 = knowladgeStateService.findById(knowledgeStateDTO.getPrednodni());
+            Optional<KnowledgeState> knowledgeState1 = knowladgeStateService.findById(knowledgeStateDTO.getPrevious());
             if(knowledgeState1.isPresent() ) {
                 knowledgeState1.ifPresent(knowledgeState2 -> {
-                    knowledgeState.getPredhodnici().add(knowledgeState2);
+                    knowledgeState.getPredecessors().add(knowledgeState2);
                 });
             }
             else{
                 return new ResponseEntity<>(0, HttpStatus.NOT_MODIFIED);
             }
 
-            Optional<KnowledgeState> knowledgeState3 = knowladgeStateService.findById(knowledgeStateDTO.getSledeci());
+            Optional<KnowledgeState> knowledgeState3 = knowladgeStateService.findById(knowledgeStateDTO.getNext());
             if(knowledgeState3.isPresent() ) {
                 knowledgeState3.ifPresent(knowledgeState4 -> {
-                    knowledgeState.getSledbenici().add(knowledgeState4);
+                    knowledgeState.getFollowers().add(knowledgeState4);
                 });
             }
             else{

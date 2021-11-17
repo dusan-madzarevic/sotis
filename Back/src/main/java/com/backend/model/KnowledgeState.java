@@ -16,17 +16,17 @@ public class KnowledgeState {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "previousKnowledgeStateId")
-    private KnowledgeState prednodni;
-    @OneToMany(mappedBy = "prednodni",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private KnowledgeState previous;
+    @OneToMany(mappedBy = "previous",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonIgnore
-    private Set<KnowledgeState> predhodnici;
+    private Set<KnowledgeState> predecessors;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "nextKnowledgeStateId")
-    private KnowledgeState sledeci;
-    @OneToMany(mappedBy = "sledeci",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private KnowledgeState next;
+    @OneToMany(mappedBy = "next",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonIgnore
-    private Set<KnowledgeState> sledbenici;
+    private Set<KnowledgeState> followers;
 
     @OneToMany(mappedBy = "knowledgeStateId",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonIgnore
@@ -56,36 +56,20 @@ public class KnowledgeState {
         this.name = name;
     }
 
-    public KnowledgeState getPrednodni() {
-        return prednodni;
+    public KnowledgeState getPrevious() {
+        return previous;
     }
 
-    public void setPrednodni(KnowledgeState prednodni) {
-        this.prednodni = prednodni;
+    public void setPrevious(KnowledgeState previous) {
+        this.previous = previous;
     }
 
-    public Set<KnowledgeState> getPredhodnici() {
-        return predhodnici;
+    public KnowledgeState getNext() {
+        return next;
     }
 
-    public void setPredhodnici(Set<KnowledgeState> predhodnici) {
-        this.predhodnici = predhodnici;
-    }
-
-    public KnowledgeState getSledeci() {
-        return sledeci;
-    }
-
-    public void setSledeci(KnowledgeState sledeci) {
-        this.sledeci = sledeci;
-    }
-
-    public Set<KnowledgeState> getSledbenici() {
-        return sledbenici;
-    }
-
-    public void setSledbenici(Set<KnowledgeState> sledbenici) {
-        this.sledbenici = sledbenici;
+    public void setNext(KnowledgeState next) {
+        this.next = next;
     }
 
     public Set<Problem> getProblems() {
@@ -102,5 +86,21 @@ public class KnowledgeState {
 
     public void setStudentSubjects(Set<StudentSubject> studentSubjects) {
         this.studentSubjects = studentSubjects;
+    }
+
+    public Set<KnowledgeState> getPredecessors() {
+        return predecessors;
+    }
+
+    public void setPredecessors(Set<KnowledgeState> predecessors) {
+        this.predecessors = predecessors;
+    }
+
+    public Set<KnowledgeState> getFollowers() {
+        return followers;
+    }
+
+    public void setFollowers(Set<KnowledgeState> followers) {
+        this.followers = followers;
     }
 }

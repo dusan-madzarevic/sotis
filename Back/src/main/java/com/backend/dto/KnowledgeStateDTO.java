@@ -3,8 +3,8 @@ package com.backend.dto;
 public class KnowledgeStateDTO {
     private Integer id;
     private String name;
-    private Integer prednodni;
-    private Integer sledeci;
+    private Integer previous;
+    private Integer next;
 
     public Integer getId() {
         return id;
@@ -22,19 +22,19 @@ public class KnowledgeStateDTO {
         this.name = name;
     }
 
-    public Integer getPrednodni() {
-        return prednodni;
+    public Integer getPrevious() {
+        return previous;
     }
 
-    public void setPrednodni(Integer prednodni) {
-        this.prednodni = prednodni;
+    public void setPrevious(Integer previous) {
+        this.previous = previous;
     }
 
-    public Integer getSledeci() {
-        return sledeci;
+    public Integer getNext() {
+        return next;
     }
 
-    public void setSledeci(Integer sledeci) {
-        this.sledeci = sledeci;
+    public void setNext(Integer next) {
+        this.next = next;
     }
 }
