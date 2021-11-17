@@ -27,6 +27,10 @@ public class Question {
     @JsonIgnore
     private Set<Answer> answers;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "problemId")
+    private Problem problem;
+
     public Question() {
     }
 
@@ -76,5 +80,13 @@ public class Question {
 
     public void setQuestionImage(byte[] questionImage) {
         this.questionImage = questionImage;
+    }
+
+    public Problem getProblem() {
+        return problem;
+    }
+
+    public void setProblem(Problem problem) {
+        this.problem = problem;
     }
 }
