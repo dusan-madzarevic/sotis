@@ -11,13 +11,30 @@ public class Student extends User {
     @JsonIgnore
     private Set<TestAttempt> testAttempts;
 
+    @OneToMany(mappedBy = "studentId",cascade = CascadeType.ALL, fetch = FetchType.EAGER)   //ovo proveriti jer ne postoji u bazi studentId vec userId
+    @JsonIgnore
+    private Set<StudentSubject> studentSubjects;
+
     public Student(){}
+
     @JsonIgnore
     public Set<TestAttempt> getTests() {
         return testAttempts;
     }
 
-    public void setTests(Set<TestAttempt> testAttempts) {
+    public Set<TestAttempt> getTestAttempts() {
+        return testAttempts;
+    }
+
+    public void setTestAttempts(Set<TestAttempt> testAttempts) {
         this.testAttempts = testAttempts;
+    }
+
+    public Set<StudentSubject> getStudentSubjects() {
+        return studentSubjects;
+    }
+
+    public void setStudentSubjects(Set<StudentSubject> studentSubjects) {
+        this.studentSubjects = studentSubjects;
     }
 }

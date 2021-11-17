@@ -2,7 +2,6 @@ package com.backend.service;
 
 import com.backend.model.Answer;
 import com.backend.model.Question;
-import com.backend.model.Section;
 import com.backend.repository.AnswerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -1,10 +1,8 @@
 package com.backend.controller;
 
 import com.backend.dto.AnswerDTO;
-import com.backend.dto.QuestionDTO;
 import com.backend.model.Answer;
 import com.backend.model.Question;
-import com.backend.model.Section;
 import com.backend.service.AnswerService;
 import com.backend.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,8 +52,8 @@ public class AnswerController {
         }catch(Exception e){
             return new ResponseEntity<>(0,HttpStatus.NOT_MODIFIED);
         }
-
     }
+
     @GetMapping(produces = "application/json")
     public ResponseEntity<List<Answer>> getAnswers() {
         List<Answer> answers = answerService.findAll();

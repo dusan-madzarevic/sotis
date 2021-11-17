@@ -25,6 +25,10 @@ public class Problem {
     @JoinColumn(name = "subjectId")
     private Subject subject;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "knowledgeStateId")
+    private KnowledgeState knowledgeStateId;
+
     public Problem() {
     }
 
@@ -80,5 +84,13 @@ public class Problem {
 
     public void setSubject(Subject subject) {
         this.subject = subject;
+    }
+
+    public KnowledgeState getKnowledgeStateId() {
+        return knowledgeStateId;
+    }
+
+    public void setKnowledgeStateId(KnowledgeState knowledgeStateId) {
+        this.knowledgeStateId = knowledgeStateId;
     }
 }

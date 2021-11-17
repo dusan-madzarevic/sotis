@@ -21,6 +21,9 @@ public class Subject {
     @OneToMany(mappedBy = "subject",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     Set<Problem> problems;
 
+    @OneToMany(mappedBy = "subjectId",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    Set<StudentSubject> studentSubjects;
+
     public Subject() {
     }
 
@@ -55,5 +58,17 @@ public class Subject {
 
     public Set<Problem> getProblems() {
         return problems;
+    }
+
+    public void setProblems(Set<Problem> problems) {
+        this.problems = problems;
+    }
+
+    public Set<StudentSubject> getStudentSubjects() {
+        return studentSubjects;
+    }
+
+    public void setStudentSubjects(Set<StudentSubject> studentSubjects) {
+        this.studentSubjects = studentSubjects;
     }
 }

@@ -8,10 +8,13 @@ public class ProblemDTO {
 
     private String description;
 
-    public ProblemDTO(String name, String description, Integer id) {
+    private Integer knowledgeStateId;
+
+    public ProblemDTO(String name, String description, Integer id, Integer knowledgeStateId) {
         this.subjectId = id;
         this.name = name;
         this.description = description;
+        this.knowledgeStateId = knowledgeStateId;
     }
 
 
@@ -37,5 +40,13 @@ public class ProblemDTO {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Integer getKnowledgeStateId() {
+        return knowledgeStateId;
+    }
+
+    public void setKnowledgeStateId(Integer knowledgeStateId) {
+        this.knowledgeStateId = knowledgeStateId;
     }
 }

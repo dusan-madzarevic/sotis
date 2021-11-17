@@ -2,8 +2,6 @@ package com.backend.repository;
 
 import com.backend.model.Answer;
 import com.backend.model.Question;
-import com.backend.model.Section;
-import com.backend.model.Test;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
