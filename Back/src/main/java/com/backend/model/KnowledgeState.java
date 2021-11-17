@@ -15,14 +15,14 @@ public class KnowledgeState {
     private String name;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "knowledgeStateId")
+    @JoinColumn(name = "previousKnowledgeStateId")
     private KnowledgeState prednodni;
     @OneToMany(mappedBy = "prednodni",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonIgnore
     private Set<KnowledgeState> predhodnici;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "knowledgeStateId")
+    @JoinColumn(name = "nextKnowledgeStateId")
     private KnowledgeState sledeci;
     @OneToMany(mappedBy = "sledeci",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonIgnore
