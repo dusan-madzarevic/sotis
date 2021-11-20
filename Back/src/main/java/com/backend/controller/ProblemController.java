@@ -1,18 +1,19 @@
 package com.backend.controller;
 
+import com.backend.dto.LearnedProblemDTO;
 import com.backend.dto.ProblemDTO;
 import com.backend.model.Problem;
+import com.backend.model.Student;
 import com.backend.model.Subject;
 import com.backend.service.ProblemService;
+import com.backend.service.StudentService;
 import com.backend.service.SubjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @RestController
 @CrossOrigin
@@ -24,6 +25,9 @@ public class ProblemController {
 
     @Autowired
     private SubjectService subjectService;
+
+    @Autowired
+    private StudentService studentService;
 
     @PostMapping(consumes = "application/json")
     public ResponseEntity<Integer> saveProblem(@RequestBody ProblemDTO problemDTO){
@@ -45,6 +49,31 @@ public class ProblemController {
             return new ResponseEntity<Integer>(0, HttpStatus.NOT_MODIFIED);
         }
 
+    }
+
+    @PostMapping(value = "/learnedProblem", consumes = "application/json")
+    public ResponseEntity<Void> saveLearnedProblems(@RequestBody LearnedProblemDTO learnedProblemDTO){
+        try{
+            List<Student> students = studentService.findAllByUserType("Student");
+            Optional<Problem> problem = problemService.findById(learnedProblemDTO.getProblemId());
+
+            Set<Student> novi = new HashSet<>();
+            if(problem.isPresent() ) {
+                problem.ifPresent(problem1 -> {
+                    for(Student s : students){
+                        for( Integer dtoStudentId : learnedProblemDTO.getStudentId()){
+                            if( s.getId() == dtoStudentId){
+                                novi.add(s);
+                            }
+                        }
+                    }
+                    problem1.setLearnedProblems(novi);
+                });
+            }
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        }catch(Exception e){
+            return new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
+        }
     }
 
     @GetMapping(value = "/bySubject/{subjectId}", produces = "application/json")

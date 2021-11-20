@@ -3,9 +3,7 @@ package com.backend.dto;
 public class ProblemDTO {
 
     private Integer subjectId;
-
     private String name;
-
     private String description;
 
     public ProblemDTO(String name, String description, Integer id) {

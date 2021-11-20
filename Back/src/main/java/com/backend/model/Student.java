@@ -11,9 +11,9 @@ public class Student extends User {
     @JsonIgnore
     private Set<TestAttempt> testAttempts;
 
-    @OneToMany(mappedBy = "studentId",cascade = CascadeType.ALL, fetch = FetchType.EAGER)   //ovo proveriti jer ne postoji u bazi studentId vec userId
+    @ManyToMany(mappedBy = "learnedProblems")
     @JsonIgnore
-    private Set<StudentSubject> studentSubjects;
+    Set<Problem> problems;
 
     public Student(){}
 
@@ -30,11 +30,4 @@ public class Student extends User {
         this.testAttempts = testAttempts;
     }
 
-    public Set<StudentSubject> getStudentSubjects() {
-        return studentSubjects;
-    }
-
-    public void setStudentSubjects(Set<StudentSubject> studentSubjects) {
-        this.studentSubjects = studentSubjects;
-    }
 }

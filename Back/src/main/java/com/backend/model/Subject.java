@@ -1,5 +1,7 @@
 package com.backend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 import java.util.Set;
@@ -22,7 +24,8 @@ public class Subject {
     Set<Problem> problems;
 
     @OneToMany(mappedBy = "subjectId",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    Set<StudentSubject> studentSubjects;
+    @JsonIgnore
+    private Set<KnowledgeSpace> knowledgeSpaces;
 
     public Subject() {
     }
@@ -64,11 +67,11 @@ public class Subject {
         this.problems = problems;
     }
 
-    public Set<StudentSubject> getStudentSubjects() {
-        return studentSubjects;
+    public Set<KnowledgeSpace> getKnowledgeSpaces() {
+        return knowledgeSpaces;
     }
 
-    public void setStudentSubjects(Set<StudentSubject> studentSubjects) {
-        this.studentSubjects = studentSubjects;
+    public void setKnowledgeSpaces(Set<KnowledgeSpace> knowledgeSpaces) {
+        this.knowledgeSpaces = knowledgeSpaces;
     }
 }

@@ -92,6 +92,7 @@ public class TestAttempt {
     public void setPassed(Boolean passed) {
         this.passed = passed;
     }
+
     @JsonIgnore
     public Set<Answer> getChosenAnswers() {
         return chosenAnswers;
