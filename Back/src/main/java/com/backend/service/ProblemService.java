@@ -1,5 +1,6 @@
 package com.backend.service;
 
+import com.backend.model.KnowledgeSpace;
 import com.backend.model.Problem;
 import com.backend.model.Subject;
 import com.backend.repository.ProblemRepository;
@@ -22,6 +23,9 @@ public class ProblemService {
     public void remove(Integer id) {
         problemRepository.deleteById(id);
     }
+
+    public List<Problem> findAll() {
+        return problemRepository.findAll(); }
 
     public Optional<Problem> findById(Integer id) { return  problemRepository.findById(id); }
 
