@@ -1,12 +1,8 @@
 package com.backend.controller;
 
 import com.backend.dto.ProblemDTO;
-import com.backend.dto.SubjectDTO;
-import com.backend.model.KnowledgeState;
 import com.backend.model.Problem;
-import com.backend.model.Question;
 import com.backend.model.Subject;
-import com.backend.service.KnowledgeStateService;
 import com.backend.service.ProblemService;
 import com.backend.service.SubjectService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,9 +25,6 @@ public class ProblemController {
     @Autowired
     private SubjectService subjectService;
 
-    @Autowired
-    private KnowledgeStateService knowledgeStateService;
-
     @PostMapping(consumes = "application/json")
     public ResponseEntity<Integer> saveProblem(@RequestBody ProblemDTO problemDTO){
 
@@ -44,16 +37,6 @@ public class ProblemController {
             }
 
             Problem problem = new Problem(problemDTO.getName(), problemDTO.getDescription(), subject);
-
-            Optional<KnowledgeState> knowledgeState = knowledgeStateService.findById(problemDTO.getKnowledgeStateId());
-            if(knowledgeState.isPresent() ) {
-                knowledgeState.ifPresent(knowledgeState1 -> {
-                    problem.setKnowledgeStateId(knowledgeState1);
-                });
-            }
-            else{
-                return new ResponseEntity<>(0, HttpStatus.NOT_MODIFIED);
-            }
 
             problemService.save(problem);
 
@@ -76,7 +59,7 @@ public class ProblemController {
             if (problems != null) {
                 for (Problem p :
                         problems) {
-                    response.add(new ProblemDTO(p.getName(), p.getDescription(), p.getSubject().getId(), p.getKnowledgeStateId().getId()));
+                    response.add(new ProblemDTO(p.getName(), p.getDescription(), p.getSubject().getId()));
                 }
                 return new ResponseEntity<>(response, HttpStatus.OK);
             }
