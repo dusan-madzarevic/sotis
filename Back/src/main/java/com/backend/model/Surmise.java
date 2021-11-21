@@ -20,7 +20,11 @@ public class Surmise {
     @JoinColumn(name = "problemId")
     private Problem problemId;
 
-    @OneToMany(mappedBy = "surmiseId",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany
+    @JoinTable(
+            name = "sumrise_problems",
+            joinColumns = @JoinColumn(name = "sumriseId"),
+            inverseJoinColumns = @JoinColumn(name = "problemId"))
     @JsonIgnore
     private Set<Problem> problems;
 

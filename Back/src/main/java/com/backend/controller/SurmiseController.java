@@ -1,10 +1,9 @@
 package com.backend.controller;
 
-import com.backend.dto.KnowledgeSpaceDTO;
 import com.backend.dto.SurmiseDTO;
+import com.backend.dto.SurmiseProblemsDTO;
 import com.backend.model.KnowledgeSpace;
 import com.backend.model.Problem;
-import com.backend.model.Subject;
 import com.backend.model.Surmise;
 import com.backend.service.KnowledgeSpaceService;
 import com.backend.service.ProblemService;
@@ -15,10 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @RestController
 @CrossOrigin
@@ -35,20 +31,9 @@ public class SurmiseController {
     public ResponseEntity<Integer> saveSurmise(@RequestBody SurmiseDTO surmiseDTO, HttpServletRequest httpServletRequest) {
         try {
             Surmise surmise = new Surmise();
-            if(surmiseDTO.getProblemId() == 0 || surmiseDTO.getProblemId() == null ||  surmiseDTO.getKnowledgeSpaceId() == null || surmiseDTO.getKnowledgeSpaceId() == 0 ||
-            surmiseDTO.getProblems() == null)
+            if(surmiseDTO.getProblemId() == 0 || surmiseDTO.getProblemId() == null ||  surmiseDTO.getKnowledgeSpaceId() == null || surmiseDTO.getKnowledgeSpaceId() == 0)
             {
                 return new ResponseEntity<>(0, HttpStatus.NOT_MODIFIED);
-            }
-
-            List<Problem> problems = problemService.findAll();
-            for (Problem p : problems){
-                for( Problem dtoProblem : surmiseDTO.getProblems()){
-                    if(p.getId() == dtoProblem.getId())
-                    {
-                        surmise.getProblems().add(p);
-                    }
-                }
             }
 
             Optional<Problem> problem = problemService.findById(surmiseDTO.getProblemId());
@@ -73,6 +58,37 @@ public class SurmiseController {
 
             surmiseService.save(surmise);
             return new ResponseEntity<>(surmise.getId(), HttpStatus.CREATED);
+        }catch(Exception e){
+            return new ResponseEntity<>(0,HttpStatus.NOT_MODIFIED);
+        }
+    }
+
+    @PutMapping(value = "/problems",consumes = "application/json")
+    public ResponseEntity<Integer> saveSurmiseProblems(@RequestBody SurmiseProblemsDTO surmiseProblemsDTO, HttpServletRequest httpServletRequest) {
+        try {
+            if(surmiseProblemsDTO.getSurmiseId() == 0 || surmiseProblemsDTO.getSurmiseId() == null ||  surmiseProblemsDTO.getProblems().isEmpty())
+            {
+                return new ResponseEntity<>(0, HttpStatus.NOT_MODIFIED);
+            }
+
+            Set<Problem> noviProblemi = new HashSet<>();
+            for(Integer dtoProblem : surmiseProblemsDTO.getProblems())
+            {
+                Problem problem = problemService.findById(dtoProblem).orElse(null);
+                noviProblemi.add(problem);
+            }
+
+            Optional<Surmise> surmise = surmiseService.findById(surmiseProblemsDTO.getSurmiseId());
+            if(surmise.isPresent() ) {
+                surmise.ifPresent(surmise1 -> {
+                    surmise1.setProblems(noviProblemi);
+                    surmiseService.save(surmise1);
+                });
+            }
+            else{
+                return new ResponseEntity<>(0, HttpStatus.NOT_MODIFIED);
+            }
+            return new ResponseEntity<>(surmise.get().getId(), HttpStatus.CREATED);
         }catch(Exception e){
             return new ResponseEntity<>(0,HttpStatus.NOT_MODIFIED);
         }

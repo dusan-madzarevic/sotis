@@ -9,13 +9,18 @@ import {AdminCompModule} from '../admin-comp/admin-comp.module'; //
 import {AdminLayoutRutes} from './admin-layout.routing';
 import {AdminProfilComponent} from '../admin-profil/admin-profil.component';
 import {MatFormFieldModule, MatSelectModule} from '@angular/material';
+import {AdminSubjectComponent} from '../admin-subject/admin-subject.component';
+import {AdminSurmiseComponent} from '../admin-surmise/admin-surmise.component';
+import {AdminProblemComponent} from '../admin-problem/admin-problem.component';
 
 
 
 @NgModule({
   declarations: [AdminLayoutComponent,
     AdminProfilComponent,
-    // AdminKancelarijaComponent,
+    AdminSubjectComponent,
+    AdminSurmiseComponent,
+    AdminProblemComponent,
     ],
   imports: [
     CommonModule,

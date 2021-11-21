@@ -16,7 +16,7 @@ import { RegistracionComponent } from './registracion/registracion.component';
 import {AdminLayoutModule} from './admin-layout/admin-layout.module';
 import {UcenikLayoutModule} from './ucenik-layout/ucenik-layout.module';
 import {NastavnikLayoutModule} from './nastavnik-layout/nastavnik-layout.module';
-import {UcenikTestModule} from "./ucenik-test/ucenik-test.module";
+import {UcenikTestModule} from './ucenik-test/ucenik-test.module';
 
 @NgModule({
   declarations: [

@@ -45,7 +45,7 @@ public class SubjectController {
         {
             for (Subject s:
                  subjects) {
-                response.add(new SubjectDTO(s.getName(), s.getCode()));
+                response.add(new SubjectDTO(s.getId(),s.getName(), s.getCode()));
             }
             return new ResponseEntity<>(response, HttpStatus.OK);
         }
