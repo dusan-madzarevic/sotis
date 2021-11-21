@@ -1,0 +1,33 @@
+<div class="panel-header panel-header-sm">
+</div>
+<html>
+<body>
+
+<div class="card-body">
+  <h4 class="card-title"> Dodaj pretpostavku</h4>
+  <div>
+    <form [formGroup]="SurmiseForm" (ngSubmit)="createSurmise()">
+      <div>
+        <mat-form-field >
+          <mat-label>Prostor znanja</mat-label>
+          <mat-select formControlName="knowledgeSpaceId">
+            <mat-option id="knowledgeSpaceId"  *ngFor="let knowledgeSpace of allKnowledgeSpaces" [value]="knowledgeSpace.id">{{knowledgeSpace.name}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field >
+          <mat-label>Problem</mat-label>
+          <mat-select formControlName="problemId">
+            <mat-option id="problemId"  *ngFor="let problem of allProblems" [value]="problem.id">{{problem.name}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <button type="submit" class="btn btn-primary">Kreiraj pretpostavku</button>
+    </form>
+
+  </div>
+
+</div>
+</body>

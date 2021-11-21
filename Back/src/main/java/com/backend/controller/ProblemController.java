@@ -2,6 +2,7 @@ package com.backend.controller;
 
 import com.backend.dto.LearnedProblemDTO;
 import com.backend.dto.ProblemDTO;
+import com.backend.model.KnowledgeSpace;
 import com.backend.model.Problem;
 import com.backend.model.Student;
 import com.backend.model.Subject;
@@ -44,7 +45,7 @@ public class ProblemController {
 
             problemService.save(problem);
 
-            return new ResponseEntity<>(subject.getId(), HttpStatus.CREATED);
+            return new ResponseEntity<>(problem.getId(), HttpStatus.CREATED);
         }else{
             return new ResponseEntity<Integer>(0, HttpStatus.NOT_MODIFIED);
         }
@@ -76,6 +77,16 @@ public class ProblemController {
         }
     }
 
+    @GetMapping(produces = "application/json")
+    public ResponseEntity<List<Problem>> getAllProblems() {
+        List<Problem> problems = problemService.findAll();
+        if(problems != null)
+        {
+            return new ResponseEntity<>(problems, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(problems, HttpStatus.NOT_MODIFIED);
+    }
+
     @GetMapping(value = "/bySubject/{subjectId}", produces = "application/json")
     public ResponseEntity<List<ProblemDTO>> getProblemsForSubject(@PathVariable("subjectId") Integer subjectId) {
 
@@ -88,7 +99,7 @@ public class ProblemController {
             if (problems != null) {
                 for (Problem p :
                         problems) {
-                    response.add(new ProblemDTO(p.getName(), p.getDescription(), p.getSubject().getId()));
+                    response.add(new ProblemDTO(p.getId(), p.getName(), p.getDescription(), p.getSubject().getId()));
                 }
                 return new ResponseEntity<>(response, HttpStatus.OK);
             }
@@ -99,17 +110,18 @@ public class ProblemController {
     }
 
 
-    @DeleteMapping(value = "/{problemId}")
-    public ResponseEntity<Void> deleteProblem( @PathVariable("problemId") Integer problemId) {
+    @DeleteMapping(value = "/{problemId}/{subjectId}")
+    public ResponseEntity<Void> deleteProblem(@PathVariable("problemId") Integer problemId, @PathVariable("subjectId") Integer subjectId) {
+        Optional<Subject> subject = subjectService.findById(subjectId);
         Optional<Problem> problem = problemService.findById(problemId);
-        if(problem.isPresent() ) {
-            problemService.remove(problemId);
-            return new ResponseEntity<>(HttpStatus.OK);
-        }
-        else{
+        if (subject.isPresent()) {
+            subject.ifPresent(subject1 -> {
+                subject1.getProblems().remove(problem.get());
+            });
+        } else {
             return new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
         }
-
+        problemService.remove(problemId);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
-
 }

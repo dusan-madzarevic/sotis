@@ -24,9 +24,9 @@ public class Problem {
     @JoinColumn(name = "subjectId")
     private Subject subject;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "surmiseId")
-    private Surmise surmiseId;
+    @ManyToMany(mappedBy = "problems")
+    @JsonIgnore
+    Set<Surmise> surmiseId;
 
     @OneToMany(mappedBy = "problem",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonIgnore
@@ -109,11 +109,11 @@ public class Problem {
         this.surmises = surmises;
     }
 
-    public Surmise getSurmiseId() {
+    public Set<Surmise> getSurmiseId() {
         return surmiseId;
     }
 
-    public void setSurmiseId(Surmise surmiseId) {
+    public void setSurmiseId(Set<Surmise> surmiseId) {
         this.surmiseId = surmiseId;
     }
 

@@ -1,0 +1,424 @@
+<div class="panel-header panel-header-sm">
+</div>
+<html>
+<body>
+<!-- header -->
+<nav class="navbar">
+  <!--
+    <div class="navbar-brand">
+      <button class="navbar-item navbar-item-right">gfdgfdg</button>
+    </div>
+
+  -->
+  <a class="mat-button" (click)="logout()">Logout</a>
+</nav>
+
+<h1>Svi predmeti</h1>
+<div>
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <thead class=" text-primary">
+      <th>
+        Id
+      </th>
+      <th>
+        Naziv
+      </th>
+      <th>
+        Šifra
+      </th>
+      <th>
+        Problemi
+      </th>
+      <th>
+        Prostori znanja
+      </th>
+      <th>
+        Brisanje
+      </th>
+      </thead>
+      <tbody>
+      <ng-container *ngFor="let subject of subjects">
+        <tr>
+          <td>{{subject.id}}</td>
+          <td>{{subject.name}}</td>
+          <td>{{subject.code}}</td>
+
+          <td>
+            <div ngbDropdown class="d-inline-block">
+              <button class="btn btn-outline-primary" id="dropdownBasic2" ngbDropdownToggle>Problemi</button>
+              <div ngbDropdownMenu aria-labelledby="dropdownBasic2">
+                <button ngbDropdownItem (click)="otvoriProbleme(openCom, subject)">Prikaži probleme</button>
+                <button ngbDropdownItem (click)="dodajProblem(subject,addProblem)">Novi problem</button>
+              </div>
+            </div>
+          </td>
+
+          <td>
+            <div ngbDropdown class="d-inline-block">
+              <button class="btn btn-outline-primary" id="dropdownBasic2122" ngbDropdownToggle>Prostori znanja</button>
+              <div ngbDropdownMenu aria-labelledby="dropdownBasic2">
+                <button ngbDropdownItem (click)="otvoriProstorZnanja(knowledgeSpaceCom, subject)">Prikaži prostore znanja</button>
+                <button ngbDropdownItem (click)="dodajProstorZnanja(subject,addKnowledgeSpace)">Novi prostor znanja</button>
+              </div>
+            </div>
+          </td>
+
+          <td>
+            <div ngbDropdown class="d-inline-block">
+              <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>Obriši</button>
+              <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                <button ngbDropdownItem (click)="deleteSubject(subject)">Obriši predmet</button>
+              </div>
+            </div>
+          </td>
+
+        </tr>
+      </ng-container>
+      </tbody>
+    </table>
+  </div>
+  <button class="btn btn-outline-primary" (click)="noviPredmet(addSubject)">Novi predmet</button>
+</div>
+
+
+<ng-template #addSubject let-modal windowClass="modal-dialog">
+  <div class="modal-header">
+    <h4 class="modal-title" class="text-right" id="modal-basic-title4">Novi predmet</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+
+
+    <div class="card-body">
+
+      <form [formGroup]="SubjectForm" (ngSubmit)="createSubject()">
+        Naziv <input type="text" formControlName="name" id="subjectName"  placeholder="Naziv predmeta">
+        <div>
+          Šifra predmeta <input type="text" formControlName="code" id="subjectCode" placeholder="Šifra predmeta">
+        </div>
+        <button type="submit" class="btn btn-primary">Kreiraj predmet</button>
+      </form>
+
+    </div>
+
+  </div>
+
+  <div class="modal-footer">
+
+  </div>
+</ng-template>
+
+<ng-template #addProblem let-modal windowClass="modal-dialog">
+  <div class="modal-header">
+    <h4 class="modal-title" class="text-right" id="modal-basic-title44411">Novi problem</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+
+
+    <div class="card-body">
+
+      <form [formGroup]="ProblemForm" (ngSubmit)="createProblem()">
+        <div>
+          Naziv problema <input type="text" formControlName="name" id="problemName"  placeholder="Naziv problema">
+        </div>
+        <div>
+          Opis problema <input type="text" formControlName="description" id="problemDesc" placeholder="Naziv problema">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Kreiraj problem</button>
+      </form>
+
+    </div>
+
+  </div>
+
+  <div class="modal-footer">
+
+  </div>
+</ng-template>
+
+
+<ng-template #addKnowledgeSpace let-modal windowClass="modal-dialog">
+  <div class="modal-header">
+    <h4 class="modal-title" class="text-right" id="modal-basic-title1414111">Novi prostor znanja</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+
+
+    <div class="card-body">
+
+      <form [formGroup]="KnowledgeSpaceForm" (ngSubmit)="createKnowledgeSpace()">
+        <div>
+          Naziv prostora znanja <input type="text" formControlName="name" id="knowledgeSpaceName"  placeholder="Naziv prostora znanja">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Kreiraj prostor znanja</button>
+      </form>
+
+    </div>
+
+  </div>
+
+  <div class="modal-footer">
+
+  </div>
+</ng-template>
+
+
+<ng-template #openCom let-modal windowClass="modal-dialog">
+  <div class="modal-header">
+    <h4 class="modal-title" class="text-right" id="modal-basic-title3">Problemi</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead class=" text-primary">
+          <th>
+            Id
+          </th>
+          <th>
+            Ime
+          </th>
+          <th>
+            Opis
+          </th>
+          <th>
+            Brisanje
+          </th>
+          <th>
+            Pretpostavka
+          </th>
+          </thead>
+          <tbody>
+          <ng-container *ngFor="let problem of problems">
+            <tr>
+              <td>{{problem.id}}</td>
+              <td>{{problem.name}}</td>
+              <td>{{problem.description}}</td>
+
+              <td>
+                <div ngbDropdown class="d-inline-block">
+                  <button class="btn btn-outline-primary" id="dropdownBasic44" ngbDropdownToggle>Obriši</button>
+                  <div ngbDropdownMenu aria-labelledby="dropdownBasic44">
+                    <button ngbDropdownItem (click)="deleteProblem(problem)">Obriši problem</button>
+                  </div>
+                </div>
+              </td>
+
+              <td>
+                <div ngbDropdown class="d-inline-block">
+                  <button class="btn btn-outline-primary" id="dropdownBasic222" ngbDropdownToggle>Pretpostavke</button>
+                  <div ngbDropdownMenu aria-labelledby="dropdownBasic222">
+                    <button ngbDropdownItem (click)="otvoriPretpostavku(openCom1, problem)">Prikazi pretpostavke</button>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </ng-container>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="modal-footer">
+
+  </div>
+</ng-template>
+
+
+<ng-template #knowledgeSpaceCom let-modal windowClass="modal-dialog">
+  <div class="modal-header">
+    <h4 class="modal-title" class="text-right" id="modal-basic-title1323">Prostori znanja</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead class=" text-primary">
+          <th>
+            Id
+          </th>
+          <th>
+            Ime
+          </th>
+          <th>
+            Brisanje
+          </th>
+          <th>
+            Pretpostavka
+          </th>
+          </thead>
+          <tbody>
+          <ng-container *ngFor="let knowledgeSpace of knowledgeSpaces">
+            <tr>
+              <td>{{knowledgeSpace.id}}</td>
+              <td>{{knowledgeSpace.name}}</td>
+
+              <td>
+                <div ngbDropdown class="d-inline-block">
+                  <button class="btn btn-outline-primary" id="dropdownBasic44123" ngbDropdownToggle>Obriši</button>
+                  <div ngbDropdownMenu aria-labelledby="dropdownBasic44">
+                    <button ngbDropdownItem (click)="deleteKnowledgeSpace(knowledgeSpace)">Obriši prostor znanja</button>
+                  </div>
+                </div>
+              </td>
+
+              <td>
+                <div ngbDropdown class="d-inline-block">
+                  <button class="btn btn-outline-primary" id="dropdownBasic222123" ngbDropdownToggle>Pretpostavke</button>
+                  <div ngbDropdownMenu aria-labelledby="dropdownBasic222">
+                    <button ngbDropdownItem (click)="otvoriPretpostavkuByKnowledgeSpace(openCom1, knowledgeSpace)">Prikazi pretpostavke</button>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </ng-container>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="modal-footer">
+
+  </div>
+</ng-template>
+
+<ng-template #openCom1 let-modal windowClass="modal-dialog">
+  <div class="modal-header">
+    <h4 class="modal-title" class="text-right" id="modal-basic-title33">Pretpostavke</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead class=" text-primary">
+          <th>
+            Id
+          </th>
+          <th>
+            Id prostora znanja
+          </th>
+          <th>
+            Id pitanja
+          </th>
+          <th>
+            Pretpostavljeni problemi
+          </th>
+          <th>
+            Brisanje
+          </th>
+          </thead>
+          <tbody>
+          <ng-container *ngFor="let pretpostavka of pretpostavke">
+            <tr>
+              <td>{{pretpostavka.id}}</td>
+              <td>{{pretpostavka.knowledgeSpaceId}}</td>
+              <td>{{pretpostavka.problemId}}</td>
+
+              <td>
+                <div ngbDropdown class="d-inline-block">
+                  <button class="btn btn-outline-primary" id="dropdownBasic4441" ngbDropdownToggle>Problemi</button>
+                  <div ngbDropdownMenu aria-labelledby="dropdownBasic4441">
+                    <button ngbDropdownItem (click)="otvoriPretpostavljeneProbleme(openCom2, pretpostavka)">Prikazi pretpostavljene probleme</button>
+                  </div>
+                </div>
+              </td>
+
+              <td>
+                <div ngbDropdown class="d-inline-block">
+                  <button class="btn btn-outline-primary" id="dropdownBasic441" ngbDropdownToggle>Obriši</button>
+                  <div ngbDropdownMenu aria-labelledby="dropdownBasic441">
+                    <button ngbDropdownItem (click)="deletePretpostavka(pretpostavka)">Obriši pretpostavku</button>
+                  </div>
+                </div>
+              </td>
+
+
+            </tr>
+          </ng-container>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="modal-footer">
+
+  </div>
+</ng-template>
+
+
+
+<ng-template #openCom2 let-modal windowClass="modal-dialog">
+  <div class="modal-header">
+    <h4 class="modal-title" class="text-right" id="modal-basic-title311113">Problemi pretpostavke</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead class=" text-primary">
+          <th>
+            Id problema
+          </th>
+          <th>
+            Naziv problema
+          </th>
+          <th>
+            Opisi problema
+          </th>
+          <th>
+            Naziv predmeta
+          </th>
+          </thead>
+          <tbody>
+          <ng-container *ngFor="let pretpostavkaProblem of pretpostavkaProblems">
+            <tr>
+              <td>{{pretpostavkaProblem.id}}</td>
+              <td>{{pretpostavkaProblem.name}}</td>
+              <td>{{pretpostavkaProblem.description}}</td>
+              <td>{{pretpostavkaProblem.subject.name}}</td>
+            </tr>
+          </ng-container>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="modal-footer">
+
+  </div>
+</ng-template>

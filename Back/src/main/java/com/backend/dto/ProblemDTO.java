@@ -1,17 +1,25 @@
 package com.backend.dto;
 
 public class ProblemDTO {
-
+    private Integer id;
     private Integer subjectId;
     private String name;
     private String description;
 
-    public ProblemDTO(String name, String description, Integer id) {
-        this.subjectId = id;
+    public ProblemDTO(Integer id, String name, String description, Integer subjectId) {
+        this.id = id;
+        this.subjectId = subjectId;
         this.name = name;
         this.description = description;
     }
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public Integer getSubjectId() {
         return subjectId;

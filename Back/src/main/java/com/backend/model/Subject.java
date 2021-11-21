@@ -21,7 +21,8 @@ public class Subject {
     private String code;
 
     @OneToMany(mappedBy = "subject",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    Set<Problem> problems;
+    @JsonIgnore
+    private Set<Problem> problems;
 
     @OneToMany(mappedBy = "subjectId",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonIgnore
