@@ -67,6 +67,13 @@ export class AdminServiceService {
   }
 
   // tslint:disable-next-line:typedef
+  getSubjectsByProfessor(id) {
+    return this.http.get('http://localhost:8090/subject/byProfessor/' + id,      {
+      headers: new HttpHeaders().set('Content-Type', 'application/json')
+    });
+  }
+
+  // tslint:disable-next-line:typedef
   getKnowledgeSpaceBySubjectId(id) {
     return this.http.get('http://localhost:8090/knowledgeSpace/bySubject/' + id,      {
       headers: new HttpHeaders().set('Content-Type', 'application/json')
@@ -314,8 +321,30 @@ export class AdminServiceService {
   }
 
   // tslint:disable-next-line:typedef
+  getAllSubjects() {
+    return this.http.get('http://localhost:8090/subject',      {
+      headers: new HttpHeaders().set('Content-Type', 'application/json')
+    });
+  }
+
+  // tslint:disable-next-line:typedef
+  getAllProfessors() {
+    return this.http.get('http://localhost:8090/professor',      {
+      headers: new HttpHeaders().set('Content-Type', 'application/json')
+    });
+  }
+
+  // tslint:disable-next-line:typedef
   kreirajPretpostavkinProblem(pretpostavkinProblem) {
     return this.http.put('http://localhost:8090/surmise/problems', pretpostavkinProblem,      {
+      headers: new HttpHeaders().set('Content-Type', 'application/json'),
+      responseType: 'text'
+    });
+  }
+
+  // tslint:disable-next-line:typedef
+  kreirajPredmetneProfesore(predmetniProfesori) {
+    return this.http.put('http://localhost:8090/subject/professors', predmetniProfesori,      {
       headers: new HttpHeaders().set('Content-Type', 'application/json'),
       responseType: 'text'
     });

@@ -1,0 +1,34 @@
+<div class="panel-header panel-header-sm">
+</div>
+<html>
+<body>
+
+<div class="card-body">
+  <h4 class="card-title"> Dodaj predmetne profesore</h4>
+  <div>
+    <form [formGroup]="SubjectProfessorsForm" (ngSubmit)="SubjectProfessors()">
+      <div>
+        <mat-form-field >
+          <mat-label>Predmet</mat-label>
+          <mat-select formControlName="subjectId">
+            <mat-option id="subjectId"  *ngFor="let subject of allSubjects" [value]="subject.id">{{subject.name}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div>
+        <mat-form-field appearance="fill">
+          <mat-label>Profesori</mat-label>
+          <mat-select formControlName="professors" multiple>
+            <mat-option id="professors"  *ngFor="let proffesor of allProfessors" [value]="proffesor.id">{{proffesor.name + " " + proffesor.lastName}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <button type="submit" class="btn btn-primary">Kreiraj pretpostavku</button>
+    </form>
+
+  </div>
+
+</div>
+</body>

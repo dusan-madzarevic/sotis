@@ -12,6 +12,7 @@ import {first} from 'rxjs/operators';
 })
 export class AdminSubjectComponent implements OnInit {
   subjects: any = [];
+  user: any = [];
   problems: any = [];
   allKnowledgeSpaces: any = [];
   knowledgeSpaces: any = [];
@@ -60,11 +61,27 @@ export class AdminSubjectComponent implements OnInit {
 
   // tslint:disable-next-line:typedef
   ucitajPredmete() {
-    this.adminServiceService.getSubjects()
+    this.adminServiceService.getUser(localStorage.getItem('currentuser').toString())
       .pipe(first())
-      .subscribe(data => {
-        this.subjects = data;
-      });
+      .subscribe((data: {}) => {
+          this.user = data;
+          if (this.user.userType === 'Professor') {
+            this.adminServiceService.getSubjectsByProfessor(this.user.id)
+              .pipe(first())
+              .subscribe(data1 => {
+                this.subjects = data1;
+              });
+          }else {
+            this.adminServiceService.getSubjects()
+              .pipe(first())
+              .subscribe(data1 => {
+                this.subjects = data1;
+              });
+          }
+        }
+      );
+
+
   }
 
   // tslint:disable-next-line:typedef
@@ -181,11 +198,18 @@ export class AdminSubjectComponent implements OnInit {
 
   // tslint:disable-next-line:typedef
   noviPredmet(addSubject){
-    this.modalService.open(addSubject, {size: 'xl'}).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      this.closeResult = `Dismissed`;
-    });
+    this.adminServiceService.getUser(localStorage.getItem('currentuser').toString())
+      .pipe(first())
+      .subscribe((data: {}) => {
+        this.user = data;
+        if (this.user.userType === 'Administrator') {
+          this.modalService.open(addSubject, {size: 'xl'}).result.then((result) => {
+            this.closeResult = `Closed with: ${result}`;
+          }, (reason) => {
+            this.closeResult = `Dismissed`;
+          });
+        }
+      });
   }
 
   // tslint:disable-next-line:typedef

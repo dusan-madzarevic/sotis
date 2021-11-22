@@ -6,50 +6,49 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {first} from 'rxjs/operators';
 
 @Component({
-  selector: 'app-admin-problem',
-  templateUrl: './admin-problem.component.html',
-  styleUrls: ['./admin-problem.component.css']
+  selector: 'app-admin-subject-professors',
+  templateUrl: './admin-subject-professors.component.html',
+  styleUrls: ['./admin-subject-professors.component.css']
 })
-export class AdminProblemComponent implements OnInit {
-  SurmiseProblemForm: FormGroup;
-  allProblems: any = [];
-  allSurmises: any = [];
-
+export class AdminSubjectProfessorsComponent implements OnInit {
+  SubjectProfessorsForm: FormGroup;
+  allSubjects: any = [];
+  allProfessors: any = [];
   constructor(private router: Router, private adminServiceService: AdminServiceService, private formBuilder: FormBuilder,
               private modalService: NgbModal) { }
 
   ngOnInit(): void {
-    this.SurmiseProblemForm = this.formBuilder.group({
-      problems: [''],
-      surmiseId: ['']
+    this.SubjectProfessorsForm = this.formBuilder.group({
+      subjectId: [''],
+      professors: ['']
     });
 
-    this.ucitajSveProbleme();
-    this.ucitajSvePretpostavke();
+    this.ucitajSvePredmete();
+    this.ucitajSveProfesore();
   }
 
   // tslint:disable-next-line:typedef
-  createSurmiseProblem() {
-    this.adminServiceService.kreirajPretpostavkinProblem(JSON.stringify(this.SurmiseProblemForm.value))
+  SubjectProfessors() {
+    this.adminServiceService.kreirajPredmetneProfesore(JSON.stringify(this.SubjectProfessorsForm.value))
       .pipe(first())
       .subscribe();
   }
 
   // tslint:disable-next-line:typedef
-  ucitajSveProbleme() {
-    this.adminServiceService.getAllProblems()
+  ucitajSvePredmete() {
+    this.adminServiceService.getAllSubjects()
       .pipe(first())
       .subscribe(data => {
-        this.allProblems = data;
+        this.allSubjects = data;
       });
   }
 
   // tslint:disable-next-line:typedef
-  ucitajSvePretpostavke() {
-    this.adminServiceService.getAllSurmises()
+  ucitajSveProfesore() {
+    this.adminServiceService.getAllProfessors()
       .pipe(first())
       .subscribe(data => {
-        this.allSurmises = data;
+        this.allProfessors = data;
       });
   }
 
