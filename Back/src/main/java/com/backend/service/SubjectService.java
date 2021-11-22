@@ -1,8 +1,8 @@
 package com.backend.service;
 
+import com.backend.model.Professor;
 import com.backend.model.Subject;
 import com.backend.repository.SubjectRepository;
-import com.sun.org.apache.bcel.internal.generic.ARETURN;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,4 +27,7 @@ public class SubjectService {
 
     public List<Subject> findAll(){return subjectRepository.findAll();}
 
+    public List<Subject> findByProfessors(Professor professor){
+        return subjectRepository.findByProfessors(professor);
+    }
 }

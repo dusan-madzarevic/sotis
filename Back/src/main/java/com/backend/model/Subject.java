@@ -28,6 +28,14 @@ public class Subject {
     @JsonIgnore
     private Set<KnowledgeSpace> knowledgeSpaces;
 
+    @ManyToMany
+    @JoinTable(
+            name = "subject_professor",
+            joinColumns = @JoinColumn(name = "subjectId"),
+            inverseJoinColumns = @JoinColumn(name = "professorId"))
+    @JsonIgnore
+    private Set<Professor> professors;
+
     public Subject() {
     }
 
@@ -74,5 +82,13 @@ public class Subject {
 
     public void setKnowledgeSpaces(Set<KnowledgeSpace> knowledgeSpaces) {
         this.knowledgeSpaces = knowledgeSpaces;
+    }
+
+    public Set<Professor> getProfessors() {
+        return professors;
+    }
+
+    public void setProfessors(Set<Professor> professors) {
+        this.professors = professors;
     }
 }

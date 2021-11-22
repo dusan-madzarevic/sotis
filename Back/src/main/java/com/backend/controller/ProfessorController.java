@@ -1,15 +1,22 @@
 package com.backend.controller;
 
+import com.backend.dto.AnswerDTO;
 import com.backend.dto.ProfessorDTO;
+import com.backend.model.Answer;
 import com.backend.model.Professor;
+import com.backend.model.Question;
+import com.backend.model.Subject;
 import com.backend.service.ProfessorService;
+import com.backend.service.SubjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin
@@ -17,6 +24,9 @@ import java.util.List;
 public class ProfessorController {
     @Autowired
     private ProfessorService professorService;
+
+    @Autowired
+    private SubjectService subjectService;
 
     @PostMapping(consumes = "application/json")
     public ResponseEntity<Integer> saveProfessor(@RequestBody ProfessorDTO professorDTO, HttpServletRequest httpServletRequest) {

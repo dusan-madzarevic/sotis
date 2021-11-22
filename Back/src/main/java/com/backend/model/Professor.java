@@ -12,6 +12,10 @@ public class Professor extends User {
     @JsonIgnore
     private Set<Test> tests;
 
+    @ManyToMany(mappedBy = "professors")
+    @JsonIgnore
+    Set<Subject> subjects;
+
     public Professor(){}
 
     public Set<Test> getTests() {
@@ -20,5 +24,13 @@ public class Professor extends User {
 
     public void setTests(Set<Test> tests) {
         this.tests = tests;
+    }
+
+    public Set<Subject> getSubjects() {
+        return subjects;
+    }
+
+    public void setSubjects(Set<Subject> subjects) {
+        this.subjects = subjects;
     }
 }
