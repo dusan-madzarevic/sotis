@@ -155,7 +155,6 @@ public class TestAttemptController {
 
         }
         dto.setQuestions(questionDTOS);
-        System.out.println("OVDE");
         return new ResponseEntity<>(dto, HttpStatus.CREATED);
 
     }

@@ -1,8 +1,6 @@
 package com.backend.repository;
 
-import com.backend.model.Question;
-import com.backend.model.Section;
-import com.backend.model.Test;
+import com.backend.model.*;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -17,4 +15,5 @@ public interface QuestionRepository extends JpaRepository<Question, Integer> {
     void deleteById(Integer id);
 
     List<Question> findBySectionId(Section section);
+    List<Question> findByProblems(Problem problem);
 }
