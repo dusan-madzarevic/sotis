@@ -27,9 +27,9 @@ public class Question {
     @JsonIgnore
     private Set<Answer> answers;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "problemId")
-    private Problem problem;
+    @ManyToMany(mappedBy = "questions")
+    @JsonIgnore
+    private Set<Problem> problems;
 
     public Question() {
     }
@@ -82,11 +82,11 @@ public class Question {
         this.questionImage = questionImage;
     }
 
-    public Problem getProblem() {
-        return problem;
+    public Set<Problem> getProblems() {
+        return problems;
     }
 
-    public void setProblem(Problem problem) {
-        this.problem = problem;
+    public void setProblems(Set<Problem> problems) {
+        this.problems = problems;
     }
 }

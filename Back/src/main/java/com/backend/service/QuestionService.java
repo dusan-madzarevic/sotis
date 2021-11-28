@@ -1,8 +1,6 @@
 package com.backend.service;
 
-import com.backend.model.Question;
-import com.backend.model.Section;
-import com.backend.model.Test;
+import com.backend.model.*;
 import com.backend.repository.QuestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,5 +26,9 @@ public class QuestionService {
 
     public List<Question> findBySection(Section section){
         return questionRepository.findBySectionId(section);
+    }
+
+    public List<Question> findByProblemId(Problem problem){
+        return questionRepository.findByProblems(problem);
     }
 }

@@ -27,7 +27,12 @@ export class AdminSubjectComponent implements OnInit {
   pretpostavke: any = [];
   pretpostavka: any = [];
   pretpostavkaProblems: any = [];
-
+  pitanja: any = [];
+  pitanje: any = [];
+  odgovori: any = [];
+  odgovor: any = [];
+  AnswerForm: FormGroup;
+  myVar1 = false;
   constructor(private router: Router, private adminServiceService: AdminServiceService, private formBuilder: FormBuilder,
               private modalService: NgbModal) { }
 
@@ -54,6 +59,14 @@ export class AdminSubjectComponent implements OnInit {
     this.SurmiseForm = this.formBuilder.group({
       knowledgeSpaceId: [''],
       problemId: ['']
+    });
+
+    this.AnswerForm = this.formBuilder.group({
+      id: [''],
+      questionId: [''],
+      answerText: [''],
+      correct: [''],
+      score: ['']
     });
 
     this.ucitajSveProstoreZnanja();
@@ -340,6 +353,95 @@ export class AdminSubjectComponent implements OnInit {
       .subscribe();
     this.pretpostavke = [];
     this.ucitajPretpostavke();
+    this.modalService.dismissAll();
+  }
+
+  // tslint:disable-next-line:typedef
+  ucitajPitanjaProblema() {
+    this.adminServiceService.getPitanjaPoProblemu(this.problem.id)
+      .pipe(first())
+      .subscribe(data => {
+        this.pitanja = data;
+      });
+  }
+
+  // tslint:disable-next-line:typedef
+  otvoriPitanja(openCom13, problem){
+    this.problem = problem;
+    this.pitanja = [];
+    this.ucitajPitanjaProblema();
+
+    this.modalService.open(openCom13, {size: 'xl'}).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed`;
+    });
+  }
+
+  // tslint:disable-next-line:typedef
+  deletePitanje(pitanje) {
+    this.pitanje = pitanje;
+    this.adminServiceService.obrisiPitanje(pitanje.id, pitanje.sectionId, pitanje.problemId)
+      .pipe(first())
+      .subscribe();
+    this.pitanja = [];
+    this.ucitajPitanjaProblema();
+    this.modalService.dismissAll();
+  }
+
+  // tslint:disable-next-line:typedef
+  prikaziOdgovore(openCom2, pitanje){
+    this.pitanje = pitanje;
+    this.odgovori = [];
+    this.ucitajOdgovore();
+
+    this.modalService.open(openCom2, {size: 'xl'}).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed`;
+    });
+  }
+
+  // tslint:disable-next-line:typedef
+  ucitajOdgovore() {
+    this.adminServiceService.getOdgovori(this.pitanje.id)
+      .pipe(first())
+      .subscribe(data => {
+        this.odgovori = data;
+      });
+  }
+
+
+  // tslint:disable-next-line:typedef
+  dodajOdgovor(pitanje, addQuestion){
+    this.pitanje = pitanje;
+    this.modalService.open(addQuestion, {size: 'xl'}).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed`;
+    });
+  }
+
+  // tslint:disable-next-line:typedef
+  deleteOdgovor(odgovor) {
+    this.odgovor = odgovor;
+    this.adminServiceService.deleteOdgovor(odgovor.id, odgovor.questionId)
+      .pipe(first())
+      .subscribe();
+    this.odgovori = [];
+    this.ucitajOdgovore();
+    this.modalService.dismissAll();
+  }
+
+  // tslint:disable-next-line:typedef
+  createOdgovor() {
+    this.AnswerForm.value.questionId = this.pitanje.id;
+    this.AnswerForm.value.correct = this.myVar1;
+    this.adminServiceService.kreirajOdgovor(JSON.stringify(this.AnswerForm.value))
+      .pipe(first())
+      .subscribe();
+    this.odgovori = [];
+    this.ucitajOdgovore();
     this.modalService.dismissAll();
   }
 

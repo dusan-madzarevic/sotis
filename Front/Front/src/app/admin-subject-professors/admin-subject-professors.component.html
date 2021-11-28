@@ -8,7 +8,7 @@
   <div>
     <form [formGroup]="SubjectProfessorsForm" (ngSubmit)="SubjectProfessors()">
       <div>
-        <mat-form-field >
+        Predmet: <mat-form-field >
           <mat-label>Predmet</mat-label>
           <mat-select formControlName="subjectId">
             <mat-option id="subjectId"  *ngFor="let subject of allSubjects" [value]="subject.id">{{subject.name}}</mat-option>
@@ -17,7 +17,7 @@
       </div>
 
       <div>
-        <mat-form-field appearance="fill">
+        Profesori: <mat-form-field appearance="fill">
           <mat-label>Profesori</mat-label>
           <mat-select formControlName="professors" multiple>
             <mat-option id="professors"  *ngFor="let proffesor of allProfessors" [value]="proffesor.id">{{proffesor.name + " " + proffesor.lastName}}</mat-option>

@@ -95,6 +95,13 @@ export class AdminServiceService {
   }
 
   // tslint:disable-next-line:typedef
+  getAllQuestions() {
+    return this.http.get('http://localhost:8090/question',      {
+      headers: new HttpHeaders().set('Content-Type', 'application/json')
+    });
+  }
+
+  // tslint:disable-next-line:typedef
   getTipSastavnica() {
     return this.http.get('http://localhost:8090/tip_sastavnica',      {
       headers: new HttpHeaders().set('Content-Type', 'application/json')
@@ -345,6 +352,52 @@ export class AdminServiceService {
   // tslint:disable-next-line:typedef
   kreirajPredmetneProfesore(predmetniProfesori) {
     return this.http.put('http://localhost:8090/subject/professors', predmetniProfesori,      {
+      headers: new HttpHeaders().set('Content-Type', 'application/json'),
+      responseType: 'text'
+    });
+  }
+
+  // tslint:disable-next-line:typedef
+  kreirajProblemPitanja(problemQuestions) {
+    return this.http.put('http://localhost:8090/problem/questions', problemQuestions,      {
+      headers: new HttpHeaders().set('Content-Type', 'application/json'),
+      responseType: 'text'
+    });
+  }
+
+  // tslint:disable-next-line:typedef
+  getPitanjaPoProblemu(id) {
+    return this.http.get('http://localhost:8090/question/byProblem/' + id,      {
+      headers: new HttpHeaders().set('Content-Type', 'application/json')
+    });
+  }
+
+  // tslint:disable-next-line:typedef
+  obrisiPitanje(pitanjeId, sectionId, problemId) {
+    return this.http.delete('http://localhost:8090/question/' + pitanjeId + '/' + sectionId + '/' + problemId,      {
+      headers: new HttpHeaders().set('Content-Type', 'application/json'),
+      responseType: 'text'
+    });
+  }
+
+  // tslint:disable-next-line:typedef
+  getOdgovori(id) {
+    return this.http.get('http://localhost:8090/answer/byQuestion/' + id,      {
+      headers: new HttpHeaders().set('Content-Type', 'application/json')
+    });
+  }
+
+  // tslint:disable-next-line:typedef
+  deleteOdgovor(odgovorId, questionId) {
+    return this.http.delete('http://localhost:8090/answer/' + odgovorId + '/' + questionId,      {
+      headers: new HttpHeaders().set('Content-Type', 'application/json'),
+      responseType: 'text'
+    });
+  }
+
+  // tslint:disable-next-line:typedef
+  kreirajOdgovor(odgovor) {
+    return this.http.post('http://localhost:8090/answer', odgovor,      {
       headers: new HttpHeaders().set('Content-Type', 'application/json'),
       responseType: 'text'
     });

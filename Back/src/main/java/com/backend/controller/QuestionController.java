@@ -2,9 +2,9 @@ package com.backend.controller;
 
 import com.backend.dto.QuestionDTO;
 import com.backend.dto.SectionDTO;
-import com.backend.model.Question;
-import com.backend.model.Section;
-import com.backend.model.Test;
+import com.backend.dto.SurmiseDTO;
+import com.backend.model.*;
+import com.backend.service.ProblemService;
 import com.backend.service.QuestionService;
 import com.backend.service.SectionService;
 import com.backend.service.TestService;
@@ -29,8 +29,11 @@ public class QuestionController {
     @Autowired
     private SectionService sectionService;
 
+    @Autowired
+    private ProblemService problemService;
+
     @PostMapping(consumes = "application/json")
-    public ResponseEntity<Integer> saveQuestion(/*@RequestParam("imgFile") MultipartFile imgFile,*/ @RequestBody QuestionDTO questionDTO, HttpServletRequest httpServletRequest) {
+    public ResponseEntity<Integer> saveQuestion(@RequestBody QuestionDTO questionDTO, HttpServletRequest httpServletRequest) {
         try {
             Question question = new Question();
             if(questionDTO.getQuestionText().equals("") || questionDTO.getScore() == null)
@@ -51,10 +54,6 @@ public class QuestionController {
                 return new ResponseEntity<>(0, HttpStatus.NOT_MODIFIED);
             }
 
-            //byte[] img = imgFile.getBytes();
-
-            //question.setQuestionImage(img);
-
             questionService.save(question);
             return new ResponseEntity<>(question.getId(), HttpStatus.CREATED);
         }catch(Exception e){
@@ -73,32 +72,49 @@ public class QuestionController {
     }
 
     @GetMapping(value = "/bySection/{id}", produces = "application/json")
-    public ResponseEntity<List<QuestionDTO>> getSectionQuestions(@PathVariable("id") Integer sectionId) {
+    public ResponseEntity<List<Question>> getSectionQuestions(@PathVariable("id") Integer sectionId) {
         Optional<Section> section = sectionService.findById(sectionId);
-        List<QuestionDTO> response = new ArrayList<>();
 
         if(section.isPresent())
         {
             List<Question> questions = questionService.findBySection(section.get());
-
-            for (Question question : questions)
-            {
-                response.add(new QuestionDTO(question.getId(), sectionId, question.getQuestionText(), question.getScore()));
-            }
-            return new ResponseEntity<List<QuestionDTO>>(response, HttpStatus.OK);
+            return new ResponseEntity<List<Question>>(questions, HttpStatus.OK);
         }else
         {
             return new ResponseEntity<>(null,HttpStatus.NOT_MODIFIED);
         }
     }
 
-    @DeleteMapping(value = "/{questionId}/{sectionId}")
-    public ResponseEntity<Void> deleteQuestion( @PathVariable("questionId") Integer questionId, @PathVariable("sectionId") Integer sectionId) {
+    @GetMapping(value = "/byProblem/{id}", produces = "application/json")
+    public ResponseEntity<List<Question>> getQuestionsByProblem(@PathVariable("id") Integer problemId) {
+        Optional<Problem> problem = problemService.findById(problemId);
+
+        if(problem.isPresent())
+        {
+            List<Question> questions = questionService.findByProblemId(problem.get());
+            return new ResponseEntity<>(questions, HttpStatus.OK);
+        }else
+        {
+            return new ResponseEntity<>(null,HttpStatus.NOT_MODIFIED);
+        }
+    }
+
+    @DeleteMapping(value = "/{questionId}/{sectionId}/{problemId}")
+    public ResponseEntity<Void> deleteQuestion( @PathVariable("questionId") Integer questionId, @PathVariable("sectionId") Integer sectionId, @PathVariable("problemId") Integer problemId) {
         Optional<Section> section = sectionService.findById(sectionId);
+        Optional<Problem> problem = problemService.findById(problemId);
         Optional<Question> question = questionService.findById(questionId);
         if(section.isPresent() ) {
             section.ifPresent(section1 -> {
                 section1.getQuestions().remove(question.get());
+            });
+        }
+        else{
+            return new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
+        }
+        if(problem.isPresent() ) {
+            problem.ifPresent(problem1 -> {
+                problem1.getQuestions().remove(question.get());
             });
         }
         else{
