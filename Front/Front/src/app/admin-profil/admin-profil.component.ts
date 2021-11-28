@@ -10,8 +10,7 @@ import {first} from 'rxjs/operators';
   styleUrls: ['./admin-profil.component.css']
 })
 export class AdminProfilComponent implements OnInit {
-  admin: any = [];
-  korisnik: any = [];
+  user: any = [];
   constructor(private formBuilder: FormBuilder, private adminServiceService: AdminServiceService,
               private router: Router, private adminService: AdminServiceService) { }
 
@@ -21,13 +20,13 @@ export class AdminProfilComponent implements OnInit {
 
   // tslint:disable-next-line:typedef
   ucitajAdmina() {
-    this.adminServiceService.getUser(localStorage.getItem('currentuser').toString())
+    this.adminService.getUser(localStorage.getItem('currentuser').toString())
       .pipe(first())
       .subscribe((data: {}) => {
-          this.korisnik = data;
-          if (this.korisnik.userType !== 'Administrator') {
-          this.router.navigate(['/']);
-        }
+          this.user = data;
+          if (this.user.userType !== 'Administrator') {
+            this.router.navigate(['/']);
+          }
         }
       );
   }

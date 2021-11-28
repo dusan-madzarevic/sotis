@@ -8,18 +8,11 @@ declare interface RouteInfo {
 }
 
 export const ROUTES: RouteInfo[] = [
- /* { path: '/admin/profilAdmin', title: 'Profil',  icon: '', class: '' },
-  { path: '/admin/kancelarijeAdmin', title: 'Kancelarije',  icon: '', class: '' },
-  { path: '/admin/magaciniAdmin', title: 'Magacini',  icon: '', class: '' },
-  { path: '/admin/pogoniAdmin', title: 'Pogoni',  icon: '', class: '' },
-  { path: '/admin/materijalAdmin', title: 'Materijali',  icon: '', class: '' },
-  { path: '/admin/radniNalogAdmin', title: 'Radni nalozi',  icon: '', class: '' },
-  { path: '/admin/sastavnicaAdmin', title: 'Sastavnice',  icon: '', class: '' },
-  { path: '/admin/sektorPogonaAdmin', title: 'Sektori pogona',  icon: '', class: '' },
-  { path: '/admin/tipOsiguracaAdmin', title: 'Tip osigurača',  icon: '', class: '' },
-  { path: '/admin/tipTestaAdmin', title: 'Tipovi testa',  icon: '', class: '' },
-  { path: '/admin/tipKontrolaAdmin', title: 'Tipovi kontrola',  icon: '', class: '' }*/
-
+  { path: '/admin/profilAdmin', title: 'Profil',  icon: '', class: '' },
+  { path: '/admin/predmetiAdmin', title: 'Predmeti',  icon: '', class: '' },
+  { path: '/admin/pretpostavkeAdmin', title: 'Pretpostavke',  icon: '', class: '' },
+  { path: '/admin/problemiAdmin', title: 'Problemi pretpostavki',  icon: '', class: '' },
+  { path: '/admin/predmetProfesoriAdmin', title: 'Predmetni profesori',  icon: '', class: '' }
 ];
 
 @Component({

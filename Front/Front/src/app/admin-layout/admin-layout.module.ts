@@ -9,13 +9,22 @@ import {AdminCompModule} from '../admin-comp/admin-comp.module'; //
 import {AdminLayoutRutes} from './admin-layout.routing';
 import {AdminProfilComponent} from '../admin-profil/admin-profil.component';
 import {MatFormFieldModule, MatSelectModule} from '@angular/material';
+import {AdminSubjectComponent} from '../admin-subject/admin-subject.component';
+import {AdminSurmiseComponent} from '../admin-surmise/admin-surmise.component';
+import {AdminProblemComponent} from '../admin-problem/admin-problem.component';
+import {AdminSubjectProfessorsComponent} from '../admin-subject-professors/admin-subject-professors.component';
+import {KnowledgeSpaceGraphComponent} from '../knowledge-space-graph/knowledge-space-graph.component';
 
 
 
 @NgModule({
   declarations: [AdminLayoutComponent,
     AdminProfilComponent,
-    // AdminKancelarijaComponent,
+    AdminSubjectComponent,
+    AdminSurmiseComponent,
+    AdminProblemComponent,
+    AdminSubjectProfessorsComponent,
+    KnowledgeSpaceGraphComponent
     ],
   imports: [
     CommonModule,

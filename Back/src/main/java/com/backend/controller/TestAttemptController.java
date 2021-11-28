@@ -189,7 +189,6 @@ public class TestAttemptController {
         }else{
             testAttempt.setPassed(true);
         }
-        System.out.println("OVDE");
         testAttemptService.save(testAttempt);
 
         return new ResponseEntity<>(testAttempt, HttpStatus.OK);

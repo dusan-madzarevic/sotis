@@ -1,22 +1,20 @@
 package com.backend.controller;
 
+import com.backend.dto.LearnedProblemDTO;
 import com.backend.dto.ProblemDTO;
-import com.backend.dto.SubjectDTO;
-import com.backend.model.KnowledgeState;
+import com.backend.model.KnowledgeSpace;
 import com.backend.model.Problem;
-import com.backend.model.Question;
+import com.backend.model.Student;
 import com.backend.model.Subject;
-import com.backend.service.KnowledgeStateService;
 import com.backend.service.ProblemService;
+import com.backend.service.StudentService;
 import com.backend.service.SubjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @RestController
 @CrossOrigin
@@ -30,7 +28,7 @@ public class ProblemController {
     private SubjectService subjectService;
 
     @Autowired
-    private KnowledgeStateService knowledgeStateService;
+    private StudentService studentService;
 
     @PostMapping(consumes = "application/json")
     public ResponseEntity<Integer> saveProblem(@RequestBody ProblemDTO problemDTO){
@@ -45,23 +43,48 @@ public class ProblemController {
 
             Problem problem = new Problem(problemDTO.getName(), problemDTO.getDescription(), subject);
 
-            Optional<KnowledgeState> knowledgeState = knowledgeStateService.findById(problemDTO.getKnowledgeStateId());
-            if(knowledgeState.isPresent() ) {
-                knowledgeState.ifPresent(knowledgeState1 -> {
-                    problem.setKnowledgeStateId(knowledgeState1);
-                });
-            }
-            else{
-                return new ResponseEntity<>(0, HttpStatus.NOT_MODIFIED);
-            }
-
             problemService.save(problem);
 
-            return new ResponseEntity<>(subject.getId(), HttpStatus.CREATED);
+            return new ResponseEntity<>(problem.getId(), HttpStatus.CREATED);
         }else{
             return new ResponseEntity<Integer>(0, HttpStatus.NOT_MODIFIED);
         }
 
+    }
+
+    @PostMapping(value = "/learnedProblem", consumes = "application/json")
+    public ResponseEntity<Void> saveLearnedProblems(@RequestBody LearnedProblemDTO learnedProblemDTO){
+        try{
+            List<Student> students = studentService.findAllByUserType("Student");
+            Optional<Problem> problem = problemService.findById(learnedProblemDTO.getProblemId());
+
+            Set<Student> novi = new HashSet<>();
+            if(problem.isPresent() ) {
+                problem.ifPresent(problem1 -> {
+                    for(Student s : students){
+                        for( Integer dtoStudentId : learnedProblemDTO.getStudentId()){
+                            if( s.getId() == dtoStudentId){
+                                novi.add(s);
+                            }
+                        }
+                    }
+                    problem1.setLearnedProblems(novi);
+                });
+            }
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        }catch(Exception e){
+            return new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
+        }
+    }
+
+    @GetMapping(produces = "application/json")
+    public ResponseEntity<List<Problem>> getAllProblems() {
+        List<Problem> problems = problemService.findAll();
+        if(problems != null)
+        {
+            return new ResponseEntity<>(problems, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(problems, HttpStatus.NOT_MODIFIED);
     }
 
     @GetMapping(value = "/bySubject/{subjectId}", produces = "application/json")
@@ -76,7 +99,7 @@ public class ProblemController {
             if (problems != null) {
                 for (Problem p :
                         problems) {
-                    response.add(new ProblemDTO(p.getName(), p.getDescription(), p.getSubject().getId(), p.getKnowledgeStateId().getId()));
+                    response.add(new ProblemDTO(p.getId(), p.getName(), p.getDescription(), p.getSubject().getId()));
                 }
                 return new ResponseEntity<>(response, HttpStatus.OK);
             }
@@ -87,17 +110,18 @@ public class ProblemController {
     }
 
 
-    @DeleteMapping(value = "/{problemId}")
-    public ResponseEntity<Void> deleteProblem( @PathVariable("problemId") Integer problemId) {
+    @DeleteMapping(value = "/{problemId}/{subjectId}")
+    public ResponseEntity<Void> deleteProblem(@PathVariable("problemId") Integer problemId, @PathVariable("subjectId") Integer subjectId) {
+        Optional<Subject> subject = subjectService.findById(subjectId);
         Optional<Problem> problem = problemService.findById(problemId);
-        if(problem.isPresent() ) {
-            problemService.remove(problemId);
-            return new ResponseEntity<>(HttpStatus.OK);
-        }
-        else{
+        if (subject.isPresent()) {
+            subject.ifPresent(subject1 -> {
+                subject1.getProblems().remove(problem.get());
+            });
+        } else {
             return new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
         }
-
+        problemService.remove(problemId);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
-
 }

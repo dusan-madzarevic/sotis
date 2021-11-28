@@ -1,5 +1,7 @@
 package com.backend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 import java.util.Set;
@@ -18,16 +20,29 @@ public class Problem {
     @Column(name = "description")
     private String description;
 
-    @OneToMany(mappedBy = "problem",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Set<Question> questions;
-
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "subjectId")
     private Subject subject;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "knowledgeStateId")
-    private KnowledgeState knowledgeStateId;
+    @ManyToMany(mappedBy = "problems")
+    @JsonIgnore
+    Set<Surmise> surmiseId;
+
+    @OneToMany(mappedBy = "problem",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonIgnore
+    private Set<Question> questions;
+
+    @OneToMany(mappedBy = "problemId",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonIgnore
+    private Set<Surmise> surmises;
+
+    @ManyToMany
+    @JoinTable(
+            name = "learnedProblems",
+            joinColumns = @JoinColumn(name = "problemId"),
+            inverseJoinColumns = @JoinColumn(name = "studentId"))
+    @JsonIgnore
+    private Set<Student> learnedProblems;
 
     public Problem() {
     }
@@ -86,11 +101,28 @@ public class Problem {
         this.subject = subject;
     }
 
-    public KnowledgeState getKnowledgeStateId() {
-        return knowledgeStateId;
+    public Set<Surmise> getSurmises() {
+        return surmises;
     }
 
-    public void setKnowledgeStateId(KnowledgeState knowledgeStateId) {
-        this.knowledgeStateId = knowledgeStateId;
+    public void setSurmises(Set<Surmise> surmises) {
+        this.surmises = surmises;
+    }
+
+    public Set<Surmise> getSurmiseId() {
+        return surmiseId;
+    }
+
+    public void setSurmiseId(Set<Surmise> surmiseId) {
+        this.surmiseId = surmiseId;
+    }
+
+    @JsonIgnore
+    public Set<Student> getLearnedProblems() {
+        return learnedProblems;
+    }
+
+    public void setLearnedProblems(Set<Student> learnedProblems) {
+        this.learnedProblems = learnedProblems;
     }
 }

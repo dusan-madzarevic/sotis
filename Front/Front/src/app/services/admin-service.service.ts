@@ -5,19 +5,9 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
   providedIn: 'root'
 })
 export class AdminServiceService {
-  radniNalog: any = [];
   sastavnica: any = [];
   stavkaSas: any = [];
-  stavkaRN: any = [];
   constructor(private http: HttpClient) { }
-
-  // tslint:disable-next-line:typedef
-  registrujKorisnika(user) {
-    return this.http.post('http://localhost:8090/korisnik', user,      {
-      headers: new HttpHeaders().set('Content-Type', 'application/json'),
-      responseType: 'text'
-    });
-  }
 
   // tslint:disable-next-line:typedef
   login(user) {
@@ -34,45 +24,9 @@ export class AdminServiceService {
   }
 
   // tslint:disable-next-line:typedef
-  setRadniNalog(radniNalog){
-    this.radniNalog = radniNalog;
-  }
-
-  // tslint:disable-next-line:typedef
-  setSastavnica(sastavnica){
-    this.sastavnica = sastavnica;
-  }
-
-  // tslint:disable-next-line:typedef
-  setSTavkaSas(stavkaSas){
-    this.stavkaSas = stavkaSas;
-  }
-
-  // tslint:disable-next-line:typedef
-  settStavkaRN(stavkaRN){
-    this.stavkaRN = stavkaRN;
-  }
-
-  // tslint:disable-next-line:typedef
-  gettStavkaRN(){
-    return this.stavkaRN;
-  }
-
-  // tslint:disable-next-line:typedef
-  getRadniNalog(){
-    return this.radniNalog;
-  }
-
-  // tslint:disable-next-line:typedef
   getSastavnica(){
     return this.sastavnica;
   }
-
-  // tslint:disable-next-line:typedef
-  getStavkaSass(){
-    return this.stavkaSas;
-  }
-
 
   // tslint:disable-next-line:typedef
   registrujAdmina(user) {
@@ -99,22 +53,43 @@ export class AdminServiceService {
   }
 
   // tslint:disable-next-line:typedef
-  getKancelarijas() {
-    return this.http.get('http://localhost:8090/kancelarija',      {
+  getSubjects() {
+    return this.http.get('http://localhost:8090/subject',      {
       headers: new HttpHeaders().set('Content-Type', 'application/json')
     });
   }
 
   // tslint:disable-next-line:typedef
-  getMagacine() {
-    return this.http.get('http://localhost:8090/magacin',      {
+  getProblemsBySubject(id) {
+    return this.http.get('http://localhost:8090/problem/bySubject/' + id,      {
       headers: new HttpHeaders().set('Content-Type', 'application/json')
     });
   }
 
   // tslint:disable-next-line:typedef
-  getPogone() {
-    return this.http.get('http://localhost:8090/pogon',      {
+  getSubjectsByProfessor(id) {
+    return this.http.get('http://localhost:8090/subject/byProfessor/' + id,      {
+      headers: new HttpHeaders().set('Content-Type', 'application/json')
+    });
+  }
+
+  // tslint:disable-next-line:typedef
+  getKnowledgeSpaceBySubjectId(id) {
+    return this.http.get('http://localhost:8090/knowledgeSpace/bySubject/' + id,      {
+      headers: new HttpHeaders().set('Content-Type', 'application/json')
+    });
+  }
+
+  // tslint:disable-next-line:typedef
+  getAllKnowledgeSpaces() {
+    return this.http.get('http://localhost:8090/knowledgeSpace',      {
+      headers: new HttpHeaders().set('Content-Type', 'application/json')
+    });
+  }
+
+  // tslint:disable-next-line:typedef
+  getAllProblems() {
+    return this.http.get('http://localhost:8090/problem',      {
       headers: new HttpHeaders().set('Content-Type', 'application/json')
     });
   }
@@ -133,67 +108,10 @@ export class AdminServiceService {
     });
   }
 
-  // tslint:disable-next-line:typedef
-  getStanjaPoMat(id) {
-    return this.http.get('http://localhost:8090/stanje/' + id ,      {
-      headers: new HttpHeaders().set('Content-Type', 'application/json')
-    });
-  }
-
-  // tslint:disable-next-line:typedef
-  getRadneNaloge() {
-    return this.http.get('http://localhost:8090/radni_nalog',      {
-      headers: new HttpHeaders().set('Content-Type', 'application/json')
-    });
-  }
-
-  // tslint:disable-next-line:typedef
-  getSastavnice() {
-    return this.http.get('http://localhost:8090/sastavnica',      {
-      headers: new HttpHeaders().set('Content-Type', 'application/json')
-    });
-  }
-
-  // tslint:disable-next-line:typedef
-  getSastavniceSemNje(id) {
-    return this.http.get('http://localhost:8090/sastavnica/' + id + '/semnje',      {
-      headers: new HttpHeaders().set('Content-Type', 'application/json')
-    });
-  }
-
-  // tslint:disable-next-line:typedef
-  getStavkaRN(id) {
-    return this.http.get('http://localhost:8090/stavka_rn/' + id,      {
-      headers: new HttpHeaders().set('Content-Type', 'application/json')
-    });
-  }
-
-  // tslint:disable-next-line:typedef
-  getStavkaSas(id) {
-    return this.http.get('http://localhost:8090/stavka_sas/' + id,      {
-      headers: new HttpHeaders().set('Content-Type', 'application/json')
-    });
-  }
-
-  // tslint:disable-next-line:typedef
-  getSveStavkeSas() {
-    return this.http.get('http://localhost:8090/stavka_sas',      {
-      headers: new HttpHeaders().set('Content-Type', 'application/json')
-    });
-  }
-
 
   // tslint:disable-next-line:typedef
   deleteKancelarija(id) {
     return this.http.delete('http://localhost:8090/kancelarija/' + id,      {
-      headers: new HttpHeaders().set('Content-Type', 'application/json'),
-      responseType: 'text'
-    });
-  }
-
-  // tslint:disable-next-line:typedef
-  deleteMaterijal(id) {
-    return this.http.delete('http://localhost:8090/materijal/' + id,      {
       headers: new HttpHeaders().set('Content-Type', 'application/json'),
       responseType: 'text'
     });
@@ -210,22 +128,6 @@ export class AdminServiceService {
   // tslint:disable-next-line:typedef
   deletePogon(id) {
     return this.http.delete('http://localhost:8090/pogon/' + id,      {
-      headers: new HttpHeaders().set('Content-Type', 'application/json'),
-      responseType: 'text'
-    });
-  }
-
-  // tslint:disable-next-line:typedef
-  deleteRadniNalog(id) {
-    return this.http.delete('http://localhost:8090/radni_nalog/' + id,      {
-      headers: new HttpHeaders().set('Content-Type', 'application/json'),
-      responseType: 'text'
-    });
-  }
-
-  // tslint:disable-next-line:typedef
-  deleteSastavnica(id) {
-    return this.http.delete('http://localhost:8090/sastavnica/' + id,      {
       headers: new HttpHeaders().set('Content-Type', 'application/json'),
       responseType: 'text'
     });
@@ -264,56 +166,8 @@ export class AdminServiceService {
   }
 
   // tslint:disable-next-line:typedef
-  registrujMagacin(user) {
-    return this.http.post('http://localhost:8090/magacin', user,      {
-      headers: new HttpHeaders().set('Content-Type', 'application/json'),
-      responseType: 'text'
-    });
-  }
-
-  // tslint:disable-next-line:typedef
-  registrujPogon(user) {
-    return this.http.post('http://localhost:8090/pogon', user,      {
-      headers: new HttpHeaders().set('Content-Type', 'application/json'),
-      responseType: 'text'
-    });
-  }
-
-  // tslint:disable-next-line:typedef
-  registrujRadniNalog(user) {
-    return this.http.post('http://localhost:8090/radni_nalog', user,      {
-      headers: new HttpHeaders().set('Content-Type', 'application/json'),
-      responseType: 'text'
-    });
-  }
-
-  // tslint:disable-next-line:typedef
   registrujTipSastavnica(user) {
     return this.http.post('http://localhost:8090/tip_sastavnica', user,      {
-      headers: new HttpHeaders().set('Content-Type', 'application/json'),
-      responseType: 'text'
-    });
-  }
-
-  // tslint:disable-next-line:typedef
-  registrujSastavnicu(user) {
-    return this.http.post('http://localhost:8090/sastavnica', user,      {
-      headers: new HttpHeaders().set('Content-Type', 'application/json'),
-      responseType: 'text'
-    });
-  }
-
-  // tslint:disable-next-line:typedef
-  registrujStavkuRN(user) {
-    return this.http.post('http://localhost:8090/stavka_rn', user,      {
-      headers: new HttpHeaders().set('Content-Type', 'application/json'),
-      responseType: 'text'
-    });
-  }
-
-  // tslint:disable-next-line:typedef
-  registrujStavkuSastavnice(user) {
-    return this.http.post('http://localhost:8090/stavka_sas', user,      {
       headers: new HttpHeaders().set('Content-Type', 'application/json'),
       responseType: 'text'
     });
@@ -328,41 +182,10 @@ export class AdminServiceService {
   }
 
   // tslint:disable-next-line:typedef
-  dodajMatUStavku(user, id) {
-    return this.http.put('http://localhost:8090/sastavnica/' + id + '/sasmat', user,      {
-      headers: new HttpHeaders().set('Content-Type', 'application/json'),
-      responseType: 'text'
-    });
-  }
-
-  // tslint:disable-next-line:typedef
-  dodajTrebovanje(user, id , id1) {
-    return this.http.put('http://localhost:8090/stavka_sas/' + id + '/' + id1 + '/ssasstanje', user,      {
-      headers: new HttpHeaders().set('Content-Type', 'application/json'),
-      responseType: 'text'
-    });
-  }
-
-  // tslint:disable-next-line:typedef
   dodajVezu(user, id , id1) {
     return this.http.put('http://localhost:8090/stavka_rn/' + id + '/' + id1 + '/srnssas', user,      {
       headers: new HttpHeaders().set('Content-Type', 'application/json'),
       responseType: 'text'
-    });
-  }
-
-  // tslint:disable-next-line:typedef
-  registrujTipMultipola(user) {
-    return this.http.post('http://localhost:8090/tos_multipol' , user,      {
-      headers: new HttpHeaders().set('Content-Type', 'application/json'),
-      responseType: 'text'
-    });
-  }
-
-  // tslint:disable-next-line:typedef
-  getStanja() {
-    return this.http.get('http://localhost:8090/stanje',      {
-      headers: new HttpHeaders().set('Content-Type', 'application/json')
     });
   }
 
@@ -390,69 +213,6 @@ export class AdminServiceService {
   }
 
   // tslint:disable-next-line:typedef
-  registrujRivet(user) {
-    return this.http.post('http://localhost:8090/rivet', user,      {
-      headers: new HttpHeaders().set('Content-Type', 'application/json'),
-      responseType: 'text'
-    });
-  }
-
-  // tslint:disable-next-line:typedef
-  registrujTestLiniju(user) {
-    return this.http.post('http://localhost:8090/test_linija', user,      {
-      headers: new HttpHeaders().set('Content-Type', 'application/json'),
-      responseType: 'text'
-    });
-  }
-
-  // tslint:disable-next-line:typedef
-  registrujReparaciju(user) {
-    return this.http.post('http://localhost:8090/reparacija', user,      {
-      headers: new HttpHeaders().set('Content-Type', 'application/json'),
-      responseType: 'text'
-    });
-  }
-
-  // tslint:disable-next-line:typedef
-  registrujMultipol(user) {
-    return this.http.post('http://localhost:8090/multipol', user,      {
-      headers: new HttpHeaders().set('Content-Type', 'application/json'),
-      responseType: 'text'
-    });
-  }
-
-  // tslint:disable-next-line:typedef
-  registrujPrintCentar(user) {
-    return this.http.post('http://localhost:8090/print_centar', user,      {
-      headers: new HttpHeaders().set('Content-Type', 'application/json'),
-      responseType: 'text'
-    });
-  }
-
-  // tslint:disable-next-line:typedef
-  registrujPakeraj(user) {
-    return this.http.post('http://localhost:8090/pakeraj', user,      {
-      headers: new HttpHeaders().set('Content-Type', 'application/json'),
-      responseType: 'text'
-    });
-  }
-
-  // tslint:disable-next-line:typedef
-  registrujQSKontrolu(user) {
-    return this.http.post('http://localhost:8090/qs_kontrola', user,      {
-      headers: new HttpHeaders().set('Content-Type', 'application/json'),
-      responseType: 'text'
-    });
-  }
-
-  // tslint:disable-next-line:typedef
-  getTipoviOs() {
-    return this.http.get('http://localhost:8090/tip_os',      {
-      headers: new HttpHeaders().set('Content-Type', 'application/json')
-    });
-  }
-
-  // tslint:disable-next-line:typedef
   getTipoviMultipola() {
     return this.http.get('http://localhost:8090/tos_multipol',      {
       headers: new HttpHeaders().set('Content-Type', 'application/json')
@@ -468,14 +228,6 @@ export class AdminServiceService {
   }
 
   // tslint:disable-next-line:typedef
-  deleteTOS(id) {
-    return this.http.delete('http://localhost:8090/tip_os/' + id,      {
-      headers: new HttpHeaders().set('Content-Type', 'application/json'),
-      responseType: 'text'
-    });
-  }
-
-  // tslint:disable-next-line:typedef
   getTipoviTestova() {
     return this.http.get('http://localhost:8090/tip_test',      {
       headers: new HttpHeaders().set('Content-Type', 'application/json')
@@ -483,55 +235,119 @@ export class AdminServiceService {
   }
 
   // tslint:disable-next-line:typedef
-  deleteTipTest(id, id1) {
-    return this.http.delete('http://localhost:8090/tip_test/' + id + '/' + id1,      {
+  kreirajProblem(problem) {
+    return this.http.post('http://localhost:8090/problem', problem,      {
       headers: new HttpHeaders().set('Content-Type', 'application/json'),
       responseType: 'text'
     });
   }
 
   // tslint:disable-next-line:typedef
-  getTipKontrola() {
-    return this.http.get('http://localhost:8090/tip_kontrola',      {
+  kreirajPretpostavku(pretpostavka) {
+    return this.http.post('http://localhost:8090/surmise', pretpostavka,      {
+      headers: new HttpHeaders().set('Content-Type', 'application/json'),
+      responseType: 'text'
+    });
+  }
+
+  // tslint:disable-next-line:typedef
+  kreirajProstorZnanja(prostorZnanja) {
+    return this.http.post('http://localhost:8090/knowledgeSpace', prostorZnanja,      {
+      headers: new HttpHeaders().set('Content-Type', 'application/json'),
+      responseType: 'text'
+    });
+  }
+
+  // tslint:disable-next-line:typedef
+  deleteSubject(id) {
+    return this.http.delete('http://localhost:8090/subject/' + id,      {
+      headers: new HttpHeaders().set('Content-Type', 'application/json'),
+      responseType: 'text'
+    });
+  }
+
+  // tslint:disable-next-line:typedef
+  kreirajPredmet(subject) {
+    return this.http.post('http://localhost:8090/subject', subject,      {
+      headers: new HttpHeaders().set('Content-Type', 'application/json'),
+      responseType: 'text'
+    });
+  }
+
+  // tslint:disable-next-line:typedef
+  deleteProblem(problemId, subjectId) {
+    return this.http.delete('http://localhost:8090/problem/' + problemId + '/' + subjectId,      {
+      headers: new HttpHeaders().set('Content-Type', 'application/json'),
+      responseType: 'text'
+    });
+  }
+
+  // tslint:disable-next-line:typedef
+  deletePretpostavka(pretpostavkaId, knowledgeSpaceId, problemId) {
+    return this.http.delete('http://localhost:8090/surmise/' + pretpostavkaId + '/' + problemId + '/' + knowledgeSpaceId,      {
+      headers: new HttpHeaders().set('Content-Type', 'application/json'),
+      responseType: 'text'
+    });
+  }
+
+  // tslint:disable-next-line:typedef
+  deleteKnowledgeSpace(knowledgeSpaceId, subjectId) {
+    return this.http.delete('http://localhost:8090/knowledgeSpace/' + knowledgeSpaceId + '/' + subjectId,      {
+      headers: new HttpHeaders().set('Content-Type', 'application/json'),
+      responseType: 'text'
+    });
+  }
+
+
+  // tslint:disable-next-line:typedef
+  getSurmiseByProblemId(id) {
+    return this.http.get('http://localhost:8090/surmise/byProblem/' + id,      {
       headers: new HttpHeaders().set('Content-Type', 'application/json')
     });
   }
 
   // tslint:disable-next-line:typedef
-  deleteTipKontrola(id, id1) {
-    return this.http.delete('http://localhost:8090/tip_kontrola/' + id + '/' + id1,      {
-      headers: new HttpHeaders().set('Content-Type', 'application/json'),
-      responseType: 'text'
-    });
-  }
-
-  // tslint:disable-next-line:typedef
-  registrujTipTest(user) {
-    return this.http.post('http://localhost:8090/tip_test', user,      {
-      headers: new HttpHeaders().set('Content-Type', 'application/json'),
-      responseType: 'text'
-    });
-  }
-
-  // tslint:disable-next-line:typedef
-  registrujTipKontrola(user) {
-    return this.http.post('http://localhost:8090/tip_kontrola', user,      {
-      headers: new HttpHeaders().set('Content-Type', 'application/json'),
-      responseType: 'text'
-    });
-  }
-
-  // tslint:disable-next-line:typedef
-  getQsKontrole() {
-    return this.http.get('http://localhost:8090/qs_kontrola',      {
+  getSurmiseByKnowledgeSpaceId(id) {
+    return this.http.get('http://localhost:8090/surmise/byKnowledgeSpace/' + id,      {
       headers: new HttpHeaders().set('Content-Type', 'application/json')
     });
   }
 
   // tslint:disable-next-line:typedef
-  getTestLinije() {
-    return this.http.get('http://localhost:8090/test_linija',      {
+  getAllSurmises() {
+    return this.http.get('http://localhost:8090/surmise',      {
       headers: new HttpHeaders().set('Content-Type', 'application/json')
     });
   }
+
+  // tslint:disable-next-line:typedef
+  getAllSubjects() {
+    return this.http.get('http://localhost:8090/subject',      {
+      headers: new HttpHeaders().set('Content-Type', 'application/json')
+    });
+  }
+
+  // tslint:disable-next-line:typedef
+  getAllProfessors() {
+    return this.http.get('http://localhost:8090/professor',      {
+      headers: new HttpHeaders().set('Content-Type', 'application/json')
+    });
+  }
+
+  // tslint:disable-next-line:typedef
+  kreirajPretpostavkinProblem(pretpostavkinProblem) {
+    return this.http.put('http://localhost:8090/surmise/problems', pretpostavkinProblem,      {
+      headers: new HttpHeaders().set('Content-Type', 'application/json'),
+      responseType: 'text'
+    });
+  }
+
+  // tslint:disable-next-line:typedef
+  kreirajPredmetneProfesore(predmetniProfesori) {
+    return this.http.put('http://localhost:8090/subject/professors', predmetniProfesori,      {
+      headers: new HttpHeaders().set('Content-Type', 'application/json'),
+      responseType: 'text'
+    });
+  }
+
 }

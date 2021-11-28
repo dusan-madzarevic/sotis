@@ -1,5 +1,7 @@
 package com.backend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 import java.util.Set;
@@ -19,10 +21,20 @@ public class Subject {
     private String code;
 
     @OneToMany(mappedBy = "subject",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    Set<Problem> problems;
+    @JsonIgnore
+    private Set<Problem> problems;
 
     @OneToMany(mappedBy = "subjectId",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    Set<StudentSubject> studentSubjects;
+    @JsonIgnore
+    private Set<KnowledgeSpace> knowledgeSpaces;
+
+    @ManyToMany
+    @JoinTable(
+            name = "subject_professor",
+            joinColumns = @JoinColumn(name = "subjectId"),
+            inverseJoinColumns = @JoinColumn(name = "professorId"))
+    @JsonIgnore
+    private Set<Professor> professors;
 
     public Subject() {
     }
@@ -64,11 +76,19 @@ public class Subject {
         this.problems = problems;
     }
 
-    public Set<StudentSubject> getStudentSubjects() {
-        return studentSubjects;
+    public Set<KnowledgeSpace> getKnowledgeSpaces() {
+        return knowledgeSpaces;
     }
 
-    public void setStudentSubjects(Set<StudentSubject> studentSubjects) {
-        this.studentSubjects = studentSubjects;
+    public void setKnowledgeSpaces(Set<KnowledgeSpace> knowledgeSpaces) {
+        this.knowledgeSpaces = knowledgeSpaces;
+    }
+
+    public Set<Professor> getProfessors() {
+        return professors;
+    }
+
+    public void setProfessors(Set<Professor> professors) {
+        this.professors = professors;
     }
 }
