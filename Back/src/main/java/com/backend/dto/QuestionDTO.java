@@ -1,14 +1,18 @@
 package com.backend.dto;
 
+import java.util.Set;
+
 public class QuestionDTO {
     private Integer id;
     private Integer sectionId;
+    private Set<Integer> problems;
     private String questionText;
     private Integer score;
 
-    public QuestionDTO(Integer id, Integer sectionId, String questionText, Integer score) {
+    public QuestionDTO(Integer id, Integer sectionId, Set<Integer> problems,  String questionText, Integer score) {
         this.id = id;
         this.sectionId = sectionId;
+        this.problems = problems;
         this.questionText = questionText;
         this.score = score;
     }
@@ -43,5 +47,13 @@ public class QuestionDTO {
 
     public void setScore(Integer score) {
         this.score = score;
+    }
+
+    public Set<Integer> getProblems() {
+        return problems;
+    }
+
+    public void setProblems(Set<Integer> problems) {
+        this.problems = problems;
     }
 }

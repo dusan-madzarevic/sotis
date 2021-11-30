@@ -8,18 +8,16 @@ import com.backend.model.KnowledgeSpace;
 import com.backend.model.Problem;
 import com.backend.model.Subject;
 import com.backend.model.Surmise;
+import com.backend.service.*;
 import com.backend.service.KnowledgeSpaceService;
-import com.backend.service.ProblemService;
-import com.backend.service.SubjectService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @RestController
 @CrossOrigin
@@ -29,9 +27,10 @@ public class KnowledgeSpaceController {
     private KnowledgeSpaceService knowledgeSpaceService;
     @Autowired
     private SubjectService subjectService;
-
     @Autowired
     private ProblemService problemService;
+    @Autowired
+    private SurmiseService surmiseService;
 
     @PostMapping(consumes = "application/json")
     public ResponseEntity<Integer> saveKnowledgeSpace(@RequestBody KnowledgeSpaceDTO knowledgeSpaceDTO, HttpServletRequest httpServletRequest) {
@@ -125,14 +124,55 @@ public class KnowledgeSpaceController {
             else{
                 return new ResponseEntity<>(0, HttpStatus.NOT_MODIFIED);
             }
+            knowledgeSpaceService.save(knowledgeSpace);
+            List<Problem> tempList = new ArrayList<>();
+            request.getProblems().sort(Comparator.comparing(ProblemDTO::getId));
+            for (ProblemDTO dto :
+                    request.getProblems()) {
 
+                Subject s = subjectService.findById(dto.getSubjectId()).orElse(null);
+                if(s != null){
+                    System.out.println(dto.getName());
+                    Problem p = new Problem();
+                    p.setName(dto.getName());
+                    p.setDescription("desc");
+                    p.setSubject(s);
+
+                    problemService.save(p);
+                    tempList.add(p);
+                }
+            }
+
+            HashMap<Integer, Set<Integer>> links = new HashMap<>();
 
             for (SurmiseLinkDTO link :
                     request.getLinks()) {
-
+                if(links.get(link.getFrom()) != null)
+                    links.get(link.getFrom()).add(link.getTo());
+                else{
+                    Set<Integer> to = new HashSet<>();
+                    to.add(link.getTo());
+                    links.put(link.getFrom(), to);
+                }
             }
 
-            knowledgeSpaceService.save(knowledgeSpace);
+            for (Integer key :
+                    links.keySet()) {
+                System.out.println(key);
+                Surmise s = new Surmise();
+                s.setKnowledgeSpaceId(knowledgeSpace);
+                s.setProblemId(tempList.get(key));
+                Set<Problem> to = new HashSet<>();
+                for (Integer toKey :
+                        links.get(key)) {
+                    System.out.println("val "+toKey);
+                    to.add(tempList.get(toKey));
+                }
+                s.setProblems(to);
+                surmiseService.save(s);
+            }
+            System.out.println("Here");
+
             return new ResponseEntity<>(knowledgeSpace.getId(), HttpStatus.CREATED);
         }catch(Exception e){
             return new ResponseEntity<>(0,HttpStatus.NOT_MODIFIED);

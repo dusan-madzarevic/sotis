@@ -219,7 +219,7 @@ export class NastavnikTestComponent implements OnInit {
   // tslint:disable-next-line:typedef
   deletePitanje(pitanje) {
     this.pitanje = pitanje;
-    this.nastavnikService.obrisiPitanje(pitanje.id, pitanje.sectionId)
+    this.nastavnikService.obrisiPitanje(pitanje.id, pitanje.sectionId, pitanje.problemId)
       .pipe(first())
       .subscribe();
     this.pitanja = [];
@@ -283,18 +283,15 @@ export class NastavnikTestComponent implements OnInit {
     this.modalService.dismissAll();
   }
 
+  // tslint:disable-next-line:typedef
   preuzmiRezultate(id) {
-
     this.nastavnikService.preuzmiRezultate(id).subscribe(res => {
-
       const blob = new Blob([res], { type: 'application/octet-stream' });
       const url = window.URL.createObjectURL(blob);
-      const anchor = document.createElement("a");
-      anchor.download = "testResults"+id+".csv";
+      const anchor = document.createElement('a');
+      anchor.download = 'testResults' + id + '.csv';
       anchor.href = url;
       anchor.click();
-
-
     });
   }
 }

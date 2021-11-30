@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import Swal from 'sweetalert2';
 import {Network, Edge, DataSet} from "vis-network/standalone";
+import { KnowledgeSpaceService } from '../services/knowledge-space.service';
 
 @Component({
   selector: 'app-knowledge-space-graph',
@@ -9,6 +12,7 @@ import {Network, Edge, DataSet} from "vis-network/standalone";
 export class KnowledgeSpaceGraphComponent implements OnInit {
   name = "";
   selectedNode = 0;
+  subjectId = 0;
   // create an array with nodes
   nodes = new DataSet([]);
 
@@ -25,11 +29,14 @@ export class KnowledgeSpaceGraphComponent implements OnInit {
 
   network: Network = null;
 
-  constructor() { }
+  constructor(private knowledgeSpaceService: KnowledgeSpaceService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
     this.drawNetwork();
-
+    this.route.paramMap.subscribe(params => {
+      console.log(params);
+      this.subjectId = +params.get("subjectId");
+    });
   }
 
   drawNetwork(){
@@ -38,11 +45,15 @@ export class KnowledgeSpaceGraphComponent implements OnInit {
       manipulation: {
         enabled: true,
         editNode: function (nodeData, callback){
-          nodeData.label = document.getElementById("labelvalue").value;
+          nodeData.label = (<HTMLInputElement>document.getElementById("labelvalue")).value;
           callback(nodeData);
 
         }
       },
+      edges: {
+        arrows: 'to',
+        color: 'red'
+      }
     };
     const container = document.getElementById("mynetwork");
     this.network = new Network(container, this.data, options);
@@ -120,6 +131,7 @@ export class KnowledgeSpaceGraphComponent implements OnInit {
 
   editNode(){
     console.log(this.nodes);
+    console.log(this.edges);
     console.log(this.selectedNode);
     this.nodes.update({id: this.selectedNode, label: name});
     this.network.redraw();
@@ -128,7 +140,63 @@ export class KnowledgeSpaceGraphComponent implements OnInit {
 
   }
 
-  logout() {
+  save() {
+
+
+      console.log(this.nodes.get());
+      console.log(this.edges.get());
+      console.log(this.selectedNode);
+  
+      const map = new Map;
+      let i = 0;
+      let nodes = []
+      let edgeList = []
+      this.nodes.get().forEach(node => {
+        map.set(node.id, i);
+        nodes.push({
+          id: i,
+          subjectId: this.subjectId,
+          name: node.label,
+          description: "desc"
+        });
+        i = i + 1;
+      });
+  
+      this.edges.get().forEach(element => {
+        edgeList.push({
+          from: map.get(element.from),
+          to: map.get(element.to)
+        })
+      });
+  
+      const request = {
+  
+        name: "testSpace",
+        subjectId: this.subjectId,
+        links: edgeList,
+        problems: nodes
+  
+      }
+  
+      console.log(edgeList);
+      console.log(nodes);
+      console.log(this.subjectId);
+      console.log(request);
+      this.knowledgeSpaceService.saveSpace(request).subscribe(response =>{
+
+        Swal.fire(
+          'Created!',
+          'Knowledge space successfully created.',
+          'success'
+        )
+
+
+      });
+  }
+
+  logout(){
+
+
 
   }
 }

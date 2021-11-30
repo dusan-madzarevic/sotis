@@ -7,6 +7,10 @@ import com.backend.model.Problem;
 import com.backend.model.Student;
 import com.backend.model.Subject;
 import com.backend.service.ProblemService;
+import com.backend.dto.ProblemQuestionsDTO;
+import com.backend.model.*;
+import com.backend.service.ProblemService;
+import com.backend.service.QuestionService;
 import com.backend.service.StudentService;
 import com.backend.service.SubjectService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +18,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
 @RestController
@@ -29,6 +34,8 @@ public class ProblemController {
 
     @Autowired
     private StudentService studentService;
+    @Autowired
+    private QuestionService questionService;
 
     @PostMapping(consumes = "application/json")
     public ResponseEntity<Integer> saveProblem(@RequestBody ProblemDTO problemDTO){
@@ -42,7 +49,6 @@ public class ProblemController {
             }
 
             Problem problem = new Problem(problemDTO.getName(), problemDTO.getDescription(), subject);
-
             problemService.save(problem);
 
             return new ResponseEntity<>(problem.getId(), HttpStatus.CREATED);
@@ -50,6 +56,39 @@ public class ProblemController {
             return new ResponseEntity<Integer>(0, HttpStatus.NOT_MODIFIED);
         }
 
+    }
+
+    @PutMapping(value = "/questions",consumes = "application/json")
+    public ResponseEntity<Integer> saveProblemQuestions(@RequestBody ProblemQuestionsDTO problemQuestionsDTO, HttpServletRequest httpServletRequest) {
+        try {
+            if(problemQuestionsDTO.getProblemId() == 0 || problemQuestionsDTO.getProblemId() == null ||  problemQuestionsDTO.getQuestions().isEmpty())
+            {
+                return new ResponseEntity<>(0, HttpStatus.NOT_MODIFIED);
+            }
+
+            Problem problem = problemService.findById(problemQuestionsDTO.getProblemId()).orElse(null);
+            for(Integer dtoQuestion : problemQuestionsDTO.getQuestions())
+            {
+                Question question = questionService.findById(dtoQuestion).orElse(null);
+                problem.getQuestions().add(question);
+            }
+            problemService.save(problem);
+            return new ResponseEntity<>(problem.getId(), HttpStatus.CREATED);
+
+
+        }catch(Exception e){
+            return new ResponseEntity<>(0,HttpStatus.NOT_MODIFIED);
+        }
+    }
+
+    @GetMapping(produces = "application/json")
+    public ResponseEntity<List<Problem>> getAllProblems() {
+        List<Problem> problems = problemService.findAll();
+        if(problems != null)
+        {
+            return new ResponseEntity<>(problems, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(problems, HttpStatus.NOT_MODIFIED);
     }
 
     @PostMapping(value = "/learnedProblem", consumes = "application/json")
@@ -75,16 +114,6 @@ public class ProblemController {
         }catch(Exception e){
             return new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
         }
-    }
-
-    @GetMapping(produces = "application/json")
-    public ResponseEntity<List<Problem>> getAllProblems() {
-        List<Problem> problems = problemService.findAll();
-        if(problems != null)
-        {
-            return new ResponseEntity<>(problems, HttpStatus.OK);
-        }
-        return new ResponseEntity<>(problems, HttpStatus.NOT_MODIFIED);
     }
 
     @GetMapping(value = "/bySubject/{subjectId}", produces = "application/json")

@@ -114,8 +114,8 @@ export class NastavnikServiceService {
   }
 
   // tslint:disable-next-line:typedef
-  obrisiPitanje(pitanjeId, sectionId) {
-    return this.http.delete('http://localhost:8090/question/' + pitanjeId + '/' + sectionId,      {
+  obrisiPitanje(pitanjeId, sectionId, problemId) {
+    return this.http.delete('http://localhost:8090/question/' + pitanjeId + '/' + sectionId + '/' + problemId,      {
       headers: new HttpHeaders().set('Content-Type', 'application/json'),
       responseType: 'text'
     });
@@ -144,10 +144,9 @@ export class NastavnikServiceService {
     });
   }
 
+  // tslint:disable-next-line:typedef
   preuzmiRezultate(id) {
-
-
-    return this.http.get('http://localhost:8090/testAttempt/'+id+'/results', {responseType: 'blob'});
+    return this.http.get('http://localhost:8090/testAttempt/' + id + '/results', {responseType: 'blob'});
 
   }
 }

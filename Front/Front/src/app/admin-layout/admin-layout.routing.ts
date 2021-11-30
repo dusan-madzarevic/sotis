@@ -5,6 +5,7 @@ import {AdminSurmiseComponent} from '../admin-surmise/admin-surmise.component';
 import {AdminProblemComponent} from '../admin-problem/admin-problem.component';
 import {AdminSubjectProfessorsComponent} from '../admin-subject-professors/admin-subject-professors.component';
 import {KnowledgeSpaceGraphComponent} from '../knowledge-space-graph/knowledge-space-graph.component';
+import {AdminProblemQuestionComponent} from '../admin-problem-question/admin-problem-question.component';
 
 export const AdminLayoutRutes: Routes = [
   { path: 'profilAdmin',      component: AdminProfilComponent },
@@ -12,5 +13,6 @@ export const AdminLayoutRutes: Routes = [
   { path: 'pretpostavkeAdmin',      component: AdminSurmiseComponent },
   { path: 'problemiAdmin',      component: AdminProblemComponent },
   { path: 'predmetProfesoriAdmin',      component: AdminSubjectProfessorsComponent },
-  { path: 'knowledgeSpaceAdmin', component: KnowledgeSpaceGraphComponent}
+  { path: 'knowledgeSpaceAdmin/:subjectId', component: KnowledgeSpaceGraphComponent},
+  { path: 'problemPitanjaAdmin',      component: AdminProblemQuestionComponent }
 ];

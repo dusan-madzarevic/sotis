@@ -202,6 +202,9 @@
           <th>
             Pretpostavka
           </th>
+          <th>
+            Pitanje
+          </th>
           </thead>
           <tbody>
           <ng-container *ngFor="let problem of problems">
@@ -224,6 +227,15 @@
                   <button class="btn btn-outline-primary" id="dropdownBasic222" ngbDropdownToggle>Pretpostavke</button>
                   <div ngbDropdownMenu aria-labelledby="dropdownBasic222">
                     <button ngbDropdownItem (click)="otvoriPretpostavku(openCom1, problem)">Prikazi pretpostavke</button>
+                  </div>
+                </div>
+              </td>
+
+              <td>
+                <div ngbDropdown class="d-inline-block">
+                  <button class="btn btn-outline-primary" id="dropdownBasic222123512" ngbDropdownToggle>Pitanja</button>
+                  <div ngbDropdownMenu aria-labelledby="dropdownBasic222">
+                    <button ngbDropdownItem (click)="otvoriPitanja(openCom13, problem)">Prikaži pitanja</button>
                   </div>
                 </div>
               </td>
@@ -325,7 +337,7 @@
             Id prostora znanja
           </th>
           <th>
-            Id pitanja
+            Id problema
           </th>
           <th>
             Pretpostavljeni problemi
@@ -414,6 +426,178 @@
           </tbody>
         </table>
       </div>
+
+    </div>
+
+  </div>
+
+  <div class="modal-footer">
+
+  </div>
+</ng-template>
+
+<ng-template #openCom13 let-modal windowClass="modal-dialog">
+  <div class="modal-header">
+    <h4 class="modal-title" class="text-right" id="modal-basic-title33131313">Pitanja</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead class=" text-primary">
+          <th>
+            Id
+          </th>
+          <th>
+            Id sekcije
+          </th>
+          <th>
+            Tekst pitanja
+          </th>
+          <th>
+            Score
+          </th>
+          <th>
+            Brisanje
+          </th>
+          <th>
+            Odgovori
+          </th>
+          </thead>
+          <tbody>
+          <ng-container *ngFor="let pitanje of pitanja">
+            <tr>
+              <td>{{pitanje.id}}</td>
+              <td>{{pitanje.sectionId}}</td>
+              <td>{{pitanje.questionText}}</td>
+              <td>{{pitanje.score}}</td>
+
+              <td>
+                <div ngbDropdown class="d-inline-block">
+                  <button class="btn btn-outline-primary" id="dropdownBasic441666" ngbDropdownToggle>Obriši</button>
+                  <div ngbDropdownMenu aria-labelledby="dropdownBasic441">
+                    <button ngbDropdownItem (click)="deletePitanje(pitanje)">Obriši pitanje</button>
+                  </div>
+                </div>
+              </td>
+
+              <td>
+                <div ngbDropdown class="d-inline-block">
+                  <button class="btn btn-outline-primary" id="dropdownBasic4446541" ngbDropdownToggle>Odgovori</button>
+                  <div ngbDropdownMenu aria-labelledby="dropdownBasic4441">
+                    <button ngbDropdownItem (click)="prikaziOdgovore(openCom22, pitanje)">Prikazi odgovore</button>
+                    <button ngbDropdownItem (click)="dodajOdgovor(pitanje, addAnswer)">Novi odgovor</button>
+                  </div>
+                </div>
+              </td>
+
+
+            </tr>
+          </ng-container>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="modal-footer">
+
+  </div>
+</ng-template>
+
+
+<ng-template #openCom22 let-modal windowClass="modal-dialog">
+  <div class="modal-header">
+    <h4 class="modal-title" class="text-right" id="modal-basic-title313">Odgovori</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead class=" text-primary">
+          <th>
+            Id
+          </th>
+          <th>
+            Tekst odgovora
+          </th>
+          <th>
+            Tačan
+          </th>
+          <th>
+            Bodovi
+          </th>
+          <th>
+            Id pitanja
+          </th>
+          <th>
+            Brisanje
+          </th>
+          </thead>
+          <tbody>
+          <ng-container *ngFor="let odgovor of odgovori">
+            <tr>
+              <td>{{odgovor.id}}</td>
+              <td>{{odgovor.answerText}}</td>
+              <td>{{odgovor.correct}}</td>
+              <td>{{odgovor.score}}</td>
+              <td>{{odgovor.questionId}}</td>
+
+              <td>
+                <div ngbDropdown class="d-inline-block">
+                  <button class="btn btn-outline-primary" id="dropdownBasic4411" ngbDropdownToggle>Obriši</button>
+                  <div ngbDropdownMenu aria-labelledby="dropdownBasic441">
+                    <button ngbDropdownItem (click)="deleteOdgovor(odgovor)">Obriši odgovor</button>
+                  </div>
+                </div>
+              </td>
+
+            </tr>
+          </ng-container>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="modal-footer">
+
+  </div>
+</ng-template>
+
+
+<ng-template #addAnswer let-modal windowClass="modal-dialog">
+  <div class="modal-header">
+    <h4 class="modal-title" class="text-right" id="modal-basic-title144411">Novi odgovor</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+
+
+    <div class="card-body">
+
+      <form [formGroup]="AnswerForm" (ngSubmit)="createOdgovor()">
+        Tekst odgovora <input type="text" formControlName="answerText" id="answerText"  placeholder="Tekst odgovora">
+        <div>
+          Skor <input type="number" formControlName="score" id="score1" nbInput min="1" max="100"value="1"  placeholder="Skor">
+        </div>
+        <div>
+          Tačan <input type="checkbox" [checked]="myVar1" (change)="myVar1 = !myVar1" />
+        </div>
+        <button type="submit" class="btn btn-primary">Kreiraj odgovor</button>
+      </form>
 
     </div>
 

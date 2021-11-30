@@ -14,6 +14,7 @@ import {AdminSurmiseComponent} from '../admin-surmise/admin-surmise.component';
 import {AdminProblemComponent} from '../admin-problem/admin-problem.component';
 import {AdminSubjectProfessorsComponent} from '../admin-subject-professors/admin-subject-professors.component';
 import {KnowledgeSpaceGraphComponent} from '../knowledge-space-graph/knowledge-space-graph.component';
+import { AdminProblemQuestionComponent } from '../admin-problem-question/admin-problem-question.component';
 
 
 
@@ -24,7 +25,8 @@ import {KnowledgeSpaceGraphComponent} from '../knowledge-space-graph/knowledge-s
     AdminSurmiseComponent,
     AdminProblemComponent,
     AdminSubjectProfessorsComponent,
-    KnowledgeSpaceGraphComponent
+    KnowledgeSpaceGraphComponent,
+    AdminProblemQuestionComponent
     ],
   imports: [
     CommonModule,

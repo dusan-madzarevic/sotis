@@ -24,14 +24,6 @@ public class Problem {
     @JoinColumn(name = "subjectId")
     private Subject subject;
 
-    @ManyToMany(mappedBy = "problems")
-    @JsonIgnore
-    Set<Surmise> surmiseId;
-
-    @OneToMany(mappedBy = "problem",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JsonIgnore
-    private Set<Question> questions;
-
     @OneToMany(mappedBy = "problemId",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonIgnore
     private Set<Surmise> surmises;
@@ -43,6 +35,14 @@ public class Problem {
             inverseJoinColumns = @JoinColumn(name = "studentId"))
     @JsonIgnore
     private Set<Student> learnedProblems;
+
+    @ManyToMany
+    @JoinTable(
+            name = "question_problems",
+            joinColumns = @JoinColumn(name = "problemId"),
+            inverseJoinColumns = @JoinColumn(name = "questionId"))
+    @JsonIgnore
+    Set<Question> questions;
 
     public Problem() {
     }
@@ -107,14 +107,6 @@ public class Problem {
 
     public void setSurmises(Set<Surmise> surmises) {
         this.surmises = surmises;
-    }
-
-    public Set<Surmise> getSurmiseId() {
-        return surmiseId;
-    }
-
-    public void setSurmiseId(Set<Surmise> surmiseId) {
-        this.surmiseId = surmiseId;
     }
 
     @JsonIgnore
