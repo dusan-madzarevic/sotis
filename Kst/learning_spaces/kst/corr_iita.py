@@ -1,7 +1,7 @@
 import sys
 import numpy as np
 import pandas as pd
-from kst import ob_counter
+from learning_spaces.kst import ob_counter
 
 
 def corr_iita(dataset, A):
