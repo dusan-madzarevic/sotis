@@ -23,7 +23,7 @@ def iita(dataset, v):
 
     data = dataset
     if isinstance(dataset, pd.DataFrame):
-        data = dataset.as_matrix()
+        data = dataset.values
 
     if np.logical_not(np.logical_or(data == 0, data == 1)).sum() != 0:
         sys.exit('data must contain only 0 and 1')
