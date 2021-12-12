@@ -10,7 +10,7 @@ declare interface RouteInfo {
 export const ROUTES: RouteInfo[] = [
   { path: '/admin/profilAdmin', title: 'Profil',  icon: '', class: '' },
   { path: '/admin/predmetiAdmin', title: 'Predmeti',  icon: '', class: '' },
-  { path: '/admin/pretpostavkeAdmin', title: 'Pretpostavke',  icon: '', class: '' },
+  { path: '/admin/prostorZnanjaProblemiAdmin', title: 'Pretpostavke prostora znanja',  icon: '', class: '' },
   { path: '/admin/problemiAdmin', title: 'Problemi pretpostavki',  icon: '', class: '' },
   { path: '/admin/predmetProfesoriAdmin', title: 'Predmetni profesori',  icon: '', class: '' },
   { path: '/admin/problemPitanjaAdmin', title: 'Problem pitanja',  icon: '', class: '' },

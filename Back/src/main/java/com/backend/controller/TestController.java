@@ -4,6 +4,7 @@ import com.backend.dto.QuestionDTO;
 import com.backend.dto.TestDTO;
 import com.backend.model.*;
 import com.backend.service.ProfessorService;
+import com.backend.service.SubjectService;
 import com.backend.service.TestService;
 import com.backend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,11 +30,14 @@ public class TestController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private SubjectService subjectService;
+
     @PostMapping(consumes = "application/json")
     public ResponseEntity<Integer> saveTest(@RequestBody TestDTO testDTO, HttpServletRequest httpServletRequest) {
         try {
             Test test = new Test();
-            if(testDTO.getUsername() == null || testDTO.getUsername().equals("") || testDTO.getTitle().equals("") || testDTO.getMaxScore() == null|| testDTO.getMaxScore() == 0 || testDTO.getPassPercentage() == null || testDTO.getPassPercentage() == 0)
+            if(testDTO.getUsername() == null || testDTO.getUsername().equals("") || testDTO.getTitle().equals("") || testDTO.getMaxScore() == null|| testDTO.getMaxScore() == 0 || testDTO.getPassPercentage() == null || testDTO.getPassPercentage() == 0 || testDTO.getSubjectId() == 0 ||  testDTO.getSubjectId() == null)
             {
                 return new ResponseEntity<>(0, HttpStatus.NOT_MODIFIED);
             }
@@ -49,8 +53,16 @@ public class TestController {
                     professor = p;
             }
 
+            Subject subject = subjectService.findById(testDTO.getSubjectId()).orElse(null);
+
             if(professor!= null){
                 test.setProfessorId(professor);
+            } else{
+                return new ResponseEntity<>(0, HttpStatus.NOT_MODIFIED);
+            }
+
+            if(subject!= null){
+                test.setSubjectId(subject);
             } else{
                 return new ResponseEntity<>(0, HttpStatus.NOT_MODIFIED);
             }
@@ -66,9 +78,8 @@ public class TestController {
     public ResponseEntity<List<TestDTO>> getTests() {
         List<Test> tests = testService.findAll();
         List<TestDTO> response = new ArrayList<>();
-        for (Test test :
-                tests) {
-            response.add(new TestDTO(test.getId(), test.getProfessorId().getUsername(), test.getProfessorId().getName()+ " "+ test.getProfessorId().getLastName(), test.getTitle(), test.getMaxScore(), test.getPassPercentage()));
+        for (Test test : tests) {
+            response.add(new TestDTO(test.getId(), test.getProfessorId().getUsername(), test.getProfessorId().getName()+ " "+ test.getProfessorId().getLastName(), test.getTitle(), test.getMaxScore(), test.getPassPercentage(), test.getSubjectId().getId()));
         }
 
         return new ResponseEntity<>(response, HttpStatus.OK);
@@ -77,16 +88,16 @@ public class TestController {
 
     @GetMapping(value = "/byProfessor/{username}", produces = "application/json")
     public ResponseEntity<List<TestDTO>> getProfessorTests(@PathVariable("username") String professorUsername) {
-        List<User> users = userService.findAll();
+        List<Professor> professors = professorService.findAllByUserType("Professor");
         List<Test> tests = testService.findAll();
         List<TestDTO> response = new ArrayList<>();
 
-        if(!users.isEmpty()){
-            for( User u : users){
-                if(u.getUsername().equals(professorUsername)){
+        if(!professors.isEmpty()){
+            for( Professor p : professors){
+                if(p.getUsername().equals(professorUsername)){
                     for( Test t : tests){
                         if(t.getProfessorId().getUsername().equals(professorUsername)){
-                            response.add(new TestDTO(t.getId(), professorUsername, t.getProfessorId().getName()+ " "+ t.getProfessorId().getLastName(), t.getTitle(), t.getMaxScore(), t.getPassPercentage()));
+                            response.add(new TestDTO(t.getId(), professorUsername, t.getProfessorId().getName()+ " "+ t.getProfessorId().getLastName(), t.getTitle(), t.getMaxScore(), t.getPassPercentage(), t.getSubjectId().getId()));
                         }
                     }
                 }
@@ -100,11 +111,20 @@ public class TestController {
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> deleteTest(@PathVariable Integer id) {
         List<Professor> professors = professorService.findAllByUserType("Professor");
+        List<Subject> subjects = subjectService.findAll();
         Optional<Test> test = testService.findById(id);
         for(Professor p : professors){
             if(test.isPresent() ) {
-                test.ifPresent(student1 -> {
-                    p.getTests().remove(student1);
+                test.ifPresent(test1 -> {
+                    p.getTests().remove(test1);
+                });
+            }
+        }
+
+        for(Subject s : subjects){
+            if(test.isPresent() ) {
+                test.ifPresent(test1 -> {
+                    s.getTests().remove(test1);
                 });
             }
         }

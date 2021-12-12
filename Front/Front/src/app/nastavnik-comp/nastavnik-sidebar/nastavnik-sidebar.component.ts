@@ -10,6 +10,9 @@ export const ROUTES: RouteInfo[] = [
   { path: '/nastavnik/nastavnikProfil', title: 'Profil',  icon: '', class: '' },
   { path: '/nastavnik/nastavnikTest', title: 'Testovi',  icon: '', class: '' },
   { path: '/nastavnik/nastavnikPredmeti', title: 'Predmeti',  icon: '', class: '' },
+  { path: '/nastavnik/nastavnikProblemPitanja', title: 'Problem pitanja',  icon: '', class: '' },
+  { path: '/nastavnik/problemiPretpostavke', title: 'Problemi pretpostavki',  icon: '', class: '' },
+  { path: '/nastavnik/prostorZnanjaPretpostavke', title: 'Pretpostavke prostora znanja',  icon: '', class: '' },
 ];
 
 @Component({
