@@ -1,0 +1,175 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://www.semanticweb.org/dušan/ontologies/2021/11/sotis-model#"
+     xml:base="http://www.semanticweb.org/dušan/ontologies/2021/11/sotis-model"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+    <owl:Ontology rdf:about="http://www.semanticweb.org/dušan/ontologies/2021/11/sotis-model"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/dušan/ontologies/2021/11/sotis-model#teaches -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/dušan/ontologies/2021/11/sotis-model#teaches">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/dušan/ontologies/2021/11/sotis-model#Professor"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/dušan/ontologies/2021/11/sotis-model#Subject"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/dušan/ontologies/2021/11/sotis-model#identifier -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/dušan/ontologies/2021/11/sotis-model#identifier">
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/dušan/ontologies/2021/11/sotis-model#Administrator -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/dušan/ontologies/2021/11/sotis-model#Administrator">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/dušan/ontologies/2021/11/sotis-model#User"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/dušan/ontologies/2021/11/sotis-model#Answer -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/dušan/ontologies/2021/11/sotis-model#Answer">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/dušan/ontologies/2021/11/sotis-model#SotisModelElement"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/dušan/ontologies/2021/11/sotis-model#KnowledgeSpace -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/dušan/ontologies/2021/11/sotis-model#KnowledgeSpace">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/dušan/ontologies/2021/11/sotis-model#SotisModelElement"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/dušan/ontologies/2021/11/sotis-model#Problem -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/dušan/ontologies/2021/11/sotis-model#Problem">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/dušan/ontologies/2021/11/sotis-model#SotisModelElement"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/dušan/ontologies/2021/11/sotis-model#Professor -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/dušan/ontologies/2021/11/sotis-model#Professor">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/dušan/ontologies/2021/11/sotis-model#User"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/dušan/ontologies/2021/11/sotis-model#Question -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/dušan/ontologies/2021/11/sotis-model#Question">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/dušan/ontologies/2021/11/sotis-model#SotisModelElement"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/dušan/ontologies/2021/11/sotis-model#Section -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/dušan/ontologies/2021/11/sotis-model#Section">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/dušan/ontologies/2021/11/sotis-model#SotisModelElement"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/dušan/ontologies/2021/11/sotis-model#SotisModelElement -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/dušan/ontologies/2021/11/sotis-model#SotisModelElement"/>
+    
+
+
+    <!-- http://www.semanticweb.org/dušan/ontologies/2021/11/sotis-model#Student -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/dušan/ontologies/2021/11/sotis-model#Student">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/dušan/ontologies/2021/11/sotis-model#User"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/dušan/ontologies/2021/11/sotis-model#Subject -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/dušan/ontologies/2021/11/sotis-model#Subject">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/dušan/ontologies/2021/11/sotis-model#SotisModelElement"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/dušan/ontologies/2021/11/sotis-model#Surmise -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/dušan/ontologies/2021/11/sotis-model#Surmise">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/dušan/ontologies/2021/11/sotis-model#SotisModelElement"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/dušan/ontologies/2021/11/sotis-model#Test -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/dušan/ontologies/2021/11/sotis-model#Test">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/dušan/ontologies/2021/11/sotis-model#SotisModelElement"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/dušan/ontologies/2021/11/sotis-model#TestAttempt -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/dušan/ontologies/2021/11/sotis-model#TestAttempt">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/dušan/ontologies/2021/11/sotis-model#SotisModelElement"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/dušan/ontologies/2021/11/sotis-model#User -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/dušan/ontologies/2021/11/sotis-model#User">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/dušan/ontologies/2021/11/sotis-model#SotisModelElement"/>
+    </owl:Class>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi -->
+
