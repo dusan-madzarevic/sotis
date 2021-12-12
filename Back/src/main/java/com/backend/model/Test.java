@@ -25,6 +25,10 @@ public class Test {
     @JsonIgnore
     private Set<Section> sections;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "subjectId")
+    private Subject subjectId;
+
     public Test() {
     }
 
@@ -74,5 +78,13 @@ public class Test {
 
     public void setSections(Set<Section> sections) {
         this.sections = sections;
+    }
+
+    public Subject getSubjectId() {
+        return subjectId;
+    }
+
+    public void setSubjectId(Subject subjectId) {
+        this.subjectId = subjectId;
     }
 }

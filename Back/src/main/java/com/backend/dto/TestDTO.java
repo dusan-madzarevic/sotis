@@ -7,14 +7,16 @@ public class TestDTO {
     private String title;
     private Integer maxScore;
     private Integer passPercentage;
+    private Integer subjectId;
 
-    public TestDTO(Integer id, String username, String professorName, String title, Integer maxScore, Integer passPercentage) {
+    public TestDTO(Integer id, String username, String professorName, String title, Integer maxScore, Integer passPercentage, Integer subjectId) {
         this.id = id;
         this.username = username;
         this.professorName = professorName;
         this.title = title;
         this.maxScore = maxScore;
         this.passPercentage = passPercentage;
+        this.subjectId = subjectId;
     }
 
     public Integer getId() {
@@ -63,5 +65,13 @@ public class TestDTO {
 
     public void setPassPercentage(Integer passPercentage) {
         this.passPercentage = passPercentage;
+    }
+
+    public Integer getSubjectId() {
+        return subjectId;
+    }
+
+    public void setSubjectId(Integer subjectId) {
+        this.subjectId = subjectId;
     }
 }

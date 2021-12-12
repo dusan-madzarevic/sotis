@@ -28,6 +28,9 @@
         Šifra
       </th>
       <th>
+        Testovi
+      </th>
+      <th>
         Problemi
       </th>
       <th>
@@ -43,6 +46,16 @@
           <td>{{subject.id}}</td>
           <td>{{subject.name}}</td>
           <td>{{subject.code}}</td>
+
+          <td>
+            <div ngbDropdown class="d-inline-block">
+              <button class="btn btn-outline-primary" id="dropdownBasic2121212" ngbDropdownToggle>Testovi</button>
+              <div ngbDropdownMenu aria-labelledby="dropdownBasic2">
+                <button ngbDropdownItem (click)="otvoriTestove(openTest, subject)">Prikaži testove</button>
+                <button ngbDropdownItem (click)="dodajTest(subject,addTest)">Novi test</button>
+              </div>
+            </div>
+          </td>
 
           <td>
             <div ngbDropdown class="d-inline-block">
@@ -597,6 +610,112 @@
           Tačan <input type="checkbox" [checked]="myVar1" (change)="myVar1 = !myVar1" />
         </div>
         <button type="submit" class="btn btn-primary">Kreiraj odgovor</button>
+      </form>
+
+    </div>
+
+  </div>
+
+  <div class="modal-footer">
+
+  </div>
+</ng-template>
+
+
+
+<ng-template #openTest let-modal windowClass="modal-dialog">
+  <div class="modal-header">
+    <h4 class="modal-title" class="text-right" id="modal-basic-title31111111111111111">Svi testovi</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead class=" text-primary">
+          <th>
+            Id
+          </th>
+          <th>
+            Naziv
+          </th>
+          <th>
+            Max skor
+          </th>
+          <th>
+            Prolazni %
+          </th>
+          <th>
+            Kreirao
+          </th>
+          <th>
+            Preuzimanje rezultata
+          </th>
+          <th>
+            Brisanje
+          </th>
+          </thead>
+          <tbody>
+          <ng-container *ngFor="let test of testovi">
+            <tr>
+              <td>{{test.id}}</td>
+              <td>{{test.title}}</td>
+              <td>{{test.maxScore}}</td>
+              <td>{{test.passPercentage}}</td>
+              <td>{{test.username}}</td>
+
+              <td>
+                <a class="btn btn-outline-primary" (click)="preuzmiRezultate(test.id)">Rezultati</a>
+              </td>
+
+              <td>
+                <div ngbDropdown class="d-inline-block">
+                  <button class="btn btn-outline-primary" id="dropdownBasic123113123" ngbDropdownToggle>Obriši</button>
+                  <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                    <button ngbDropdownItem (click)="deleteTest(test)">Obriši test</button>
+                  </div>
+                </div>
+              </td>
+
+            </tr>
+          </ng-container>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="modal-footer">
+
+  </div>
+</ng-template>
+
+
+<ng-template #addTest let-modal windowClass="modal-dialog">
+  <div class="modal-header">
+    <h4 class="modal-title" class="text-right" id="modal-basic-title4444">Novi test</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+
+
+    <div class="card-body">
+
+      <form [formGroup]="TestForm" (ngSubmit)="createTest()">
+        Naziv <input type="text" formControlName="title" id="title"  placeholder="Naziv">
+        <div>
+          <input type="number" formControlName="maxScore" id="maxScore" nbInput min="1" max="100"value="1"  placeholder="Maksimalan skor">
+        </div>
+        <div>
+          <input type="number" formControlName="passPercentage" id="passPercentage" nbInput min="1" max="50"value="1"  placeholder="Prolazni %">
+        </div>
+        <button type="submit" class="btn btn-primary">Kreiraj test</button>
       </form>
 
     </div>

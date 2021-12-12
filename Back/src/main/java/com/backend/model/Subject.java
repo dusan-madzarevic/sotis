@@ -28,6 +28,10 @@ public class Subject {
     @JsonIgnore
     private Set<KnowledgeSpace> knowledgeSpaces;
 
+    @OneToMany(mappedBy = "subjectId",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonIgnore
+    private Set<Test> tests;
+
     @ManyToMany
     @JoinTable(
             name = "subject_professor",
@@ -90,5 +94,13 @@ public class Subject {
 
     public void setProfessors(Set<Professor> professors) {
         this.professors = professors;
+    }
+
+    public Set<Test> getTests() {
+        return tests;
+    }
+
+    public void setTests(Set<Test> tests) {
+        this.tests = tests;
     }
 }

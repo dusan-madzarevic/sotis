@@ -10,7 +10,7 @@ import {AdminProblemQuestionComponent} from '../admin-problem-question/admin-pro
 export const AdminLayoutRutes: Routes = [
   { path: 'profilAdmin',      component: AdminProfilComponent },
   { path: 'predmetiAdmin',      component: AdminSubjectComponent },
-  { path: 'pretpostavkeAdmin',      component: AdminSurmiseComponent },
+  { path: 'prostorZnanjaProblemiAdmin',      component: AdminSurmiseComponent },
   { path: 'problemiAdmin',      component: AdminProblemComponent },
   { path: 'predmetProfesoriAdmin',      component: AdminSubjectProfessorsComponent },
   { path: 'knowledgeSpaceAdmin/:subjectId', component: KnowledgeSpaceGraphComponent},

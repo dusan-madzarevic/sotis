@@ -41,7 +41,8 @@ export class NastavnikTestComponent implements OnInit {
       title: [''],
       maxScore: [''],
       passPercentage: [''],
-      username: ['']
+      username: [''],
+      subjectId: ['']
     });
 
     this.SectionForm = this.formBuilder.group({
@@ -69,6 +70,7 @@ export class NastavnikTestComponent implements OnInit {
     this.nastavnikService.getTestoviProfesora(localStorage.getItem('currentuser').toString())
       .pipe(first())
       .subscribe(data => {
+        console.log(data);
         this.testovi = data;
       });
   }

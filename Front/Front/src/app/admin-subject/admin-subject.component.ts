@@ -4,6 +4,7 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {AdminServiceService} from '../services/admin-service.service';
 import {first} from 'rxjs/operators';
+import {NastavnikServiceService} from '../services/nastavnik-service.service';
 
 @Component({
   selector: 'app-admin-subject',
@@ -33,7 +34,16 @@ export class AdminSubjectComponent implements OnInit {
   odgovor: any = [];
   AnswerForm: FormGroup;
   myVar1 = false;
-  constructor(private router: Router, private adminServiceService: AdminServiceService, private formBuilder: FormBuilder,
+
+  testovi: any = [];
+  TestForm: FormGroup;
+  SectionForm: FormGroup;
+  QuestionForm: FormGroup;
+  test: any = [];
+  sekcije: any = [];
+  sekcija: any = [];
+
+  constructor(private router: Router, private adminServiceService: AdminServiceService, private nastavnikService: NastavnikServiceService, private formBuilder: FormBuilder,
               private modalService: NgbModal) { }
 
   ngOnInit(): void {
@@ -69,6 +79,14 @@ export class AdminSubjectComponent implements OnInit {
       score: ['']
     });
 
+    this.TestForm = this.formBuilder.group({
+      title: [''],
+      maxScore: [''],
+      passPercentage: [''],
+      username: [''],
+      subjectId: ['']
+    });
+
     this.ucitajSveProstoreZnanja();
   }
 
@@ -85,6 +103,7 @@ export class AdminSubjectComponent implements OnInit {
                 this.subjects = data1;
               });
           }else {
+
             this.adminServiceService.getSubjects()
               .pipe(first())
               .subscribe(data1 => {
@@ -114,6 +133,28 @@ export class AdminSubjectComponent implements OnInit {
     }, (reason) => {
       this.closeResult = `Dismissed`;
     });
+  }
+
+  // tslint:disable-next-line:typedef
+  otvoriTestove(openCom, subject){
+    this.subject = subject;
+    this.testovi = [];
+    this.ucitajTestove();
+
+    this.modalService.open(openCom, {size: 'xl'}).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed`;
+    });
+  }
+
+  // tslint:disable-next-line:typedef
+  ucitajTestove() {
+    this.adminServiceService.getTestovi()
+      .pipe(first())
+      .subscribe(data => {
+        this.testovi = data;
+      });
   }
 
   // tslint:disable-next-line:typedef
@@ -294,7 +335,6 @@ export class AdminSubjectComponent implements OnInit {
   otvoriPretpostavljeneProbleme(openCom2, pretpostavka){
     this.pretpostavka = pretpostavka;
     this.pretpostavkaProblems = pretpostavka.problems;
-    console.log(this.pretpostavkaProblems);
 
     this.modalService.open(openCom2, {size: 'xl'}).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
@@ -336,7 +376,6 @@ export class AdminSubjectComponent implements OnInit {
 
   // tslint:disable-next-line:typedef
   dodajPretpostavku(problem, addSurmiseByProblem){
-    console.log(this.allKnowledgeSpaces);
     this.problem = problem;
     this.modalService.open(addSurmiseByProblem, {size: 'xl'}).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
@@ -446,6 +485,49 @@ export class AdminSubjectComponent implements OnInit {
       .subscribe();
     this.odgovori = [];
     this.ucitajOdgovore();
+    this.modalService.dismissAll();
+  }
+
+  // tslint:disable-next-line:typedef
+  preuzmiRezultate(id) {
+    this.nastavnikService.preuzmiRezultate(id).subscribe(res => {
+      const blob = new Blob([res], { type: 'application/octet-stream' });
+      const url = window.URL.createObjectURL(blob);
+      const anchor = document.createElement('a');
+      anchor.download = 'testResults' + id + '.csv';
+      anchor.href = url;
+      anchor.click();
+    });
+  }
+
+  // tslint:disable-next-line:typedef
+  deleteTest(test) {
+    this.nastavnikService.deleteTest(test.id)
+      .pipe(first())
+      .subscribe();
+    this.testovi = [];
+    this.ucitajTestove();
+  }
+
+  // tslint:disable-next-line:typedef
+  dodajTest(subject, addTest){
+    this.subject = subject;
+    this.modalService.open(addTest, {size: 'xl'}).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed`;
+    });
+  }
+
+  // tslint:disable-next-line:typedef
+  createTest() {
+    this.TestForm.value.username = localStorage.getItem('currentuser').toString();
+    this.TestForm.value.subjectId = this.subject.id;
+    this.nastavnikService.kreirajTest(JSON.stringify(this.TestForm.value))
+      .pipe(first())
+      .subscribe();
+    this.testovi = [];
+    this.ucitajTestove();
     this.modalService.dismissAll();
   }
 }

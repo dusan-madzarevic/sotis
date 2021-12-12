@@ -379,4 +379,11 @@ export class AdminServiceService {
     });
   }
 
+  // tslint:disable-next-line:typedef
+  getTestovi() {
+    return this.http.get('http://localhost:8090/test',      {
+      headers: new HttpHeaders().set('Content-Type', 'application/json')
+    });
+  }
+
 }
