@@ -6,6 +6,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 })
 export class NastavnikServiceService {
 
+
   constructor(private http: HttpClient) { }
 
   // tslint:disable-next-line:typedef
@@ -149,4 +150,18 @@ export class NastavnikServiceService {
     return this.http.get('http://localhost:8090/testAttempt/' + id + '/results', {responseType: 'blob'});
 
   }
+
+    // tslint:disable-next-line:typedef
+    preuzmiRezultateJson(id) {
+      return this.http.get('http://localhost:8090/testAttempt/' + id + '/resultsJson', {responseType: 'json'});
+  
+    }
+
+  iitaObradaRezultata(rezultati){
+    return this.http.post('http://localhost:5000/iita', rezultati,      {
+      headers: new HttpHeaders().set('Content-Type', 'application/json'),
+      responseType: 'text'
+    });
+  }
+
 }

@@ -233,10 +233,36 @@ public class TestAttemptController {
             return null;
         }
 
+    }
 
+    @GetMapping(value = "/{id}/resultsJson", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseEntity<TestAttemptIITAResponse> getResultsJson(@PathVariable Integer id) throws IOException {
 
+        Test test = testService.findById(id).orElse(null);
+        if(test != null) {
+            List<TestAttempt> attempts = testAttemptService.findAllByTest(test);
+            TestAttemptIITAResponse response = new TestAttemptIITAResponse();
+            List<TestAttemptIITADto> dtos = new ArrayList<>();
+            for (TestAttempt attempt :
+                    attempts) {
+                TestAttemptIITADto dto = new TestAttemptIITADto();
+                dto.setStudentName(attempt.getStudentId().getName());
+                for (Answer a :
+                        attempt.getChosenAnswers()) {
+                    if (a.getCorrect())
+                        dto.getAnswers().add(1);
+                    else
+                        dto.getAnswers().add(0);
+                }
+                dtos.add(dto);
+            }
+            response.setResults(dtos);
 
-
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        }else{
+            return null;
+        }
 
     }
 }

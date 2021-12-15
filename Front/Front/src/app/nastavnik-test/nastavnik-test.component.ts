@@ -296,4 +296,15 @@ export class NastavnikTestComponent implements OnInit {
       anchor.click();
     });
   }
+
+  obradiRezultate(id) {
+    this.nastavnikService.preuzmiRezultateJson(id).subscribe(res => {
+
+      this.nastavnikService.iitaObradaRezultata(res).subscribe(response => {
+
+        console.log("Pozvan IITA algoritam");
+      })
+
+    });
+  }
 }

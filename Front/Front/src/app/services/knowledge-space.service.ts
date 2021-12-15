@@ -11,7 +11,7 @@ export class KnowledgeSpaceService {
   // tslint:disable-next-line:typedef
   saveSpace(request) {
 
-    return this.http.post('http://localhost:8090/knowledgeSpace/fromGraph', request,      {
+    return this.http.post('http://localhost:8090/knowledgeSpace/fromGraph', request,{
       headers: new HttpHeaders().set('Content-Type', 'application/json')
     });
 
