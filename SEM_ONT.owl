@@ -63,6 +63,7 @@
 <!-- http://purl.org/vocab/aiiso/schema#part_of -->
 
 <rdf:Description rdf:about="http://purl.org/vocab/aiiso/schema#part_of">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
 	<rdfs:domain rdf:nodeID="genid1"/>
 </rdf:Description>
 
@@ -95,6 +96,13 @@
 <rdf:Description rdf:nodeID="genid7">
 	<rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
 	<rdf:first rdf:resource="http://purl.org/vocab/aiiso/schema#KnowledgeGrouping"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://purl.org/vocab/aiiso/schema#KnowledgeGrouping">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+</rdf:Description>
+
+<rdf:Description rdf:nodeID="genid7">
 	<rdf:rest rdf:nodeID="genid6"/>
 </rdf:Description>
 
@@ -306,6 +314,14 @@
 
 <rdf:Description rdf:about="http://purl.org/vocab/aiiso/schema#Course">
 	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+	<rdfs:subClassOf rdf:resource="http://www.semanticweb.org/dušan/ontologies/2021/11/sotis-model#Subject"/>
+	<rdfs:subClassOf rdf:nodeID="genid8"/>
+</rdf:Description>
+
+<rdf:Description rdf:nodeID="genid8">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+	<owl:onProperty rdf:resource="http://purl.org/vocab/aiiso/schema#part_of"/>
+	<owl:someValuesFrom rdf:resource="http://purl.org/vocab/aiiso/schema#Programme"/>
 </rdf:Description>
 <!--  -->
 <!-- http://purl.org/vocab/aiiso/schema#Faculty -->
@@ -313,6 +329,8 @@
 <rdf:Description rdf:about="http://purl.org/vocab/aiiso/schema#Faculty">
 	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
 </rdf:Description>
+<!--  -->
+<!-- http://purl.org/vocab/aiiso/schema#KnowledgeGrouping -->
 <!--  -->
 <!-- http://purl.org/vocab/aiiso/schema#Programme -->
 
@@ -422,17 +440,118 @@
 	<rdfs:subClassOf rdf:resource="http://www.semanticweb.org/dušan/ontologies/2021/10/SEM_ONT#DublinCoreElement"/>
 </rdf:Description>
 <!--  -->
+<!-- http://www.semanticweb.org/dušan/ontologies/2021/11/sotis-model#Answer -->
+
+<rdf:Description rdf:about="http://www.semanticweb.org/dušan/ontologies/2021/11/sotis-model#Answer">
+	<rdfs:subClassOf rdf:nodeID="genid9"/>
+</rdf:Description>
+
+<rdf:Description rdf:nodeID="genid9">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+	<owl:onProperty rdf:resource="http://purl.org/vocab/aiiso/schema#part_of"/>
+	<owl:someValuesFrom rdf:resource="http://www.semanticweb.org/dušan/ontologies/2021/11/sotis-model#Question"/>
+</rdf:Description>
+<!--  -->
+<!-- http://www.semanticweb.org/dušan/ontologies/2021/11/sotis-model#KnowledgeSpace -->
+
+<rdf:Description rdf:about="http://www.semanticweb.org/dušan/ontologies/2021/11/sotis-model#KnowledgeSpace">
+	<rdfs:subClassOf rdf:nodeID="genid10"/>
+</rdf:Description>
+
+<rdf:Description rdf:nodeID="genid10">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+	<owl:onProperty rdf:resource="http://purl.org/vocab/aiiso/schema#part_of"/>
+	<owl:someValuesFrom rdf:resource="http://www.semanticweb.org/dušan/ontologies/2021/11/sotis-model#Subject"/>
+</rdf:Description>
+<!--  -->
+<!-- http://www.semanticweb.org/dušan/ontologies/2021/11/sotis-model#Problem -->
+
+<rdf:Description rdf:about="http://www.semanticweb.org/dušan/ontologies/2021/11/sotis-model#Problem">
+	<rdfs:subClassOf rdf:resource="http://www.semanticweb.org/dušan/ontologies/2021/11/sotis-model#Surmise"/>
+</rdf:Description>
+<!--  -->
+<!-- http://www.semanticweb.org/dušan/ontologies/2021/11/sotis-model#Question -->
+
+<rdf:Description rdf:about="http://www.semanticweb.org/dušan/ontologies/2021/11/sotis-model#Question">
+	<rdfs:subClassOf rdf:nodeID="genid11"/>
+</rdf:Description>
+
+<rdf:Description rdf:nodeID="genid11">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+	<owl:onProperty rdf:resource="http://purl.org/vocab/aiiso/schema#part_of"/>
+	<owl:someValuesFrom rdf:resource="http://www.semanticweb.org/dušan/ontologies/2021/11/sotis-model#Problem"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://www.semanticweb.org/dušan/ontologies/2021/11/sotis-model#Question">
+	<rdfs:subClassOf rdf:nodeID="genid12"/>
+</rdf:Description>
+
+<rdf:Description rdf:nodeID="genid12">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+	<owl:onProperty rdf:resource="http://purl.org/vocab/aiiso/schema#part_of"/>
+	<owl:someValuesFrom rdf:resource="http://www.semanticweb.org/dušan/ontologies/2021/11/sotis-model#Section"/>
+</rdf:Description>
+<!--  -->
+<!-- http://www.semanticweb.org/dušan/ontologies/2021/11/sotis-model#Section -->
+
+<rdf:Description rdf:about="http://www.semanticweb.org/dušan/ontologies/2021/11/sotis-model#Section">
+	<rdfs:subClassOf rdf:nodeID="genid13"/>
+</rdf:Description>
+
+<rdf:Description rdf:nodeID="genid13">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+	<owl:onProperty rdf:resource="http://purl.org/vocab/aiiso/schema#part_of"/>
+	<owl:someValuesFrom rdf:resource="http://www.semanticweb.org/dušan/ontologies/2021/11/sotis-model#Test"/>
+</rdf:Description>
+<!--  -->
+<!-- http://www.semanticweb.org/dušan/ontologies/2021/11/sotis-model#Subject -->
+
+<rdf:Description rdf:about="http://www.semanticweb.org/dušan/ontologies/2021/11/sotis-model#Subject">
+	<rdfs:subClassOf rdf:resource="http://purl.org/vocab/aiiso/schema#Course"/>
+</rdf:Description>
+<!--  -->
+<!-- http://www.semanticweb.org/dušan/ontologies/2021/11/sotis-model#Surmise -->
+
+<rdf:Description rdf:about="http://www.semanticweb.org/dušan/ontologies/2021/11/sotis-model#Surmise">
+	<rdfs:subClassOf rdf:resource="http://www.semanticweb.org/dušan/ontologies/2021/11/sotis-model#Problem"/>
+	<rdfs:subClassOf rdf:nodeID="genid14"/>
+</rdf:Description>
+
+<rdf:Description rdf:nodeID="genid14">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+	<owl:onProperty rdf:resource="http://purl.org/vocab/aiiso/schema#part_of"/>
+	<owl:someValuesFrom rdf:resource="http://www.semanticweb.org/dušan/ontologies/2021/11/sotis-model#KnowledgeSpace"/>
+</rdf:Description>
+<!--  -->
 <!-- http://www.semanticweb.org/dušan/ontologies/2021/11/sotis-model#Test -->
 
 <rdf:Description rdf:about="http://www.semanticweb.org/dušan/ontologies/2021/11/sotis-model#Test">
 	<rdfs:subClassOf rdf:resource="http://www.semanticweb.org/dušan/ontologies/2021/10/SEM_ONT#LearningResource"/>
-	<rdfs:subClassOf rdf:nodeID="genid8"/>
+	<rdfs:subClassOf rdf:nodeID="genid15"/>
 </rdf:Description>
 
-<rdf:Description rdf:nodeID="genid8">
+<rdf:Description rdf:nodeID="genid15">
 	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
 	<owl:onProperty rdf:resource="http://purl.org/vocab/aiiso/schema#part_of"/>
 	<owl:someValuesFrom rdf:resource="http://purl.org/vocab/aiiso/schema#Course"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://www.semanticweb.org/dušan/ontologies/2021/11/sotis-model#Test">
+	<rdfs:subClassOf rdf:nodeID="genid16"/>
+</rdf:Description>
+
+<rdf:Description rdf:nodeID="genid16">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+	<owl:onProperty rdf:resource="http://purl.org/vocab/aiiso/schema#part_of"/>
+	<owl:someValuesFrom rdf:resource="http://www.semanticweb.org/dušan/ontologies/2021/11/sotis-model#Professor"/>
+</rdf:Description>
+<!--  -->
+<!-- http://www.semanticweb.org/dušan/ontologies/2021/11/sotis-model#TestAttempt -->
+
+<rdf:Description rdf:about="http://www.semanticweb.org/dušan/ontologies/2021/11/sotis-model#TestAttempt">
+	<rdfs:subClassOf rdf:resource="http://www.semanticweb.org/dušan/ontologies/2021/11/sotis-model#Answer"/>
+	<rdfs:subClassOf rdf:resource="http://www.semanticweb.org/dušan/ontologies/2021/11/sotis-model#Student"/>
+	<rdfs:subClassOf rdf:resource="http://www.semanticweb.org/dušan/ontologies/2021/11/sotis-model#Test"/>
 </rdf:Description>
 <!--  -->
 <!-- http://www.semanticweb.org/dušan/ontologies/2021/11/sotis-model#User -->
