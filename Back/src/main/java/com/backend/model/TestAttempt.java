@@ -53,11 +53,11 @@ public class TestAttempt {
         this.studentId = studentId;
     }
 
-    public Test getTestTypeId() {
+    public Test getTestId() {
         return testId;
     }
 
-    public void setTestTypeId(Test testId) {
+    public void setTestId(Test testId) {
         this.testId = testId;
     }
 

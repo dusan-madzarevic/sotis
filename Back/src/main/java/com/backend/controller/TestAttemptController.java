@@ -4,10 +4,7 @@ import com.backend.dto.*;
 import com.backend.dto.request.StartAttemptRequest;
 import com.backend.dto.request.SubmitAttemptRequest;
 import com.backend.model.*;
-import com.backend.service.AnswerService;
-import com.backend.service.StudentService;
-import com.backend.service.TestAttemptService;
-import com.backend.service.TestService;
+import com.backend.service.*;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
@@ -46,6 +43,9 @@ public class TestAttemptController {
     @Autowired
     private AnswerService answerService;
 
+    @Autowired
+    private ProblemService problemService;
+
     @PostMapping(consumes = "application/json")
     public ResponseEntity<Integer> saveTestAttempt(@RequestBody TestAttemptDTO testAttemptDTO, HttpServletRequest httpServletRequest) {
         try {
@@ -71,7 +71,7 @@ public class TestAttemptController {
             Optional<Test> testType = testService.findById(testAttemptDTO.getTestTypeId());
             if (testType.isPresent()) {
                 testType.ifPresent(testType1 -> {
-                    testAttempt.setTestTypeId(testType1);
+                    testAttempt.setTestId(testType1);
                 });
             } else {
                 return new ResponseEntity<>(0, HttpStatus.NOT_MODIFIED);
@@ -112,7 +112,7 @@ public class TestAttemptController {
         Optional<Test> testType = testService.findById(request.getTestTypeId());
         if (testType.isPresent()) {
             testType.ifPresent(testType1 -> {
-                testAttempt.setTestTypeId(testType1);
+                testAttempt.setTestId(testType1);
             });
         } else {
             return new ResponseEntity<>(null, HttpStatus.NOT_MODIFIED);
@@ -121,10 +121,10 @@ public class TestAttemptController {
         testAttemptService.save(testAttempt);
 
         dto.setAttemptID(testAttempt.getId());
-        dto.setTestName(testAttempt.getTestTypeId().getTitle());
+        dto.setTestName(testAttempt.getTestId().getTitle());
 
         for (Section section :
-                testAttempt.getTestTypeId().getSections()) {
+                testAttempt.getTestId().getSections()) {
 
             for (Question question :
                     section.getQuestions()) {
@@ -183,7 +183,7 @@ public class TestAttemptController {
         testAttempt.setEndTime(sdf.format(Date.from(Instant.now())));
         testAttempt.setFinalScore(String.valueOf(totalScore));
 
-        if( (Double.parseDouble(testAttempt.getFinalScore()) / testAttempt.getTestTypeId().getMaxScore()) * 100 < testAttempt.getTestTypeId().getPassPercentage() ){
+        if( (Double.parseDouble(testAttempt.getFinalScore()) / testAttempt.getTestId().getMaxScore()) * 100 < testAttempt.getTestId().getPassPercentage() ){
             testAttempt.setPassed(false);
         }else{
             testAttempt.setPassed(true);
@@ -238,31 +238,59 @@ public class TestAttemptController {
     @GetMapping(value = "/{id}/resultsJson", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity<TestAttemptIITAResponse> getResultsJson(@PathVariable Integer id) throws IOException {
-
-        Test test = testService.findById(id).orElse(null);
-        if(test != null) {
-            List<TestAttempt> attempts = testAttemptService.findAllByTest(test);
-            TestAttemptIITAResponse response = new TestAttemptIITAResponse();
-            List<TestAttemptIITADto> dtos = new ArrayList<>();
-            for (TestAttempt attempt :
-                    attempts) {
-                TestAttemptIITADto dto = new TestAttemptIITADto();
-                dto.setStudentName(attempt.getStudentId().getName());
-                for (Answer a :
-                        attempt.getChosenAnswers()) {
-                    if (a.getCorrect())
-                        dto.getAnswers().add(1);
-                    else
-                        dto.getAnswers().add(0);
-                }
-                dtos.add(dto);
-            }
-            response.setResults(dtos);
-
-            return new ResponseEntity<>(response, HttpStatus.OK);
-        }else{
-            return null;
+        List<Problem> problems = problemService.findAll();
+        if (problems.isEmpty()){
+            return new ResponseEntity<>(null, HttpStatus.NOT_MODIFIED);
         }
+        Test test = testService.findById(id).orElse(null);
+        if (test == null){
+            return new ResponseEntity<>(null, HttpStatus.NOT_MODIFIED);
+        }
+        List<TestAttempt> attempts = testAttemptService.findAllByTest(test);
+        if (attempts.isEmpty()){
+            return new ResponseEntity<>(null, HttpStatus.NOT_MODIFIED);
+        }
+        TestAttemptIITAResponse response = new TestAttemptIITAResponse();
+        List<TestAttemptIITADto> itaDTOs = new ArrayList<>();
 
+        for (TestAttempt attempt: attempts)
+        {
+            TestAttemptIITADto itaDTO = new TestAttemptIITADto();
+
+
+            for (Problem p : problems)
+            {
+                List<Integer> temp = new ArrayList<>();
+                for (Question q : p.getQuestions())
+                {
+                    for (Answer problemAnswer : q.getAnswers())
+                    {
+                        for ( Answer testAttemptAnswer : attempt.getChosenAnswers())
+                        {
+                            if(problemAnswer.getId() == testAttemptAnswer.getId())
+                            {
+                                if(testAttemptAnswer.getCorrect())
+                                    temp.add(1);
+                                else
+                                    temp.add(0);
+                            }
+                        }
+                    }
+                }
+                Integer flag = 1;
+                for (Integer i : temp)
+                {
+                    if (i == 0) {
+                        flag = 0;
+                        break;
+                    }
+                }
+                itaDTO.getAnswers().add(flag);
+            }
+            itaDTO.setStudentName(attempt.getStudentId().getName());
+            itaDTOs.add(itaDTO);
+        }
+        response.setResults(itaDTOs);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }

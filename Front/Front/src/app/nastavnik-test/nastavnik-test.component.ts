@@ -70,7 +70,6 @@ export class NastavnikTestComponent implements OnInit {
     this.nastavnikService.getTestoviProfesora(localStorage.getItem('currentuser').toString())
       .pipe(first())
       .subscribe(data => {
-        console.log(data);
         this.testovi = data;
       });
   }
@@ -276,7 +275,6 @@ export class NastavnikTestComponent implements OnInit {
   createOdgovor() {
     this.AnswerForm.value.questionId = this.pitanje.id;
     this.AnswerForm.value.correct = this.myVar1;
-    console.log(JSON.stringify(this.AnswerForm.value));
     this.nastavnikService.kreirajOdgovor(JSON.stringify(this.AnswerForm.value))
       .pipe(first())
       .subscribe();
@@ -299,12 +297,12 @@ export class NastavnikTestComponent implements OnInit {
 
   obradiRezultate(id) {
     this.nastavnikService.preuzmiRezultateJson(id).subscribe(res => {
+        console.log(res);
+        this.nastavnikService.iitaObradaRezultata(res).subscribe(response => {
 
-      this.nastavnikService.iitaObradaRezultata(res).subscribe(response => {
+        console.log('Pozvan IITA algoritam');
+      });
 
-        console.log("Pozvan IITA algoritam");
-      })
-
-    });
+     });
   }
 }
