@@ -96,13 +96,6 @@
 <rdf:Description rdf:nodeID="genid7">
 	<rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
 	<rdf:first rdf:resource="http://purl.org/vocab/aiiso/schema#KnowledgeGrouping"/>
-</rdf:Description>
-
-<rdf:Description rdf:about="http://purl.org/vocab/aiiso/schema#KnowledgeGrouping">
-	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-</rdf:Description>
-
-<rdf:Description rdf:nodeID="genid7">
 	<rdf:rest rdf:nodeID="genid6"/>
 </rdf:Description>
 
@@ -304,6 +297,12 @@
 <!-- ################################################################# -->
 <!--  -->
 <!--  -->
+<!-- http://purl.org/dc/terms/Agent -->
+
+<rdf:Description rdf:about="http://purl.org/dc/terms/Agent">
+	<rdfs:subClassOf rdf:resource="http://www.semanticweb.org/dušan/ontologies/2021/11/sotis-model#Subject"/>
+</rdf:Description>
+<!--  -->
 <!-- http://purl.org/vocab/aiiso/schema#Center -->
 
 <rdf:Description rdf:about="http://purl.org/vocab/aiiso/schema#Center">
@@ -331,6 +330,10 @@
 </rdf:Description>
 <!--  -->
 <!-- http://purl.org/vocab/aiiso/schema#KnowledgeGrouping -->
+
+<rdf:Description rdf:about="http://purl.org/vocab/aiiso/schema#KnowledgeGrouping">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+</rdf:Description>
 <!--  -->
 <!-- http://purl.org/vocab/aiiso/schema#Programme -->
 
@@ -464,12 +467,6 @@
 	<owl:someValuesFrom rdf:resource="http://www.semanticweb.org/dušan/ontologies/2021/11/sotis-model#Subject"/>
 </rdf:Description>
 <!--  -->
-<!-- http://www.semanticweb.org/dušan/ontologies/2021/11/sotis-model#Problem -->
-
-<rdf:Description rdf:about="http://www.semanticweb.org/dušan/ontologies/2021/11/sotis-model#Problem">
-	<rdfs:subClassOf rdf:resource="http://www.semanticweb.org/dušan/ontologies/2021/11/sotis-model#Surmise"/>
-</rdf:Description>
-<!--  -->
 <!-- http://www.semanticweb.org/dušan/ontologies/2021/11/sotis-model#Question -->
 
 <rdf:Description rdf:about="http://www.semanticweb.org/dušan/ontologies/2021/11/sotis-model#Question">
@@ -513,7 +510,6 @@
 <!-- http://www.semanticweb.org/dušan/ontologies/2021/11/sotis-model#Surmise -->
 
 <rdf:Description rdf:about="http://www.semanticweb.org/dušan/ontologies/2021/11/sotis-model#Surmise">
-	<rdfs:subClassOf rdf:resource="http://www.semanticweb.org/dušan/ontologies/2021/11/sotis-model#Problem"/>
 	<rdfs:subClassOf rdf:nodeID="genid14"/>
 </rdf:Description>
 
