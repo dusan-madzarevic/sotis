@@ -299,8 +299,7 @@ export class NastavnikTestComponent implements OnInit {
     this.nastavnikService.preuzmiRezultateJson(id).subscribe(res => {
         console.log(res);
         this.nastavnikService.iitaObradaRezultata(res).subscribe(response => {
-
-        console.log('Pozvan IITA algoritam');
+        console.log(response);
       });
 
      });
