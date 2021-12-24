@@ -1,9 +1,8 @@
 package com.backend.controller;
 
-import com.backend.dto.KnowledgeSpaceDTO;
-import com.backend.dto.ProblemDTO;
-import com.backend.dto.SurmiseLinkDTO;
+import com.backend.dto.*;
 import com.backend.dto.request.KnowledgeSpaceGraphRequest;
+import com.backend.dto.request.KnowledgeSpaceIITARequest;
 import com.backend.model.KnowledgeSpace;
 import com.backend.model.Problem;
 import com.backend.model.Subject;
@@ -80,7 +79,7 @@ public class KnowledgeSpaceController {
 
             for (KnowledgeSpace ks : knowledgeSpaces)
             {
-                response.add(new KnowledgeSpaceDTO(ks.getId(), ks.getName(), ks.getSubjectId().getId(), ks.getSurmises()));
+                response.add(new KnowledgeSpaceDTO(ks.getId(), ks.getName(), ks.getSubjectId().getId(), ks.getSurmises(), ks.isRealSpace()));
             }
             return new ResponseEntity<>(response, HttpStatus.OK);
         }else
@@ -103,6 +102,52 @@ public class KnowledgeSpaceController {
         }
         knowledgeSpaceService.remove(knowledgeId);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/forGraph/{subjectId}", produces = "application/json")
+    public ResponseEntity<List<KnowledgeSpaceGraphDTO>> getKnowladgeSpacesForGraph(@PathVariable("subjectId") Integer subjectId) {
+        Subject subject = subjectService.findById(subjectId).orElse(null);
+        List<KnowledgeSpace> knowledgeSpaces = knowledgeSpaceService.findBySubject(subject);
+        List<KnowledgeSpaceGraphDTO> dtos = new ArrayList<>();
+        if(knowledgeSpaces != null)
+        {
+            for (KnowledgeSpace ks :
+                    knowledgeSpaces) {
+                KnowledgeSpaceGraphDTO dto = new KnowledgeSpaceGraphDTO();
+                dto.setId(ks.getId());
+                dto.setName(ks.getName());
+                dto.setSubjectId(ks.getSubjectId().getId());
+                dto.setRealSpace(ks.isRealSpace());
+                Set<SurmiseGraphDTO> surmiseSet = new HashSet<>();
+                for (Surmise s :
+                        ks.getSurmises()) {
+                    SurmiseGraphDTO surmiseDto = new SurmiseGraphDTO();
+                    surmiseDto.setId(s.getId());
+                    surmiseDto.setKnowledgeSpaceId(ks.getId());
+                    ProblemDTO dtoFrom = new ProblemDTO();
+                    dtoFrom.setId(s.getProblemId().getId());
+                    dtoFrom.setName(s.getProblemId().getName());
+                    dtoFrom.setDescription(s.getProblemId().getDescription());
+                    dtoFrom.setSubjectId(s.getProblemId().getSubject().getId());
+                    surmiseDto.setProblemFrom(dtoFrom);
+                    for (Problem p :
+                            s.getProblems()) {
+                        ProblemDTO problemDto = new ProblemDTO();
+                        problemDto.setId(p.getId());
+                        problemDto.setName(p.getName());
+                        problemDto.setDescription(p.getDescription());
+                        problemDto.setSubjectId(p.getSubject().getId());
+                        surmiseDto.getProblems().add(problemDto);
+                    }
+                    surmiseSet.add(surmiseDto);
+                }
+                dto.setSurmises(surmiseSet);
+                dtos.add(dto);
+            }
+
+            return new ResponseEntity<>(dtos, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(dtos, HttpStatus.NOT_MODIFIED);
     }
 
     @PostMapping(value = "/fromGraph", consumes = "application/json")
@@ -170,6 +215,70 @@ public class KnowledgeSpaceController {
                 }
                 s.setProblems(to);
                 surmiseService.save(s);
+            }
+            System.out.println("Here");
+
+            return new ResponseEntity<>(knowledgeSpace.getId(), HttpStatus.CREATED);
+        }catch(Exception e){
+            return new ResponseEntity<>(0,HttpStatus.NOT_MODIFIED);
+        }
+    }
+
+    @PostMapping(value = "/fromIita", consumes = "application/json")
+    public ResponseEntity<Integer> saveKnowledgeSpaceFromIITA(@RequestBody KnowledgeSpaceIITARequest request, HttpServletRequest httpServletRequest) {
+        try {
+            KnowledgeSpace knowledgeSpace = new KnowledgeSpace();
+            if(request.getSubjectId() == 0)
+            {
+                return new ResponseEntity<>(0, HttpStatus.NOT_MODIFIED);
+            }
+
+
+            Optional<Subject> subject = subjectService.findById(request.getSubjectId());
+            if(subject.isPresent() ) {
+                subject.ifPresent(subject1 -> {
+                    knowledgeSpace.setSubjectId(subject1);
+                    knowledgeSpace.setName("Real space "+(subject1.getKnowledgeSpaces().size() + 1));
+                    knowledgeSpace.setRealSpace(true);
+                });
+            }
+            else{
+                return new ResponseEntity<>(0, HttpStatus.NOT_MODIFIED);
+            }
+            knowledgeSpaceService.save(knowledgeSpace);
+
+
+            HashMap<Integer, Set<Integer>> links = new HashMap<>();
+
+            for (SurmiseLinkDTO link :
+                    request.getLinks()) {
+                if(links.get(link.getFrom()) != null)
+                    links.get(link.getFrom()).add(link.getTo());
+                else{
+                    Set<Integer> to = new HashSet<>();
+                    to.add(link.getTo());
+                    links.put(link.getFrom(), to);
+                }
+            }
+
+            for (Integer key :
+                    links.keySet()) {
+                System.out.println(key);
+                Surmise s = new Surmise();
+                s.setKnowledgeSpaceId(knowledgeSpace);
+                Problem fromProblem = problemService.findById(key).orElse(null);
+                if(fromProblem != null) {
+                    s.setProblemId(fromProblem);
+                    Set<Problem> to = new HashSet<>();
+                    for (Integer toKey :
+                            links.get(key)) {
+                        System.out.println("val " + toKey);
+                        Problem toProblem = problemService.findById(toKey).orElse(null);
+                        to.add(toProblem);
+                    }
+                    s.setProblems(to);
+                    surmiseService.save(s);
+                }
             }
             System.out.println("Here");
 

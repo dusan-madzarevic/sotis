@@ -24,14 +24,15 @@ def index():
 @app.route('/iita', methods=['POST'])
 def iitaEndpoint():
     request_data = request.get_json()
-    results = request_data["results"]
+    print(request_data)
+    results = request_data
     input = {}
     for res in results:
         input[res["studentName"]] = res["answers"]
 
     data_frame = pd.DataFrame(input)
     response = iita(data_frame, v=1)
-
+    print(pd.Series(response).to_json(orient='values'))
     return pd.Series(response).to_json(orient='values')
 
 @app.route('/<int:id>', methods=['DELETE','PUT'])

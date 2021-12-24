@@ -6,6 +6,9 @@ public class ProblemDTO {
     private String name;
     private String description;
 
+    public ProblemDTO() {
+    }
+
     public ProblemDTO(Integer id, String name, String description, Integer subjectId) {
         this.id = id;
         this.subjectId = subjectId;

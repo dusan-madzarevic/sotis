@@ -4,6 +4,8 @@ import {NastavnikServiceService} from '../services/nastavnik-service.service';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {first} from 'rxjs/operators';
+import { KnowledgeSpaceService } from '../services/knowledge-space.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-nastavnik-test',
@@ -30,7 +32,7 @@ export class NastavnikTestComponent implements OnInit {
   odgovor: any = [];
 
   myVar1 = false;
-  constructor(private router: Router, private nastavnikService: NastavnikServiceService, private formBuilder: FormBuilder,
+  constructor(private router: Router, private nastavnikService: NastavnikServiceService, private knowledgeSpaceService: KnowledgeSpaceService, private formBuilder: FormBuilder,
               private modalService: NgbModal) { }
 
   ngOnInit(): void {
@@ -296,10 +298,48 @@ export class NastavnikTestComponent implements OnInit {
   }
 
   obradiRezultate(id) {
+    
     this.nastavnikService.preuzmiRezultateJson(id).subscribe(res => {
         console.log(res);
-        this.nastavnikService.iitaObradaRezultata(res).subscribe(response => {
+        this.nastavnikService.iitaObradaRezultata(res.results).subscribe(response => {
         console.log(response);
+
+        let surmises : any = response[1];
+        console.log(surmises);
+        surmises.forEach(surmise => {
+          
+          surmise[0] = res.problems[surmise[0]]
+          surmise[1] = res.problems[surmise[1]]
+
+        });
+
+        let links = [];
+        surmises.forEach(element => {
+          links.push({"from":element[0], "to":element[1]})
+        });
+
+        let request = {"subjectId":res.subjectId, "links": links}
+
+        
+
+        this.knowledgeSpaceService.saveRealSpace(request).subscribe(response =>{
+
+          Swal.fire({
+            icon: 'success',
+            title: 'Uspeh',
+            text: 'Uspešno izvršeno kreiranje stvarnog prostora znanja.',
+          });
+
+        },error =>{
+
+          Swal.fire({
+            icon: 'error',
+            title: 'Greška',
+            text: 'Došlo je do greške.',
+          });
+
+        })
+
       });
 
      });

@@ -23,6 +23,9 @@ public class KnowledgeSpace {
     @JsonIgnore
     private Set<Surmise> surmises;
 
+    @Column(name = "real_space")
+    private boolean realSpace;
+
     public KnowledgeSpace() {
     }
 
@@ -56,5 +59,13 @@ public class KnowledgeSpace {
 
     public void setSurmises(Set<Surmise> surmises) {
         this.surmises = surmises;
+    }
+
+    public boolean isRealSpace() {
+        return realSpace;
+    }
+
+    public void setRealSpace(boolean realSpace) {
+        this.realSpace = realSpace;
     }
 }

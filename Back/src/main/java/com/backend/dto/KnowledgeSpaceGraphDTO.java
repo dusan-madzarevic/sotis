@@ -4,19 +4,23 @@ import com.backend.model.Surmise;
 
 import java.util.Set;
 
-public class KnowledgeSpaceDTO {
+public class KnowledgeSpaceGraphDTO {
+
     private Integer id;
     private String name;
     private Integer subjectId;
-    private Set<Surmise> surmises;
-    private boolean isReal;
+    private Set<SurmiseGraphDTO> surmises;
+    private boolean realSpace;
 
-    public KnowledgeSpaceDTO(Integer id, String name, Integer subjectId, Set<Surmise> surmises, boolean isReal) {
+    public KnowledgeSpaceGraphDTO() {
+    }
+
+    public KnowledgeSpaceGraphDTO(Integer id, String name, Integer subjectId, Set<SurmiseGraphDTO> surmises, boolean realSpace) {
         this.id = id;
         this.name = name;
         this.subjectId = subjectId;
         this.surmises = surmises;
-        this.isReal = isReal;
+        this.realSpace = realSpace;
     }
 
     public Integer getId() {
@@ -43,19 +47,19 @@ public class KnowledgeSpaceDTO {
         this.subjectId = subjectId;
     }
 
-    public Set<Surmise> getSurmises() {
+    public Set<SurmiseGraphDTO> getSurmises() {
         return surmises;
     }
 
-    public void setSurmises(Set<Surmise> surmises) {
+    public void setSurmises(Set<SurmiseGraphDTO> surmises) {
         this.surmises = surmises;
     }
 
-    public boolean isReal() {
-        return isReal;
+    public boolean isRealSpace() {
+        return realSpace;
     }
 
-    public void setReal(boolean real) {
-        isReal = real;
+    public void setRealSpace(boolean realSpace) {
+        this.realSpace = realSpace;
     }
 }

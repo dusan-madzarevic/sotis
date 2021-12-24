@@ -13,10 +13,16 @@
   <a class="mat-button" (click)="logout()">Logout</a>
 </nav>
 
-<div id="mynetwork"></div>
-<div id="controls">
-  <p>Label: </p><input type="text" id="labelvalue">
-  <a class="mat-button" (click)="save()">Save</a>
+<div id="networks">
+  <div id="theoreticalnetwork">
+    <div id="theoreticalspace"></div>
+    <div id="controls">
+      <p>Label: </p><input type="text" id="labelvalue">
+      <a class="mat-button" (click)="save()">Save</a>
+    </div>
+  </div>
+
+  <div id="realspace"></div>
 </div>
 
 </body>

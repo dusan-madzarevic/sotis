@@ -152,7 +152,7 @@ export class NastavnikServiceService {
   }
 
     // tslint:disable-next-line:typedef
-    preuzmiRezultateJson(id) {
+    preuzmiRezultateJson(id): any {
       return this.http.get('http://localhost:8090/testAttempt/' + id + '/resultsJson', {responseType: 'json'});
   
     }
@@ -160,7 +160,7 @@ export class NastavnikServiceService {
   iitaObradaRezultata(rezultati){
     return this.http.post('http://localhost:5000/iita', rezultati,      {
       headers: new HttpHeaders().set('Content-Type', 'application/json'),
-      responseType: 'text'
+      responseType: 'json'
     });
   }
 

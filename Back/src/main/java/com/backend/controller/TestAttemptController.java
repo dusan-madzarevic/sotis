@@ -286,11 +286,14 @@ public class TestAttemptController {
                     }
                 }
                 itaDTO.getAnswers().add(flag);
+                if(!response.getProblems().contains(p.getId()))
+                    response.getProblems().add(p.getId());
             }
             itaDTO.setStudentName(attempt.getStudentId().getName());
             itaDTOs.add(itaDTO);
         }
         response.setResults(itaDTOs);
+        response.setSubjectId(test.getSubjectId().getId());
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }

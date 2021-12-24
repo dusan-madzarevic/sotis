@@ -1,6 +1,30 @@
-#mynetwork {
+#theoreticalspace {
   width: 600px;
   height: 400px;
   border: 1px solid lightgray;
   z-index: 0;
+  float: left;
+}
+
+#realspace {
+  width: 600px;
+  height: 400px;
+  border: 1px solid lightgray;
+  z-index: 0;
+  float: left;
+}
+
+#networks {
+  height: 500px;
+}
+
+#theoreticalnetwork{
+  width: 600px;
+  float: left;
+}
+
+#controls{
+
+  float:left;
+  width: 300px;
 }
