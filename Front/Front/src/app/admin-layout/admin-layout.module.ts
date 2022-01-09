@@ -15,6 +15,7 @@ import {AdminProblemComponent} from '../admin-problem/admin-problem.component';
 import {AdminSubjectProfessorsComponent} from '../admin-subject-professors/admin-subject-professors.component';
 import {KnowledgeSpaceGraphComponent} from '../knowledge-space-graph/knowledge-space-graph.component';
 import { AdminProblemQuestionComponent } from '../admin-problem-question/admin-problem-question.component';
+import {JenaFrontComponent} from '../jena-front/jena-front.component';
 
 
 
@@ -26,7 +27,8 @@ import { AdminProblemQuestionComponent } from '../admin-problem-question/admin-p
     AdminProblemComponent,
     AdminSubjectProfessorsComponent,
     KnowledgeSpaceGraphComponent,
-    AdminProblemQuestionComponent
+    AdminProblemQuestionComponent,
+    JenaFrontComponent
     ],
   imports: [
     CommonModule,
