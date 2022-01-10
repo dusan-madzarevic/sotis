@@ -11,6 +11,10 @@ public class Student extends User {
     @JsonIgnore
     private Set<TestAttempt> testAttempts;
 
+    @OneToMany(mappedBy = "studentId",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonIgnore
+    private Set<KnowledgeState> knowledgeStates;
+
     @ManyToMany(mappedBy = "learnedProblems")
     @JsonIgnore
     Set<Problem> problems;
@@ -30,4 +34,20 @@ public class Student extends User {
         this.testAttempts = testAttempts;
     }
 
+
+    public Set<KnowledgeState> getKnowledgeStates() {
+        return knowledgeStates;
+    }
+
+    public void setKnowledgeStates(Set<KnowledgeState> knowledgeStates) {
+        this.knowledgeStates = knowledgeStates;
+    }
+
+    public Set<Problem> getProblems() {
+        return problems;
+    }
+
+    public void setProblems(Set<Problem> problems) {
+        this.problems = problems;
+    }
 }
