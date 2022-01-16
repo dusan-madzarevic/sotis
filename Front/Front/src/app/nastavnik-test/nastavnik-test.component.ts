@@ -32,6 +32,9 @@ export class NastavnikTestComponent implements OnInit {
   odgovor: any = [];
 
   myVar1 = false;
+
+  qti: any = {};
+  // tslint:disable-next-line:max-line-length
   constructor(private router: Router, private nastavnikService: NastavnikServiceService, private knowledgeSpaceService: KnowledgeSpaceService, private formBuilder: FormBuilder,
               private modalService: NgbModal) { }
 
@@ -298,7 +301,7 @@ export class NastavnikTestComponent implements OnInit {
   }
 
   obradiRezultate(id) {
-    
+
     this.nastavnikService.preuzmiRezultateJson(id).subscribe(res => {
         console.log(res);
         this.nastavnikService.iitaObradaRezultata(res.results).subscribe(response => {
@@ -307,7 +310,7 @@ export class NastavnikTestComponent implements OnInit {
         let surmises : any = response[1];
         console.log(surmises);
         surmises.forEach(surmise => {
-          
+
           surmise[0] = res.problems[surmise[0]]
           surmise[1] = res.problems[surmise[1]]
 
@@ -320,7 +323,7 @@ export class NastavnikTestComponent implements OnInit {
 
         let request = {"subjectId":res.subjectId, "links": links}
 
-        
+
 
         this.knowledgeSpaceService.saveRealSpace(request).subscribe(response =>{
 
@@ -343,5 +346,24 @@ export class NastavnikTestComponent implements OnInit {
       });
 
      });
+  }
+
+  // tslint:disable-next-line:typedef
+  exportToQti(pitanje) {
+    this.qti.id = pitanje.id;
+    this.qti.sectionId = this.sekcija.id;
+    this.qti.problems = pitanje.problems;
+    this.qti.questionText = pitanje.questionText;
+    this.qti.score = pitanje.score;
+    this.nastavnikService.exportToQti(this.qti)
+      .pipe(first())
+      .subscribe(data => {
+        const blob = new Blob([data], { type: 'application/octet-stream' });
+        const url = window.URL.createObjectURL(blob);
+        const anchor = document.createElement('a');
+        anchor.download = 'qti_question' + pitanje.id + '.xml';
+        anchor.href = url;
+        anchor.click();
+      });
   }
 }
