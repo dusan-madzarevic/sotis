@@ -280,6 +280,9 @@
           <th>
             Odgovori
           </th>
+          <th>
+            Qti
+          </th>
           </thead>
           <tbody>
           <ng-container *ngFor="let pitanje of pitanja">
@@ -304,6 +307,15 @@
                   <div ngbDropdownMenu aria-labelledby="dropdownBasic4441">
                     <button ngbDropdownItem (click)="prikaziOdgovore(openCom2, pitanje)">Prikazi odgovore</button>
                     <button ngbDropdownItem (click)="dodajOdgovor(pitanje, addAnswer)">Novi odgovor</button>
+                  </div>
+                </div>
+              </td>
+
+              <td>
+                <div ngbDropdown class="d-inline-block">
+                  <button class="btn btn-outline-primary" id="dropdownBasic44422" ngbDropdownToggle>Export</button>
+                  <div ngbDropdownMenu aria-labelledby="dropdownBasic4441">
+                    <button ngbDropdownItem (click)="exportToQti(pitanje)">Export</button>
                   </div>
                 </div>
               </td>
