@@ -25,6 +25,7 @@ import java.util.Set;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
@@ -163,8 +164,6 @@ public class QuestionController {
                 DocumentBuilder documentBuilder = documentFactory.newDocumentBuilder();
                 Document document = documentBuilder.newDocument();
 
-                document.createTextNode("\n");
-
                 Element root = document.createElement("qti-assessment-item");
 
                 Attr attr = document.createAttribute("xmlns");
@@ -193,8 +192,6 @@ public class QuestionController {
 
                 document.appendChild(root);
 
-                document.createTextNode("\n");
-
                 Element qtiDeclaration = document.createElement("qti-response-declaration");
 
                 Attr attr6 = document.createAttribute("base-type");
@@ -210,7 +207,6 @@ public class QuestionController {
                 qtiDeclaration.setAttributeNode(attr8);
 
                 root.appendChild(qtiDeclaration);
-                document.createTextNode("\n");
 
                 Element qtiResponse = document.createElement("qti-correct-response");
 
@@ -293,6 +289,8 @@ public class QuestionController {
 
                 TransformerFactory transformerFactory = TransformerFactory.newInstance();
                 Transformer transformer = transformerFactory.newTransformer();
+                transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
+                transformer.setOutputProperty(OutputKeys.INDENT, "yes");
                 DOMSource domSource = new DOMSource(document);
 
                 StreamResult streamResult = new StreamResult(new File(filePath));
