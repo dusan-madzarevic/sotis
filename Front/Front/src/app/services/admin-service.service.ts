@@ -386,4 +386,73 @@ export class AdminServiceService {
     });
   }
 
+  // tslint:disable-next-line:typedef
+  jenaAkcija1() {
+    return this.http.get('http://localhost:8091/jena/akcija1/',      {
+      headers: new HttpHeaders().set('Content-Type', 'application/json')
+    });
+  }
+
+  // tslint:disable-next-line:typedef
+  jenaAkcija2() {
+    return this.http.get('http://localhost:8091/jena/akcija2/',      {
+      headers: new HttpHeaders().set('Content-Type', 'application/json')
+    });
+  }
+
+  // tslint:disable-next-line:typedef
+  jenaAkcija3() {
+    return this.http.get('http://localhost:8091/jena/akcija3/',      {
+      headers: new HttpHeaders().set('Content-Type', 'application/json')
+    });
+  }
+
+  // tslint:disable-next-line:typedef
+  jenaAkcija4() {
+    return this.http.get('http://localhost:8091/jena/akcija4/',      {
+      headers: new HttpHeaders().set('Content-Type', 'application/json')
+    });
+  }
+  // tslint:disable-next-line:typedef
+  jenaAkcija5() {
+    return this.http.get('http://localhost:8091/jena/akcija5/',      {
+      headers: new HttpHeaders().set('Content-Type', 'application/json')
+    });
+  }
+
+  // tslint:disable-next-line:typedef
+  jenaAkcija6() {
+    return this.http.get('http://localhost:8091/jena/akcija6/',      {
+      headers: new HttpHeaders().set('Content-Type', 'application/json')
+    });
+  }
+
+  // tslint:disable-next-line:typedef
+  jenaAkcija7() {
+    return this.http.get('http://localhost:8091/jena/akcija7/',      {
+      headers: new HttpHeaders().set('Content-Type', 'application/json')
+    });
+  }
+
+  // tslint:disable-next-line:typedef
+  jenaAkcija8() {
+    return this.http.get('http://localhost:8091/jena/akcija8/',      {
+      headers: new HttpHeaders().set('Content-Type', 'application/json')
+    });
+  }
+
+  // tslint:disable-next-line:typedef
+  jenaAkcija9() {
+    return this.http.get('http://localhost:8091/jena/akcija9/',      {
+      headers: new HttpHeaders().set('Content-Type', 'application/json')
+    });
+  }
+
+  // tslint:disable-next-line:typedef
+  jenaAkcija10() {
+    return this.http.get('http://localhost:8091/jena/akcija10/',      {
+      headers: new HttpHeaders().set('Content-Type', 'application/json')
+    });
+  }
+
 }

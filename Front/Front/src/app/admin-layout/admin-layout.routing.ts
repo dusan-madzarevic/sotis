@@ -6,6 +6,7 @@ import {AdminProblemComponent} from '../admin-problem/admin-problem.component';
 import {AdminSubjectProfessorsComponent} from '../admin-subject-professors/admin-subject-professors.component';
 import {KnowledgeSpaceGraphComponent} from '../knowledge-space-graph/knowledge-space-graph.component';
 import {AdminProblemQuestionComponent} from '../admin-problem-question/admin-problem-question.component';
+import {JenaFrontComponent} from '../jena-front/jena-front.component';
 
 export const AdminLayoutRutes: Routes = [
   { path: 'profilAdmin',      component: AdminProfilComponent },
@@ -14,5 +15,6 @@ export const AdminLayoutRutes: Routes = [
   { path: 'problemiAdmin',      component: AdminProblemComponent },
   { path: 'predmetProfesoriAdmin',      component: AdminSubjectProfessorsComponent },
   { path: 'knowledgeSpaceAdmin/:subjectId', component: KnowledgeSpaceGraphComponent},
-  { path: 'problemPitanjaAdmin',      component: AdminProblemQuestionComponent }
+  { path: 'problemPitanjaAdmin',      component: AdminProblemQuestionComponent },
+  { path: 'jenaAdmin',      component: JenaFrontComponent }
 ];

@@ -14,6 +14,7 @@ export const ROUTES: RouteInfo[] = [
   { path: '/admin/problemiAdmin', title: 'Problemi pretpostavki',  icon: '', class: '' },
   { path: '/admin/predmetProfesoriAdmin', title: 'Predmetni profesori',  icon: '', class: '' },
   { path: '/admin/problemPitanjaAdmin', title: 'Problem pitanja',  icon: '', class: '' },
+  { path: '/admin/jenaAdmin', title: 'Jena',  icon: '', class: '' },
 ];
 
 @Component({

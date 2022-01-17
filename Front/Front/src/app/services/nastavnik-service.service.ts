@@ -99,6 +99,14 @@ export class NastavnikServiceService {
   }
 
   // tslint:disable-next-line:typedef
+  exportToQti(pitanje) {
+    return this.http.post('http://localhost:8090/question/qti', pitanje,      {
+      headers: new HttpHeaders().set('Content-Type', 'application/json'),
+      responseType: 'blob'
+    });
+  }
+
+  // tslint:disable-next-line:typedef
   kreirajSekciju(section) {
     return this.http.post('http://localhost:8090/section', section,      {
       headers: new HttpHeaders().set('Content-Type', 'application/json'),
@@ -154,7 +162,7 @@ export class NastavnikServiceService {
     // tslint:disable-next-line:typedef
     preuzmiRezultateJson(id): any {
       return this.http.get('http://localhost:8090/testAttempt/' + id + '/resultsJson', {responseType: 'json'});
-  
+
     }
 
   iitaObradaRezultata(rezultati){
