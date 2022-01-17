@@ -2,15 +2,21 @@ package com.backend.controller;
 
 import com.backend.dto.QuestionDTO;
 import com.backend.dto.TestDTO;
+import com.backend.dto.request.TestJenaRequest;
 import com.backend.model.*;
 import com.backend.service.ProfessorService;
 import com.backend.service.SubjectService;
 import com.backend.service.TestService;
 import com.backend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.reactive.function.BodyInserters;
+import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Mono;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
@@ -67,6 +73,18 @@ public class TestController {
                 return new ResponseEntity<>(0, HttpStatus.NOT_MODIFIED);
             }
 
+            TestJenaRequest request = new TestJenaRequest();
+            request.setTestName(testDTO.getTitle());
+
+            System.out.println(testDTO.getTitle() + testDTO.getUsername() + testDTO.getSubjectId() + " " + testDTO.getMaxScore() + testDTO.getPassPercentage());
+
+            WebClient client = WebClient.builder().baseUrl("http://localhost:8091")
+                    .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                    .build();
+            Mono<String> response = client.post().uri("/jena/saveTest").body(Mono.just(request), TestJenaRequest.class)
+                    .retrieve().bodyToMono(String.class);
+
+            response.block();
             testService.save(test);
             return new ResponseEntity<>(test.getId(), HttpStatus.CREATED);
         }catch(Exception e){

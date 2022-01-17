@@ -25,7 +25,6 @@
 
     <owl:ObjectProperty rdf:about="http://www.semanticweb.org/dusan/ontologies/2021/11/sotis-model#teaches">
         <rdfs:domain rdf:resource="http://www.semanticweb.org/dusan/ontologies/2021/11/sotis-model#Professor"/>
-        <rdfs:range rdf:resource="http://www.semanticweb.org/dusan/ontologies/2021/11/sotis-model#Subject"/>
     </owl:ObjectProperty>
     
 
