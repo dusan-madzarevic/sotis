@@ -1,0 +1,14 @@
+#actions{
+
+    width: 500px;
+    float: left;
+}
+
+#results{
+    float:left;
+    width: 800px;
+}
+
+textarea{
+    width: 100%;
+}

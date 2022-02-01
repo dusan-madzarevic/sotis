@@ -3,7 +3,7 @@
     <uri id="Imports Wizard Entry" name="http://www.semanticweb.org/dusan/ontologies/2021/11/sotis-model" uri="sotis_model_ont.owl"/>
     <uri id="Imports Wizard Entry" name="http://purl.org/vocab/aiiso/schema#" uri="file:/D:/faks/MASTER/aiiso.rdf"/>
     <group id="Folder Repository, directory=, recursive=true, Auto-Update=true, version=2" prefer="public" xml:base="">
-        <uri id="Automatically generated entry, Timestamp=1642352682572" name="http://data.bioontology.org/metadata/" uri="asd.owl"/>
-        <uri id="Automatically generated entry, Timestamp=1642352682572" name="http://www.semanticweb.org/dusan/ontologies/2021/11/sotis-model" uri="sotis_model_ont.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1642426515942" name="http://data.bioontology.org/metadata/" uri="asd.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1642426515942" name="http://www.semanticweb.org/dusan/ontologies/2021/11/sotis-model" uri="sotis_model_ont.owl"/>
     </group>
 </catalog>

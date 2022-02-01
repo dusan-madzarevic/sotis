@@ -16,16 +16,5 @@ public class Main {
     public static void main(String[] args) {
         SpringApplication.run(Main.class, args);
 
-        RDFConnectionRemoteBuilder builder = RDFConnectionFuseki.create()
-                .destination("http://localhost:3030/Education/sparql");
-
-        Query query = QueryFactory.create("SELECT * { BIND('Hello'as ?text) }");
-
-        // In this variation, a connection is built each time.
-        try ( RDFConnectionFuseki conn = (RDFConnectionFuseki)builder.build() ) {
-            conn.queryResultSet(query, ResultSetFormatter::out);
-        }
-
-
     }
 }

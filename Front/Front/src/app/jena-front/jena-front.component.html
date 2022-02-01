@@ -15,53 +15,91 @@
 
 <div class="main-content">
   <div class="row">
-    <div class="col-md-8">
+    <div class="col-md-12">
       <div class="card">
         <div class="card-header">
           <h5 class="title">JENA</h5>
         </div>
         <div class="card-body">
+            <div id="actions">
+              <div>
+                <button class="btn btn-outline-primary" (click)="akcija1()">Prikaži predmete sa nastavnom jedinicom</button>
+                <select [(ngModel)] = "actionInput1">
+                  <option value="Matrice">Matrice</option>
+                  <option value="Difuzija">Difuzija</option>
+                </select>
+              </div>
+
+              <div>
+                <button class="btn btn-outline-primary" (click)="akcija2()">Prikaži profesore koji predaju predmet</button>
+                <select [(ngModel)] = "actionInput2">
+                  <option value="Algebra">Algebra</option>
+                  <option value="Matematicka_analiza">Matematicka analiza</option>
+                </select>
+              </div>
 
             <div>
-              <button class="btn btn-outline-primary" (click)="akcija1()">akcija 1</button>
+              <button class="btn btn-outline-primary" (click)="akcija3()">Prikaži studente na predmetu</button>
+              <select [(ngModel)] = "actionInput3">
+                <option value="Algebra">Algebra</option>
+                <option value="Matematicka_analiza">Matematicka analiza</option>
+              </select>
             </div>
 
             <div>
-              <button class="btn btn-outline-primary" (click)="akcija2()">akcija 2</button>
+              <button class="btn btn-outline-primary" (click)="akcija4()">Prikaži testove na predmetu</button>
+              <select [(ngModel)] = "actionInput4">
+                <option value="Algebra">Algebra</option>
+                <option value="Matematicka_analiza">Matematicka analiza</option>
+              </select>
             </div>
 
-          <div>
-            <button class="btn btn-outline-primary" (click)="akcija3()">akcija 3</button>
-          </div>
+            <div>
+              <button class="btn btn-outline-primary" (click)="akcija5()">Prikaži predmete profesora</button>
+              <select [(ngModel)] = "actionInput5">
+                <option value="Grbic_Dr_Tatjana">Grbić Dr Tatjana</option>
+                <option value="Zlokolica_Dr_Vladimir">Zlokolica Dr Vladimir</option>
+                <option value="Vujanovic_Mr_Milos">Vujanović Mr Miloš</option>
+              </select>
+            </div>
 
-          <div>
-            <button class="btn btn-outline-primary" (click)="akcija4()">akcija 4</button>
-          </div>
+            <div>
+              <button class="btn btn-outline-primary" (click)="akcija6()">Najbolja 3 studenta na testu</button>
+              <select [(ngModel)] = "actionInput6">
+                <option value="1">Prvi test</option>
+                <option value="2">Drugi test</option>
+              </select>
+            </div>
 
-          <div>
-            <button class="btn btn-outline-primary" (click)="akcija5()">akcija 5</button>
-          </div>
+            <div>
+              <button class="btn btn-outline-primary" (click)="akcija7()">Studenti koji nisu položili test</button>
+              <select [(ngModel)] = "actionInput7">
+                <option value="1">Prvi test</option>
+                <option value="2">Drugi test</option>
+              </select>
+            </div>
 
-          <div>
-            <button class="btn btn-outline-primary" (click)="akcija6()">akcija 6</button>
-          </div>
+            <div>
+              <button class="btn btn-outline-primary" (click)="akcija8()">Predmeti sa više od 1 profesora</button>
+            </div>
 
-          <div>
-            <button class="btn btn-outline-primary" (click)="akcija7()">akcija 7</button>
-          </div>
+            <div>
+              <button class="btn btn-outline-primary" (click)="akcija9()">Predmeti sa preko 7 espb</button>
+            </div>
 
-          <div>
-            <button class="btn btn-outline-primary" (click)="akcija8()">akcija 8</button>
+            <div>
+              <button class="btn btn-outline-primary" (click)="akcija10()">Studenti koji su položili sve testove</button>
+            </div>
           </div>
+          <div id="results">
 
-          <div>
-            <button class="btn btn-outline-primary" (click)="akcija9()">akcija 9</button>
+            <div id="query">
+              <textarea readonly id="queryText" [(ngModel)]="queryText"></textarea>
+            </div>
+            <div id="result">
+              <textarea readonly id="resultTable" [(ngModel)]="resultText"></textarea>
+            </div>
           </div>
-
-          <div>
-            <button class="btn btn-outline-primary" (click)="akcija10()">akcija 10</button>
-          </div>
-
         </div>
 
       </div>

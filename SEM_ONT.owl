@@ -151,6 +151,14 @@
 	<rdfs:range rdf:resource="http://xmlns.com/foaf/0.1/Agent"/>
 </rdf:Description>
 <!--  -->
+<!-- http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#questionee -->
+
+<rdf:Description rdf:about="http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#questionee">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+	<rdfs:domain rdf:resource="http://www.semanticweb.org/dusan/ontologies/2021/11/sotis-model#TestAttempt"/>
+	<rdfs:range rdf:resource="http://www.semanticweb.org/dusan/ontologies/2021/11/sotis-model#User"/>
+</rdf:Description>
+<!--  -->
 <!-- http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#relation -->
 
 <rdf:Description rdf:about="http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#relation">
@@ -166,6 +174,30 @@
 	<rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#relation"/>
 	<rdfs:domain rdf:resource="http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#LearningResource"/>
 	<rdfs:range rdf:resource="http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#LearningResource"/>
+</rdf:Description>
+<!--  -->
+<!-- http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#takes_Course -->
+
+<rdf:Description rdf:about="http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#takes_Course">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+	<rdfs:domain rdf:resource="http://www.semanticweb.org/dusan/ontologies/2021/11/sotis-model#Student"/>
+	<rdfs:range rdf:resource="http://purl.org/vocab/aiiso/schema#Course"/>
+</rdf:Description>
+<!--  -->
+<!-- http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#testTaken -->
+
+<rdf:Description rdf:about="http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#testTaken">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+	<rdfs:domain rdf:resource="http://www.semanticweb.org/dusan/ontologies/2021/11/sotis-model#TestAttempt"/>
+	<rdfs:range rdf:resource="http://www.semanticweb.org/dusan/ontologies/2021/11/sotis-model#Test"/>
+</rdf:Description>
+<!--  -->
+<!-- http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#test_Course -->
+
+<rdf:Description rdf:about="http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#test_Course">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+	<rdfs:domain rdf:resource="http://www.semanticweb.org/dusan/ontologies/2021/11/sotis-model#Test"/>
+	<rdfs:range rdf:resource="http://purl.org/vocab/aiiso/schema#Course"/>
 </rdf:Description>
 <!--  -->
 <!-- http://www.semanticweb.org/dusan/ontologies/2021/11/sotis-model#teaches -->
@@ -246,6 +278,8 @@
 
 <rdf:Description rdf:about="http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#id">
 	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+	<rdfs:domain rdf:resource="http://www.semanticweb.org/dusan/ontologies/2021/11/sotis-model#Test"/>
+	<rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
 </rdf:Description>
 <!--  -->
 <!-- http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#identifier -->
@@ -264,10 +298,26 @@
 	<rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
 </rdf:Description>
 <!--  -->
+<!-- http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#maxPoints -->
+
+<rdf:Description rdf:about="http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#maxPoints">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+	<rdfs:domain rdf:resource="http://www.semanticweb.org/dusan/ontologies/2021/11/sotis-model#Test"/>
+	<rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+</rdf:Description>
+<!--  -->
 <!-- http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#national_code -->
 
 <rdf:Description rdf:about="http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#national_code">
 	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+</rdf:Description>
+<!--  -->
+<!-- http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#points -->
+
+<rdf:Description rdf:about="http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#points">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+	<rdfs:domain rdf:resource="http://www.semanticweb.org/dusan/ontologies/2021/11/sotis-model#TestAttempt"/>
+	<rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
 </rdf:Description>
 <!--  -->
 <!-- http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#rights -->
@@ -907,7 +957,6 @@
 <rdf:Description rdf:about="http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#Akustika_i_audio-tehnika_u_multimediji">
 	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
 	<rdf:type rdf:resource="http://purl.org/vocab/aiiso/schema#Course"/>
-	<schema:teaches rdf:resource="http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#Akustika_i_audio-tehnika_u_multimediji"/>
 	<SEM_ONT:contains_Subject rdf:resource="http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#Akustika_slusaonica"/>
 	<SEM_ONT:contains_Subject rdf:resource="http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#Apsorpcija_i_reverberacija._akustika_rezijskih_i_studijskih_prostora"/>
 	<SEM_ONT:contains_Subject rdf:resource="http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#Audio_monitoring"/>
@@ -1182,6 +1231,9 @@
 <rdf:Description rdf:about="http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#Borislav_Gajic">
 	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
 	<rdf:type rdf:resource="http://www.semanticweb.org/dusan/ontologies/2021/11/sotis-model#Student"/>
+	<SEM_ONT:takes_Course rdf:resource="http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#Algebra"/>
+	<SEM_ONT:takes_Course rdf:resource="http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#Matematika_za_inzenjersku_grafiku"/>
+	<SEM_ONT:takes_Course rdf:resource="http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#Materijali_i_teksture"/>
 </rdf:Description>
 <!--  -->
 <!-- http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#Budinski-Petkovic_Dr_Ljuba -->
@@ -1189,7 +1241,6 @@
 <rdf:Description rdf:about="http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#Budinski-Petkovic_Dr_Ljuba">
 	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
 	<rdf:type rdf:resource="http://www.semanticweb.org/dusan/ontologies/2021/11/sotis-model#Professor"/>
-	<schema:teaches rdf:resource="http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#Fizika"/>
 </rdf:Description>
 <!--  -->
 <!-- http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#Bump -->
@@ -1429,6 +1480,16 @@
 	<rdf:type rdf:resource="http://www.semanticweb.org/dusan/ontologies/2021/11/sotis-model#Professor"/>
 </rdf:Description>
 <!--  -->
+<!-- http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#Drugi_test -->
+
+<rdf:Description rdf:about="http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#Drugi_test">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<rdf:type rdf:resource="http://www.semanticweb.org/dusan/ontologies/2021/11/sotis-model#Test"/>
+	<SEM_ONT:test_Course rdf:resource="http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#Matematicka_analiza"/>
+	<SEM_ONT:id rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2</SEM_ONT:id>
+	<SEM_ONT:maxPoints rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">120</SEM_ONT:maxPoints>
+</rdf:Description>
+<!--  -->
 <!-- http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#Dubina_pogleda -->
 
 <rdf:Description rdf:about="http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#Dubina_pogleda">
@@ -1441,6 +1502,9 @@
 <rdf:Description rdf:about="http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#Dusan_Madzarevic">
 	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
 	<rdf:type rdf:resource="http://www.semanticweb.org/dusan/ontologies/2021/11/sotis-model#Student"/>
+	<SEM_ONT:takes_Course rdf:resource="http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#Algebra"/>
+	<SEM_ONT:takes_Course rdf:resource="http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#Matematika_za_inzenjersku_grafiku"/>
+	<SEM_ONT:takes_Course rdf:resource="http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#Materijali_i_teksture"/>
 </rdf:Description>
 <!--  -->
 <!-- http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#Dva_i_tri._grupne_scene_i_metamorfoze_akcija -->
@@ -1695,7 +1759,7 @@
 <rdf:Description rdf:about="http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#Grbic_Dr_Tatjana">
 	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
 	<rdf:type rdf:resource="http://www.semanticweb.org/dusan/ontologies/2021/11/sotis-model#Professor"/>
-	<schema:teaches rdf:resource="http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#Matematicka_analiza"/>
+	<sotis-model:teaches rdf:resource="http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#Matematicka_analiza"/>
 </rdf:Description>
 <!--  -->
 <!-- http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#Hd_i_3d_zvuk._stereo_prezentacija_i_binauralna_lokalizacija._miks -->
@@ -1854,7 +1918,6 @@
 <rdf:Description rdf:about="http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#Ivetic_Dr_Dragan">
 	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
 	<rdf:type rdf:resource="http://www.semanticweb.org/dusan/ontologies/2021/11/sotis-model#Professor"/>
-	<schema:teaches rdf:resource="http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#Racunarska_grafika"/>
 </rdf:Description>
 <!--  -->
 <!-- http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#Ivetic_Dr_Jelena -->
@@ -1862,7 +1925,6 @@
 <rdf:Description rdf:about="http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#Ivetic_Dr_Jelena">
 	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
 	<rdf:type rdf:resource="http://www.semanticweb.org/dusan/ontologies/2021/11/sotis-model#Professor"/>
-	<schema:teaches rdf:resource="http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#Algebra"/>
 	<sotis-model:teaches rdf:resource="http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#Matematicka_analiza"/>
 </rdf:Description>
 <!--  -->
@@ -1892,6 +1954,7 @@
 <rdf:Description rdf:about="http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#Jovana_Jovanovic">
 	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
 	<rdf:type rdf:resource="http://www.semanticweb.org/dusan/ontologies/2021/11/sotis-model#Student"/>
+	<SEM_ONT:takes_Course rdf:resource="http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#Matematicka_analiza"/>
 </rdf:Description>
 <!--  -->
 <!-- http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#Kao_i_kontrola_ovih_kostiju -->
@@ -2025,8 +2088,6 @@
 <rdf:Description rdf:about="http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#Linbland_Dr_Lars_Goran_Joakim">
 	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
 	<rdf:type rdf:resource="http://www.semanticweb.org/dusan/ontologies/2021/11/sotis-model#Professor"/>
-	<schema:teaches rdf:resource="http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#Matematika_za_inzenjersku_grafiku"/>
-	<schema:teaches rdf:resource="http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#Video_u_inzenjerskoj_animaciji"/>
 </rdf:Description>
 <!--  -->
 <!-- http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#Linearne_transformacije -->
@@ -2062,6 +2123,7 @@
 <rdf:Description rdf:about="http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#Marko_Markovic">
 	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
 	<rdf:type rdf:resource="http://www.semanticweb.org/dusan/ontologies/2021/11/sotis-model#Student"/>
+	<SEM_ONT:takes_Course rdf:resource="http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#Matematicka_analiza"/>
 </rdf:Description>
 <!--  -->
 <!-- http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#Mastering. -->
@@ -2222,7 +2284,6 @@
 <rdf:Description rdf:about="http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#Neducin_Dr_Dejana">
 	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
 	<rdf:type rdf:resource="http://www.semanticweb.org/dusan/ontologies/2021/11/sotis-model#Professor"/>
-	<schema:teaches rdf:resource="http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#Geometrija_i_vizualizacija_3D_prostora"/>
 </rdf:Description>
 <!--  -->
 <!-- http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#Nekakav_skok_navise_ili_pad_nanize_u_odnosu_na_prethodni_polozaj. -->
@@ -2336,7 +2397,6 @@
 <rdf:Description rdf:about="http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#Obradovic_Dr_Ratko">
 	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
 	<rdf:type rdf:resource="http://www.semanticweb.org/dusan/ontologies/2021/11/sotis-model#Professor"/>
-	<schema:teaches rdf:resource="http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#Animacija_karaktera"/>
 	<sotis-model:teaches rdf:resource="http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#Dizajn_prostornih_oblika"/>
 </rdf:Description>
 <!--  -->
@@ -2661,6 +2721,86 @@
 	<rdf:type rdf:resource="http://purl.org/vocab/aiiso/schema#Subject"/>
 </rdf:Description>
 <!--  -->
+<!-- http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#Pokusaj1 -->
+
+<rdf:Description rdf:about="http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#Pokusaj1">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<rdf:type rdf:resource="http://www.semanticweb.org/dusan/ontologies/2021/11/sotis-model#TestAttempt"/>
+	<SEM_ONT:questionee rdf:resource="http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#Dusan_Madzarevic"/>
+	<SEM_ONT:testTaken rdf:resource="http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#Prvi_test"/>
+	<SEM_ONT:points rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">82</SEM_ONT:points>
+</rdf:Description>
+<!--  -->
+<!-- http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#Pokusaj1BG -->
+
+<rdf:Description rdf:about="http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#Pokusaj1BG">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<rdf:type rdf:resource="http://www.semanticweb.org/dusan/ontologies/2021/11/sotis-model#TestAttempt"/>
+	<SEM_ONT:questionee rdf:resource="http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#Borislav_Gajic"/>
+	<SEM_ONT:testTaken rdf:resource="http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#Prvi_test"/>
+	<SEM_ONT:points rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">75</SEM_ONT:points>
+</rdf:Description>
+<!--  -->
+<!-- http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#Pokusaj1JJ -->
+
+<rdf:Description rdf:about="http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#Pokusaj1JJ">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<rdf:type rdf:resource="http://www.semanticweb.org/dusan/ontologies/2021/11/sotis-model#TestAttempt"/>
+	<SEM_ONT:questionee rdf:resource="http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#Jovana_Jovanovic"/>
+	<SEM_ONT:testTaken rdf:resource="http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#Prvi_test"/>
+	<SEM_ONT:points rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">68</SEM_ONT:points>
+</rdf:Description>
+<!--  -->
+<!-- http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#Pokusaj1MM -->
+
+<rdf:Description rdf:about="http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#Pokusaj1MM">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<rdf:type rdf:resource="http://www.semanticweb.org/dusan/ontologies/2021/11/sotis-model#TestAttempt"/>
+	<SEM_ONT:questionee rdf:resource="http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#Marko_Markovic"/>
+	<SEM_ONT:testTaken rdf:resource="http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#Prvi_test"/>
+	<SEM_ONT:points rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">45</SEM_ONT:points>
+</rdf:Description>
+<!--  -->
+<!-- http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#Pokusaj2BG -->
+
+<rdf:Description rdf:about="http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#Pokusaj2BG">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<rdf:type rdf:resource="http://www.semanticweb.org/dusan/ontologies/2021/11/sotis-model#TestAttempt"/>
+	<SEM_ONT:questionee rdf:resource="http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#Borislav_Gajic"/>
+	<SEM_ONT:testTaken rdf:resource="http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#Drugi_test"/>
+	<SEM_ONT:points rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">45</SEM_ONT:points>
+</rdf:Description>
+<!--  -->
+<!-- http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#Pokusaj2DM -->
+
+<rdf:Description rdf:about="http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#Pokusaj2DM">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<rdf:type rdf:resource="http://www.semanticweb.org/dusan/ontologies/2021/11/sotis-model#TestAttempt"/>
+	<SEM_ONT:questionee rdf:resource="http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#Dusan_Madzarevic"/>
+	<SEM_ONT:testTaken rdf:resource="http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#Drugi_test"/>
+	<SEM_ONT:points rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">57</SEM_ONT:points>
+</rdf:Description>
+<!--  -->
+<!-- http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#Pokusaj2JJ -->
+
+<rdf:Description rdf:about="http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#Pokusaj2JJ">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<rdf:type rdf:resource="http://www.semanticweb.org/dusan/ontologies/2021/11/sotis-model#TestAttempt"/>
+	<SEM_ONT:questionee rdf:resource="http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#Jovana_Jovanovic"/>
+	<SEM_ONT:testTaken rdf:resource="http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#Drugi_test"/>
+	<SEM_ONT:points rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">110</SEM_ONT:points>
+</rdf:Description>
+<!--  -->
+<!-- http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#Pokusaj2MM -->
+
+<rdf:Description rdf:about="http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#Pokusaj2MM">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<rdf:type rdf:resource="http://www.semanticweb.org/dusan/ontologies/2021/11/sotis-model#TestAttempt"/>
+	<SEM_ONT:questionee rdf:resource="http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#Marko_Markovic"/>
+	<SEM_ONT:testTaken rdf:resource="http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#Drugi_test"/>
+	<SEM_ONT:points rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">34</SEM_ONT:points>
+</rdf:Description>
+<!--  -->
 <!-- http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#Polinomi_i_racionalne_funkcije -->
 
 <rdf:Description rdf:about="http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#Polinomi_i_racionalne_funkcije">
@@ -2687,7 +2827,6 @@
 <rdf:Description rdf:about="http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#Postic_Mileta">
 	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
 	<rdf:type rdf:resource="http://www.semanticweb.org/dusan/ontologies/2021/11/sotis-model#Professor"/>
-	<schema:teaches rdf:resource="http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#Dizajn_prostornih_oblika"/>
 	<sotis-model:teaches rdf:resource="http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#Animacija_karaktera"/>
 </rdf:Description>
 <!--  -->
@@ -2870,6 +3009,9 @@
 <rdf:Description rdf:about="http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#Prvi_test">
 	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
 	<rdf:type rdf:resource="http://www.semanticweb.org/dusan/ontologies/2021/11/sotis-model#Test"/>
+	<SEM_ONT:test_Course rdf:resource="http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#Algebra"/>
+	<SEM_ONT:id rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</SEM_ONT:id>
+	<SEM_ONT:maxPoints rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">100</SEM_ONT:maxPoints>
 </rdf:Description>
 <!--  -->
 <!-- http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#Racunarska_grafika -->
@@ -3132,7 +3274,6 @@
 <rdf:Description rdf:about="http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#Stojakovic_Dr_Vesna">
 	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
 	<rdf:type rdf:resource="http://www.semanticweb.org/dusan/ontologies/2021/11/sotis-model#Professor"/>
-	<schema:teaches rdf:resource="http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#Racunarska_obrada_slika_u_inzenjerskoj_animaciji"/>
 	<sotis-model:teaches rdf:resource="http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#Geometrija_i_vizualizacija_3D_prostora"/>
 	<sotis-model:teaches rdf:resource="http://www.semanticweb.org/dusan/ontologies/2021/10/SEM_ONT#Perspektiva"/>
 </rdf:Description>
