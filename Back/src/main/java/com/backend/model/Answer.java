@@ -13,6 +13,7 @@ public class Answer {
     private Integer id;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "questionId")
+    @JsonIgnore
     private Question questionId;
     @Column(name = "answerText")
     private String answerText;

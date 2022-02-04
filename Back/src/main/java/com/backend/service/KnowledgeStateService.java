@@ -29,7 +29,11 @@ public class KnowledgeStateService {
         return knowledgeStateRepository.findByStudentId(student);
     }
 
-    public List<KnowledgeState> findBySurmiseId(Surmise surmise){
-        return knowledgeStateRepository.findBySurmiseId(surmise);
+    public List<KnowledgeState> findWithProblem(int id){
+        return knowledgeStateRepository.findStatesWithProblem(id);
+    }
+
+    public void resetStates(int studentId){
+        knowledgeStateRepository.resetStates(studentId);
     }
 }

@@ -170,7 +170,8 @@ export class KnowledgeSpaceGraphComponent implements OnInit {
       this.network.on("blurEdge", function (params) {
         console.log("blurEdge Event:", params);
       });
-        }
+        
+      }
     });
 
     });
@@ -185,6 +186,7 @@ export class KnowledgeSpaceGraphComponent implements OnInit {
       response.forEach(element => {
         
         if(element.realSpace){
+          if(response.indexOf(element) != 1){
           element.surmises.forEach(surmise => {
             surmise.problems.forEach(problemSurmise =>{
               this.edgesReal.add([
@@ -202,7 +204,7 @@ export class KnowledgeSpaceGraphComponent implements OnInit {
               }])
           }
           });
-
+        }
         }
 
     this.dataReal = {

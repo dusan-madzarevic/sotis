@@ -1,6 +1,8 @@
 package com.backend.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class KnowledgeState {
@@ -11,15 +13,19 @@ public class KnowledgeState {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "studentId")
     private Student studentId;
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "surmiseId")
-    private Surmise surmiseId;
+    @ManyToMany
+    @JoinTable(
+            name = "knowledge_state_problems",
+            joinColumns = @JoinColumn(name = "knowledge_state_id"),
+            inverseJoinColumns = @JoinColumn(name = "problem_id"))
+    private List<Problem> problems;
     @Column(name = "finalState")
     private Boolean finalState;
     @Column(name = "likelihood")
     private Double likelihood;
 
     public KnowledgeState() {
+        problems = new ArrayList<>();
     }
 
     public Integer getId() {
@@ -38,12 +44,12 @@ public class KnowledgeState {
         this.studentId = studentId;
     }
 
-    public Surmise getSurmiseId() {
-        return surmiseId;
+    public List<Problem> getProblems() {
+        return problems;
     }
 
-    public void setSurmiseId(Surmise surmiseId) {
-        this.surmiseId = surmiseId;
+    public void setProblems(List<Problem> problems) {
+        this.problems = problems;
     }
 
     public Boolean getFinalState() {

@@ -15,7 +15,7 @@ export class UcenikPolaganjeComponent implements OnInit {
   test = new Test(null);
   testName: string;
   private sub: any;
-
+  question :any;
   pager = {
     index: 0,
     size: 1,
@@ -34,6 +34,8 @@ export class UcenikPolaganjeComponent implements OnInit {
       }
 
       this.startTest(request);
+      this.initState();
+      this.firstQuestion();
     });
 
   }
@@ -41,13 +43,49 @@ export class UcenikPolaganjeComponent implements OnInit {
   startTest(request: any) {
     this.polaganjeService.startTest(request).subscribe(res => {
       this.test = new Test(res);
+      this.pager.count = this.test.questions.length;
     });
+    
+  }
+
+  initState(){
+    let initRequest = {
+
+      studentUsername: localStorage.getItem('currentuser').toString(),
+      knowledgeSpaceId: 1
+
+    };
+    
+    this.polaganjeService.initState(initRequest).subscribe(res => {
+      console.log("INIT");
+      console.log(res);
+    });;
+
+  }
+
+  firstQuestion(){
+    let studentRequest = {
+
+      studentUsername: localStorage.getItem('currentuser').toString(),
+      knowledgeSpaceId: 1
+
+    }
+    this.polaganjeService.firstQuestion(studentRequest).subscribe(res => {
+      console.log("FQ");
+      console.log(res);
+
+      this.question = res;
+      
+    });;
+
+
   }
 
 
   // tslint:disable-next-line:typedef
   onSelect(question: Question, answer: Answer) {
     question.answers.forEach((x) => {
+      console.log(x);
       if (x.answerID !== answer.answerID) x.selected = false;
     });
   }
@@ -67,40 +105,26 @@ export class UcenikPolaganjeComponent implements OnInit {
 
   // tslint:disable-next-line:typedef
   onSubmit() {
-    let submitRequest = {
-      testAttemptId: this.test.attemptID,
-      answers: []
+ 
+    let answer: any;
+    this.question.answers.forEach((x) => {
+      console.log(x);
+      if (x.selected) answer = x;
+    });
+    let answerRequest = {
+
+      id: answer.id,
+      studentUsername: localStorage.getItem('currentuser').toString(),
+      questionId: this.question.id
+
     }
+    this.polaganjeService.nextQuestion(answerRequest).subscribe(res => {
+      console.log("NQ");
+      console.log(res);
 
-    this.test.questions.forEach(x => {
-      x.answers.forEach(a => {
-        if (a.selected) {
-          submitRequest.answers.push({answerId: a.answerID});
-        }
-      });
-    });
+      this.question = res;
+    });;
 
-    this.polaganjeService.submitTest(submitRequest).subscribe(res => {
-
-      if(res['passed']){
-
-        Swal.fire({
-          icon: 'success',
-          title: 'Čestitamo',
-          text: 'Položili ste test!',
-        });
-
-      }else{
-        Swal.fire({
-          icon: 'error',
-          title: 'Više sreće drugi put',
-          text: 'Niste položili test.',
-        });
-
-      }
-
-
-    });
 
 
   }

@@ -24,7 +24,6 @@ public class Question {
     private byte[] questionImage;
 
     @OneToMany(mappedBy = "questionId",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JsonIgnore
     private Set<Answer> answers;
 
     @ManyToMany(mappedBy = "questions")

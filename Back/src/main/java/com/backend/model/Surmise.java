@@ -28,10 +28,6 @@ public class Surmise {
     @JsonIgnore
     private Set<Problem> problems;
 
-    @OneToMany(mappedBy = "surmiseId",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JsonIgnore
-    private Set<KnowledgeState> knowledgeStates;
-
     public Surmise() {
     }
 
@@ -67,11 +63,4 @@ public class Surmise {
         this.problems = problems;
     }
 
-    public Set<KnowledgeState> getKnowledgeStates() {
-        return knowledgeStates;
-    }
-
-    public void setKnowledgeStates(Set<KnowledgeState> knowledgeStates) {
-        this.knowledgeStates = knowledgeStates;
-    }
 }

@@ -44,6 +44,9 @@ public class Problem {
     @JsonIgnore
     Set<Question> questions;
 
+    @ManyToMany(mappedBy = "problems")
+    private List<KnowledgeState> knowledgeStates;
+
     public Problem() {
     }
 
@@ -116,5 +119,13 @@ public class Problem {
 
     public void setLearnedProblems(Set<Student> learnedProblems) {
         this.learnedProblems = learnedProblems;
+    }
+
+    public List<KnowledgeState> getKnowledgeStates() {
+        return knowledgeStates;
+    }
+
+    public void setKnowledgeStates(List<KnowledgeState> knowledgeStates) {
+        this.knowledgeStates = knowledgeStates;
     }
 }

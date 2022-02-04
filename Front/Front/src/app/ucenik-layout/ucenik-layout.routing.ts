@@ -3,6 +3,6 @@ import {UcenikProfilComponent} from '../ucenik-profil/ucenik-profil.component';
 import {UcenikTestComponent} from '../ucenik-test/ucenik-test.component';
 
 export const UcenikLayoutRutes: Routes = [
-  { path: 'ucenikProfil',      component: UcenikProfilComponent },
+  { path: 'ucenikProfil', component: UcenikProfilComponent },
   {path: 'ucenikTest', component: UcenikTestComponent}
 ];

@@ -2,6 +2,7 @@ package com.backend.dto;
 
 public class AnswerDTO {
     private Integer id;
+    private String studentUsername;
     private Integer questionId;
     private String answerText;
     private Boolean correct;
@@ -53,5 +54,13 @@ public class AnswerDTO {
 
     public void setScore(Integer score) {
         this.score = score;
+    }
+
+    public String getStudentUsername() {
+        return studentUsername;
+    }
+
+    public void setStudentUsername(String studentUsername) {
+        this.studentUsername = studentUsername;
     }
 }

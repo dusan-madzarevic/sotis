@@ -18,11 +18,38 @@ export class PolaganjeService {
   }
 
   // tslint:disable-next-line:typedef
-  submitTest(submitRequest: { testAttemptId: number; answers: any[] }) {
+  initState(knowledgeStateInitialDTO: { studentUsername: String; knowledgeSpaceId: number }) {
 
-    return this.http.post('http://localhost:8090/testAttempt/submit', submitRequest,      {
+    return this.http.post('http://localhost:8090/knowledgeState', knowledgeStateInitialDTO,      {
       headers: new HttpHeaders().set('Content-Type', 'application/json')
     });
 
   }
+
+    // tslint:disable-next-line:typedef
+  firstQuestion(studentRequest) {
+
+      return this.http.post('http://localhost:8090/knowledgeState/first/byStudent/',studentRequest,      {
+        headers: new HttpHeaders().set('Content-Type', 'application/json')
+      });
+  
+    }
+
+      // tslint:disable-next-line:typedef
+  nextQuestion(nextQuestionRequest: { id: number, studentUsername: string, questionId: number }) {
+
+    return this.http.post('http://localhost:8090/knowledgeState/next/byStudent/', nextQuestionRequest,      {
+      headers: new HttpHeaders().set('Content-Type', 'application/json')
+    });
+
+  }
+
+    // tslint:disable-next-line:typedef
+    submitTest(submitRequest: { testAttemptId: number; answers: any[] }) {
+
+      return this.http.post('http://localhost:8090/testAttempt/submit', submitRequest,      {
+        headers: new HttpHeaders().set('Content-Type', 'application/json')
+      });
+  
+    }
 }
